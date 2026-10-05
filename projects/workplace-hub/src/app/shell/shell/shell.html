@@ -14,7 +14,7 @@
   <div class="main-column">
     <header class="topbar">
       <div class="breadcrumb">Workspace / <span>{{ section() }}</span></div>
-      <div class="identity-area"><span class="section-tag">Employee demo</span><span class="avatar" aria-hidden="true">AC</span></div>
+      <div class="identity-area"><label for="demo-identity">Demo identity</label><select id="demo-identity" #identitySelect [value]="session.identity().personId" (change)="session.select(identitySelect.value)">@for (identity of session.identities; track identity.personId) { <option [value]="identity.personId">{{ identity.label }}</option> }</select><span class="avatar" aria-hidden="true">{{ session.initials() }}</span></div>
     </header>
     <main id="main" tabindex="-1"><router-outlet /></main>
   </div>
