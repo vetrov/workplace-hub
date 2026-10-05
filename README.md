@@ -62,6 +62,35 @@ and [foundation results](specs/001-application-foundation/tasks.md). The new wor
 [validation guide](specs/005-application-completion/quickstart.md),
 [recorded results](specs/005-application-completion/tasks.md) and [verification report](docs/verification.md).
 
+## Angular MCP for Codex
+
+The project-scoped [Codex configuration](.codex/config.toml) enables the official
+[Angular CLI MCP server](https://angular.dev/ai/mcp). It runs the locally installed,
+locked Angular CLI 22.2.1 through `npx --no-install @angular/cli mcp`. Run `npm ci`
+first; the server does not download a replacement CLI or require another dependency.
+
+Open `~/repos/workplace-hub` as the Codex project and start a new session after
+adding this configuration. Codex loads project configuration for trusted projects;
+see [the official MCP configuration guide](https://learn.chatgpt.com/docs/extend/mcp?surface=cli).
+For the CLI, start from the repository root:
+
+```sh
+cd ~/repos/workplace-hub
+codex mcp get angular-cli
+codex
+```
+
+In the CLI, `/mcp` shows the connected server. Ask the assistant to call
+`list_projects` first: it should discover the `workplace-hub` application and the
+`domain` and `ui` libraries. The server also provides Angular documentation search,
+version-specific best practices, build/test targets and development-server tools.
+The configuration uses the default tool set without experimental additions.
+
+Follow `AGENTS.md` and [the coverage matrix](docs/angular-coverage.md) when applying
+MCP guidance: preserve assigned NgModule, decorator, RxJS, deprecated control-flow
+and other older examples alongside modern Angular APIs. Migration recommendations
+must respect those intentional feature profiles.
+
 ## Formatting
 
 Use `npm run format` to format the repository and `npm run format:check` to verify it.

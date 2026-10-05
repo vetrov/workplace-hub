@@ -1,0 +1,4 @@
+# Use the workspace's pinned Angular CLI; never download a different version.
+[mcp_servers.angular-cli]
+command = "npx"
+args = ["--no-install", "@angular/cli", "mcp"]
