@@ -38,7 +38,9 @@ export class WorkflowClient {
         this.http
             .request<RecordResult<T>>(method, url, { body: snapshot })
             .pipe(
-                takeUntil(this.changes.pipe(filter((value) => value !== key))),
+                takeUntil(
+                    this.changes.pipe(filter(() => this.context.key() !== key)),
+                ),
                 takeUntilDestroyed(this.destroy),
                 finalize(() => {
                     this.busy.set(false);
@@ -52,6 +54,7 @@ export class WorkflowClient {
                 next: (result) => {
                     if (key !== this.context.key()) return;
                     completed = true;
+                    this.busy.set(false);
                     this.scenario.refresh();
                     success(result.record);
                 },

@@ -69,6 +69,14 @@ export const routes: Routes = [
             import('./features/assets/asset-create').then((m) => m.AssetCreate),
     },
     {
+        path: 'assets/:id/edit',
+        title: 'Edit asset · Workplace Hub',
+        canActivate: [roleGuard('administrator')],
+        canDeactivate: [unsavedChangesGuard],
+        loadComponent: () =>
+            import('./features/assets/asset-editor').then((m) => m.AssetEditor),
+    },
+    {
         path: 'assets/:id/assign',
         title: 'Assign asset · Workplace Hub',
         data: { assignment: true },

@@ -17,7 +17,7 @@ Input: spec, plan, research, data model and contracts. No clarification blockers
 
 ## Phase 4: US2 — Inventory maintenance
 
-- [ ] T005 Implement asset-editor.ts with reactive editor helper, typed form, allowed transitions/allocation protection, dirty guard and live detail/list/history integration; tests and browser workflow.
+- [x] T005 Implement asset-editor.ts with reactive editor helper, typed form, allowed transitions/allocation protection, dirty guard and live detail/list/history integration; tests and browser workflow.
 
 ## Phase 5: US3 — Reports
 
@@ -45,3 +45,5 @@ T002: 101 tests across 19 files pass, including 11 enterprise boundary/normaliza
 T003: 115 tests across21 files and production build pass. Live report scoping/full CSV, membership transfers, protected allocation, config effects, optimistic versions and delayed reset/identity/unsubscribe cancellation verified.
 
 T004: 117 tests across22 files and app build pass. Real employee CVA tests cover pristine/touched/disabled and changing options; render hook retains unavailable selection. Chrome search/paging/profile scope, transfer/invalid focus, role cancellation, recovery and390px checks pass.
+
+T005: 119 tests across23 files and app build pass. Real editor retry/reset/identity/single-flight tests and Chrome maintenance→assignment/history, dirty cancel, failed retry, delayed reset and390px pass. Shared form helpers preserve existing Reactive Forms behavior; successful commands release busy before navigation.

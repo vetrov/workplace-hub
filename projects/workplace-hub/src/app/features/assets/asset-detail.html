@@ -68,6 +68,14 @@
             </dl>
             <p>{{ asset.notes }}</p>
             <div class="detail-actions">
+                @if (administrator() && !assignment()) {
+                    <a
+                        class="button"
+                        [routerLink]="['/assets', asset.id, 'edit']"
+                    >
+                        Edit asset
+                    </a>
+                }
                 @if (asset.requestId) {
                     <a
                         class="button"
