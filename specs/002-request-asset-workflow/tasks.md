@@ -1,7 +1,7 @@
 # Tasks: Request-to-Asset Workflow
 
 **Input**: spec.md, plan.md, research.md, data-model.md, contracts/workflow.md and quickstart.md.
-**Status**: 1/14 tasks complete; implementation in progress.
+**Status**: 2/14 tasks complete; implementation in progress.
 
 ## Phase 1: Setup
 
@@ -9,7 +9,7 @@
 
 ## Phase 2: Shared Workflow Foundation
 
-- [ ] T002 Write focused workflow command tests in `projects/workplace-hub/src/app/core/mock-http/workflow.spec.ts` for validation, actor scope, transitions, optimistic versions, atomic assignment, duplicate attempts, linked audit and reset; confirm missing behavior fails before implementation.
+- [x] T002 Write focused workflow command tests in `projects/workplace-hub/src/app/core/mock-http/workflow.spec.ts` for validation, actor scope, transitions, optimistic versions, atomic assignment, duplicate attempts, linked audit and reset; confirm missing behavior fails before implementation.
 - [ ] T003 Implement shared validators/permissions in `projects/domain/src/lib/policies/workflow.ts` and enriched immutable seeds, request/detail/create/update/decision/inventory/assignment repository commands in `projects/workplace-hub/src/app/core/mock-http/mock-repository.ts`; pass T002 checks with no partial writes.
 - [ ] T004 Write HTTP command scenario checks in `projects/workplace-hub/src/app/core/mock-http/workflow-http.spec.ts` for failed/empty writes, unsubscribe, reset/identity cancellation and stale commands; confirm failures before extending transport.
 - [ ] T005 Extend checked/cancellable synthetic transport in `projects/workplace-hub/src/app/core/mock-http/mock.interceptor.ts`; add generation refresh to `core/scenarios/scenario.ts` and scoped single-flight/finalize mutation client in `core/workflow-client.ts`; preserve existing read tests and pass command tests.
