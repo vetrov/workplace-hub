@@ -1,0 +1,23 @@
+# Runtime and generated application output
+node_modules/
+dist/
+.angular/
+coverage/
+work/
+.DS_Store
+
+# Local agent runtime artifacts; keep repository-local Spec Kit skills tracked.
+.agents/auth*
+.agents/session*
+.agents/history*
+.agents/logs/
+
+# Local runtime and editor files
+build/
+*.log
+.env*
+*.tmp
+*.swp
+.vscode/
+.idea/
+Thumbs.db
