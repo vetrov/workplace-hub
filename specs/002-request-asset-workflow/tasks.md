@@ -1,7 +1,7 @@
 # Tasks: Request-to-Asset Workflow
 
 **Input**: spec.md, plan.md, research.md, data-model.md, contracts/workflow.md and quickstart.md.
-**Status**: 12/14 tasks complete; implementation in progress.
+**Status**: 13/14 tasks complete; implementation in progress.
 
 ## Phase 1: Setup
 
@@ -38,7 +38,7 @@ Goal: inventory creation/details/assignment. Independent test: seeded approved r
 ## Phase 6: Integration and Verification
 
 - [x] T012 Add lazy routes/functional entry and request CanDeactivate guards in `projects/workplace-hub/src/app/app.routes.ts` and `core/workflow-guards.ts`; integrate real list/detail/new/approval navigation and responsive shared workflow styles in `projects/ui/src/lib/styles/_foundation.scss`.
-- [ ] T013 Run unit/app/library builds and browser scenarios in `specs/002-request-asset-workflow/quickstart.md`; verify complete create → approve → assign and rejection, controls, permission/unsaved behavior and cancellation; fix issues and record actual evidence in `tasks.md`.
+- [x] T013 Run unit/app/library builds and browser scenarios in `specs/002-request-asset-workflow/quickstart.md`; verify complete create → approve → assign and rejection, controls, permission/unsaved behavior and cancellation; fix issues and record actual evidence in `tasks.md`.
 - [ ] T014 Update `README.md`, `AGENTS.md`, `docs/angular-coverage.md`, `docs/route-map.md`, `docs/implementation-roadmap.md` and this feature's status with working behavior, actual pattern sources and remaining scope.
 
 ## Dependencies and Parallel Opportunities
@@ -56,4 +56,28 @@ manager decisions and administrator fulfillment. Verify each task before marking
 
 ## Verification Log
 
-Pending implementation evidence.
+T001–T012: contracts and page templates were checked with Angular compilation; tests preceded
+command/form implementations. Shared workflow checks cover malformed values, actor scope,
+transitions, versions, atomic allocation, linked events and reset counters. HTTP checks cover
+snapshots, failures/empty writes, reset/identity invalidation and unsubscribe before commit.
+CVA checks cover programmatic values, user edits, touched/disabled propagation and parent validation.
+
+T013 (2026-10-05): `npm test -- --watch=false` passed 47 tests in 11 files.
+`npm run build` passed without warnings (339.83 kB initial raw bundle; 95.85 kB estimated
+transfer), and `npm run build:libs` passed for domain/UI. Strict `ngc` checks included
+all app sources/templates before routes were integrated.
+
+Isolated headless Chrome passed employee draft creation, editing/repeated items, invalid decimal
+feedback, submission, manager approval, administrator inventory creation/assignment and employee
+linked fulfillment/history. It also passed queue filtering, rejection reason/history, unsaved
+navigation cancel/discard, failed-write input/retry, delayed request reset/identity cancellation,
+delayed decision identity cancellation, delayed assignment reset cancellation, approval
+empty/error/retry, detail recovery/retry, direct-link detail/review reloads and keyboard request
+entry/CVA focus/save. All eight new routes fit 390 px without document overflow. No page errors
+or external business calls occurred. The original foundation list/scenario and display-preference
+browser checks were rerun and passed after integration. Screenshots received visual review.
+
+Browser verification found custom money format feedback masked by the required-value message;
+the priority fix and a parent-form regression test were committed before final verification.
+Temporary browser automation used isolated Chrome and the existing bundled runtime, adding no
+project dependencies; quickstart.md retains repeatable validation scenarios.
