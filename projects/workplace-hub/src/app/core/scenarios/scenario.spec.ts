@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { INITIAL_DATA } from '../mock-http/seed-data';
 import { MockRepository, REPOSITORY } from '../mock-http/mock-repository';
 import { BROWSER_STORAGE } from '../storage';
 import { Session } from '../session/session';
@@ -21,10 +20,11 @@ describe('scenario reset', () => {
       session = TestBed.inject(Session);
     session.select('P013');
     scenario.select('error');
+    const initial = repo.data;
     repo.data = { ...repo.data, requests: [] };
     const old = scenario.generation();
     scenario.reset();
-    expect(repo.data).toEqual(INITIAL_DATA);
+    expect(repo.data).toEqual(initial);
     expect(scenario.mode()).toBe('normal');
     expect(scenario.generation()).toBeGreaterThan(old);
     expect(scenario.resetVersion()).toBe(1);
