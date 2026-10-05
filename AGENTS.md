@@ -20,3 +20,8 @@ before treating an example as implemented. Preserve commit-time actor/version/tr
 atomic assignment, and reset/identity cancellation when modifying workflow commands. Commit
 each completed implementation step to local Git, as requested by the user. User instructions
 take precedence over repository guidance.
+
+Use the repository Prettier configuration (four spaces) and run `npm run format:check`
+before committing. Keep blank lines after import groups, between top-level declarations,
+between class methods, and around longer field initializers; Prettier preserves rather
+than inserts those separators. Run `npm run format` after editing supported files.

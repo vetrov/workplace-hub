@@ -1,80 +1,111 @@
 <div class="page-header">
-  <div>
-    <p class="eyebrow">Manager workspace</p>
-    <h1>Approvals</h1>
-    <p>Review your team's requests and record the next decision.</p>
-  </div>
-  <span class="section-tag">{{ items().length }} awaiting review</span>
+    <div>
+        <p class="eyebrow">Manager workspace</p>
+        <h1>Approvals</h1>
+        <p>Review your team's requests and record the next decision.</p>
+    </div>
+    <span class="section-tag">{{ items().length }} awaiting review</span>
 </div>
 @if (!manager()) {
-  <section class="panel state" role="alert">
-    <h2>Manager identity required</h2>
-    <p>Switch to Alex Chen to review the team queue.</p>
-  </section>
+    <section
+        class="panel state"
+        role="alert"
+    >
+        <h2>Manager identity required</h2>
+        <p>Switch to Alex Chen to review the team queue.</p>
+    </section>
 } @else {
-  @if (notice()) {
-    <p class="success-notice" role="status">
-      {{ notice() }}
-      @if (id()) {
-        <a [routerLink]="['/requests', id()]">View request</a>
-      }
-    </p>
-  }
-  @if (mutation.error()) {
-    <p class="form-alert" role="alert">{{ mutation.error() }}</p>
-  }
-  <section class="panel toolbar"><app-approval-filter [(category)]="category" /></section>
-  @if (resource.isLoading()) {
-    <section class="panel state" role="status">Loading approvals…</section>
-  } @else if (error()) {
-    <section class="panel state" role="alert">
-      <h2>Approvals unavailable</h2>
-      <p>{{ error() }}</p>
-      <button (click)="retry()">Try again</button>
+    @if (notice()) {
+        <p
+            class="success-notice"
+            role="status"
+        >
+            {{ notice() }}
+            @if (id()) {
+                <a [routerLink]="['/requests', id()]">View request</a>
+            }
+        </p>
+    }
+    @if (mutation.error()) {
+        <p
+            class="form-alert"
+            role="alert"
+        >
+            {{ mutation.error() }}
+        </p>
+    }
+    <section class="panel toolbar">
+        <app-approval-filter [(category)]="category" />
     </section>
-  } @else if (!visible().length) {
-    <section class="panel state" role="status">
-      <h2>No requests awaiting review</h2>
-      <p>Try another category or return after an employee submits a request.</p>
-    </section>
-  } @else {
-    <div class="approval-layout">
-      <section class="panel approval-queue" aria-label="Submitted requests">
-        <div class="panel-header"><h2>Team queue</h2></div>
-        @for (request of visible(); track request.id) {
-          <button
-            class="queue-item"
-            [class.selected]="selected() === request.id"
-            [attr.aria-pressed]="selected() === request.id"
-            [disabled]="mutation.busy()"
-            (click)="select(request.id)"
-          >
-            <small>{{ request.id }} · {{ request.category }}</small
-            ><strong>{{ request.title }}</strong
-            ><span>{{ personName(request.requesterId) }}</span>
-          </button>
-        }
-      </section>
-      <div>
-        @if (request(); as selectedRequest) {
-          <h2>{{ selectedRequest.title }}</h2>
-          <app-request-facts [request]="selectedRequest"
-            ><a [routerLink]="['/requests', selectedRequest.id]"
-              >Open request details</a
-            ></app-request-facts
-          ><app-approval-actions
-            [request]="selectedRequest"
-            [busy]="mutation.busy()"
-            (decision)="decide($event)"
-          />
-        } @else {
-          <section class="panel state">
-            <h2>This request is no longer reviewable</h2>
-            <p>Select another submitted team request.</p>
-            <a routerLink="/approvals">Return to queue</a>
-          </section>
-        }
-      </div>
-    </div>
-  }
+    @if (resource.isLoading()) {
+        <section
+            class="panel state"
+            role="status"
+        >
+            Loading approvals…
+        </section>
+    } @else if (error()) {
+        <section
+            class="panel state"
+            role="alert"
+        >
+            <h2>Approvals unavailable</h2>
+            <p>{{ error() }}</p>
+            <button (click)="retry()">Try again</button>
+        </section>
+    } @else if (!visible().length) {
+        <section
+            class="panel state"
+            role="status"
+        >
+            <h2>No requests awaiting review</h2>
+            <p>
+                Try another category or return after an employee submits a
+                request.
+            </p>
+        </section>
+    } @else {
+        <div class="approval-layout">
+            <section
+                class="panel approval-queue"
+                aria-label="Submitted requests"
+            >
+                <div class="panel-header"><h2>Team queue</h2></div>
+                @for (request of visible(); track request.id) {
+                    <button
+                        class="queue-item"
+                        [class.selected]="selected() === request.id"
+                        [attr.aria-pressed]="selected() === request.id"
+                        [disabled]="mutation.busy()"
+                        (click)="select(request.id)"
+                    >
+                        <small>{{ request.id }} · {{ request.category }}</small>
+                        <strong>{{ request.title }}</strong>
+                        <span>{{ personName(request.requesterId) }}</span>
+                    </button>
+                }
+            </section>
+            <div>
+                @if (request(); as selectedRequest) {
+                    <h2>{{ selectedRequest.title }}</h2>
+                    <app-request-facts [request]="selectedRequest">
+                        <a [routerLink]="['/requests', selectedRequest.id]">
+                            Open request details
+                        </a>
+                    </app-request-facts>
+                    <app-approval-actions
+                        [request]="selectedRequest"
+                        [busy]="mutation.busy()"
+                        (decision)="decide($event)"
+                    />
+                } @else {
+                    <section class="panel state">
+                        <h2>This request is no longer reviewable</h2>
+                        <p>Select another submitted team request.</p>
+                        <a routerLink="/approvals">Return to queue</a>
+                    </section>
+                }
+            </div>
+        </div>
+    }
 }

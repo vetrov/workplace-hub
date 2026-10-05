@@ -9,7 +9,7 @@
 **Input**: Build the first Workplace Hub slice: navigation, demo identities, seeded lists,
 preferences, and reproducible scenarios, preserving the agreed implementation boundaries.
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Navigate the application (Priority: P1)
 
@@ -92,7 +92,7 @@ A user chooses light/dark appearance and comfortable/compact density from Prefer
 - Rapid identity/scenario changes: clear stale records and ignore obsolete responses.
 - Unavailable browser preference storage: use session-only preferences and indicate persistence failure.
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -109,7 +109,7 @@ A user chooses light/dark appearance and comfortable/compact density from Prefer
 - **FR-011**: Allow keyboard operation of navigation, lists, role/scenario controls, and preference fields.
 - **FR-012**: Keep business records local and usable without production credentials or business services.
 
-### Key Entities *(include if feature involves data)*
+### Key Entities _(include if feature involves data)_
 
 - **Demo identity**: person, role, and team used to determine simulated record visibility.
 - **Team/person**: related organizational records, including a manager demo identity.
@@ -119,7 +119,7 @@ A user chooses light/dark appearance and comfortable/compact density from Prefer
 - **Preferences**: appearance and density selections.
 - **Scenario**: response state and reset generation governing repeatable list behavior.
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

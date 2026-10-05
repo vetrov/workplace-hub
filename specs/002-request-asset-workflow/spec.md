@@ -15,6 +15,7 @@ valid draft, edits it, and submits it for review. They can inspect status and ch
 **Independent Test**: Create a draft as Alex Garcia, inspect it, edit and submit it; verify its
 contents, total, status and history without implementing approval or assignment actions.
 **Acceptance Scenarios**:
+
 1. Given an employee and valid details, saving a draft creates one owned request with a history entry.
 2. Given an owned draft, editing and submitting preserves its ID and records both changes.
 3. Given invalid delivery/items/cost, saving or submitting shows errors and creates no record.
@@ -28,6 +29,7 @@ A manager filters and selects their team's submitted requests, then approves or 
 **Independent Test**: Use a seeded submitted team request, approve it, and reject another with a
 reason; verify removal from the queue and visible decision history.
 **Acceptance Scenarios**:
+
 1. The queue contains only submitted team requests the manager can review, excluding their own.
 2. Approval changes a submitted request to approved; rejection requires a reason and records it.
 3. Switching roles or filters reconciles selection and clears inaccessible records immediately.
@@ -41,6 +43,7 @@ to an approved request. The requester sees the asset and fulfillment history.
 **Independent Test**: Create an available asset, assign it to a seeded approved equipment/software
 request, then verify both records and the requester's inventory.
 **Acceptance Scenarios**:
+
 1. Valid inventory creation creates one available unassigned asset with supplier and serial details.
 2. Assignment atomically marks the asset assigned to the requester and the request fulfilled,
    links both IDs and records events on both records.
@@ -89,7 +92,7 @@ asset/request allocation; audit event; current record version.
 ## Assumptions
 
 The foundation is available. Mutations are in memory and reset on reload. New requests support
- equipment/software categories; existing service requests remain readable/reviewable but have no
+equipment/software categories; existing service requests remain readable/reviewable but have no
 inventory fulfillment action. One asset fulfills a demo request; estimated items describe budget,
 not multiple inventory allocations. Valid drafts use the same field constraints as submissions.
 Rejected requests are readable, with resubmission outside this slice. No bulk decisions, production

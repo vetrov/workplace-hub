@@ -64,14 +64,14 @@ Design-system tool evaluation, alternative library integrations, a Design System
 
 ## Implementation milestones
 
-| Milestone | Work | Completion evidence |
-| --- | --- | --- |
-| 0. Scope and architecture (complete) | Product overview, constitution, route map, Angular coverage matrix, architecture decisions | Each required pattern has an owner and example; experimental and deprecated APIs are identified |
-| 1. Application foundation (complete) | Angular workspace, SPA routing, shell, domain contracts, reusable UI, application styling, mock HTTP, seeded data, role switching, scenario reset | App runs locally; lazy navigation, roles, and deterministic reset work |
-| 2. Complete business workflow (complete) | Reactive request wizard, signal-based approval queue, asset creation/assignment, shared policy rules, audit history | Create → approve/reject → assign works end to end; validation, failures, and permissions are observable |
-| 3. Angular pattern coverage | NgModule-based Suppliers, decorator APIs, RxJS facade, Signal Forms policy editor, template-driven preferences, custom controls | Coverage matrix points to working examples; forms, controls, and state transitions behave correctly |
-| 4. Enterprise breadth | People, reports, remaining administration pages, saved filters, bulk actions, deferred views, larger datasets | Remaining sections share realistic data and reusable patterns; major routes expose loading, empty, error, and permission states |
-| 5. Application completion | Navigation and accessibility review, focused automated tests, build checks, setup documentation, coverage audit | App builds successfully; key workflows pass; required Angular patterns are implemented and documented |
+| Milestone                                | Work                                                                                                                                              | Completion evidence                                                                                                             |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| 0. Scope and architecture (complete)     | Product overview, constitution, route map, Angular coverage matrix, architecture decisions                                                        | Each required pattern has an owner and example; experimental and deprecated APIs are identified                                 |
+| 1. Application foundation (complete)     | Angular workspace, SPA routing, shell, domain contracts, reusable UI, application styling, mock HTTP, seeded data, role switching, scenario reset | App runs locally; lazy navigation, roles, and deterministic reset work                                                          |
+| 2. Complete business workflow (complete) | Reactive request wizard, signal-based approval queue, asset creation/assignment, shared policy rules, audit history                               | Create → approve/reject → assign works end to end; validation, failures, and permissions are observable                         |
+| 3. Angular pattern coverage              | NgModule-based Suppliers, decorator APIs, RxJS facade, Signal Forms policy editor, template-driven preferences, custom controls                   | Coverage matrix points to working examples; forms, controls, and state transitions behave correctly                             |
+| 4. Enterprise breadth                    | People, reports, remaining administration pages, saved filters, bulk actions, deferred views, larger datasets                                     | Remaining sections share realistic data and reusable patterns; major routes expose loading, empty, error, and permission states |
+| 5. Application completion                | Navigation and accessibility review, focused automated tests, build checks, setup documentation, coverage audit                                   | App builds successfully; key workflows pass; required Angular patterns are implemented and documented                           |
 
 ## Architecture and implementation profiles
 
@@ -82,14 +82,14 @@ Design tokens live in UI styles; testing utilities can be added when a concrete 
 
 Assign profiles deliberately:
 
-| Feature | Primary profile |
-| --- | --- |
-| Suppliers | NgModule, decorator inputs/outputs, constructor injection, RxJS service state |
-| Requests | Implemented typed Reactive Forms, nested groups/arrays, money ControlValueAccessor and HTTP mutations |
-| Approvals and Assets | Standalone components, signal inputs/outputs, computed state, functional DI, selected resource-based reads |
-| Administration | Signal Forms, schema validation, signal-compatible custom controls |
-| Preferences | Small template-driven form (implemented in foundation) |
-| Reports and Dashboard | Deferred content, dynamic widgets, template composition |
+| Feature               | Primary profile                                                                                            |
+| --------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Suppliers             | NgModule, decorator inputs/outputs, constructor injection, RxJS service state                              |
+| Requests              | Implemented typed Reactive Forms, nested groups/arrays, money ControlValueAccessor and HTTP mutations      |
+| Approvals and Assets  | Standalone components, signal inputs/outputs, computed state, functional DI, selected resource-based reads |
+| Administration        | Signal Forms, schema validation, signal-compatible custom controls                                         |
+| Preferences           | Small template-driven form (implemented in foundation)                                                     |
+| Reports and Dashboard | Deferred content, dynamic widgets, template composition                                                    |
 
 Add query APIs, route guards/resolvers, provider scopes, HTTP interceptors, content projection, custom directives, pipes, lifecycle hooks, and dynamic rendering to the coverage matrix. These are assigned during detailed planning rather than forced into every feature.
 

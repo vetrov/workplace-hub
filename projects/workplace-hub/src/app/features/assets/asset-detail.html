@@ -1,127 +1,199 @@
 <div class="page-header">
-  <div>
-    <p class="eyebrow">Inventory {{ id() }}</p>
-    <h1>{{ reader.record()?.name ?? 'Asset details' }}</h1>
-    <p>
-      {{
-        assignment()
-          ? 'Fulfill an approved request with this asset.'
-          : 'Assignment, supplier and inventory history.'
-      }}
-    </p>
-  </div>
-  <a class="button" routerLink="/assets">Back to inventory</a>
+    <div>
+        <p class="eyebrow">Inventory {{ id() }}</p>
+        <h1>{{ reader.record()?.name ?? 'Asset details' }}</h1>
+        <p>
+            {{
+                assignment()
+                    ? 'Fulfill an approved request with this asset.'
+                    : 'Assignment, supplier and inventory history.'
+            }}
+        </p>
+    </div>
+    <a
+        class="button"
+        routerLink="/assets"
+    >
+        Back to inventory
+    </a>
 </div>
 @if (assignment() && !administrator()) {
-  <section class="panel state" role="alert">
-    <h2>Administrator identity required</h2>
-    <p>Switch to Taylor Patel to assign inventory.</p>
-  </section>
-} @else if (reader.loading()) {
-  <section class="panel state" role="status">Loading asset…</section>
-} @else if (reader.error()) {
-  <section class="panel state" role="alert">
-    <h2>Asset unavailable</h2>
-    <p>{{ reader.error() }}</p>
-    <button (click)="reader.retry()">Try again</button>
-  </section>
-} @else if (reader.record(); as asset) {
-  <section class="panel detail-section">
-    <div class="panel-header">
-      <h2>Inventory details</h2>
-      <ui-status [value]="asset.status" />
-    </div>
-    <div class="panel-body">
-      <dl class="facts">
-        <div>
-          <dt>Type</dt>
-          <dd>{{ asset.type }}</dd>
-        </div>
-        <div>
-          <dt>Serial / license</dt>
-          <dd>{{ asset.serialNumber }}</dd>
-        </div>
-        <div>
-          <dt>Supplier</dt>
-          <dd>{{ supplierName(asset.supplierId) }}</dd>
-        </div>
-        <div>
-          <dt>Assigned to</dt>
-          <dd>{{ personName(asset.assigneeId) }}</dd>
-        </div>
-      </dl>
-      <p>{{ asset.notes }}</p>
-      <div class="detail-actions">
-        @if (asset.requestId) {
-          <a class="button" [routerLink]="['/requests', asset.requestId]">View fulfilled request</a>
-        }
-        @if (administrator() && asset.status === 'available' && !assignment()) {
-          <a class="button primary" [routerLink]="['/assets', asset.id, 'assign']">Assign asset</a>
-        }
-      </div>
-    </div>
-  </section>
-  @if (assignment()) {
-    <section class="panel detail-section">
-      <div class="panel-header"><h2>Assign to an approved request</h2></div>
-      <div class="panel-body">
-        @if (mutation.error()) {
-          <p class="form-alert" role="alert">{{ mutation.error() }}</p>
-        }
-        @if (asset.status !== 'available') {
-          <p role="status">This asset is no longer available for assignment.</p>
-        } @else if (candidates.isLoading()) {
-          <p role="status">Loading compatible requests…</p>
-        } @else if (optionError()) {
-          <div role="alert">
-            <p>{{ optionError() }}</p>
-            <button (click)="retryOptions()">Try again</button>
-          </div>
-        } @else if (!options().length) {
-          <p role="status">
-            No compatible approved requests. Approve an {{ asset.type }} request first.
-          </p>
-        } @else {
-          <fieldset [disabled]="mutation.busy()">
-            <legend class="sr-only">Select request for assignment</legend>
-            <div class="field">
-              <label for="assignment-request">Approved request</label
-              ><select id="assignment-request" #selection (change)="selected.set(selection.value)">
-                @for (candidate of options(); track candidate.id) {
-                  <option [value]="candidate.id" [selected]="selected() === candidate.id">
-                    {{ candidate.id }} · {{ candidate.title }} ·
-                    {{ personName(candidate.requesterId) }}
-                  </option>
-                }
-              </select>
-            </div>
-            @if (request(); as request) {
-              <p>
-                This assigns the asset to <strong>{{ personName(request.requesterId) }}</strong> and
-                fulfills <a [routerLink]="['/requests', request.id]">{{ request.id }}</a
-                >.
-              </p>
-            }
-            <button class="primary" [disabled]="!request()" (click)="assign()">
-              {{ mutation.busy() ? 'Assigning…' : 'Assign and fulfill request' }}
-            </button>
-          </fieldset>
-        }
-      </div>
+    <section
+        class="panel state"
+        role="alert"
+    >
+        <h2>Administrator identity required</h2>
+        <p>Switch to Taylor Patel to assign inventory.</p>
     </section>
-  }
-  <section class="panel detail-section">
-    <div class="panel-header"><h2>Asset history</h2></div>
-    <ol class="history panel-body">
-      @for (event of asset.history; track event.id) {
-        <li>
-          <div>
-            <strong>{{ event.action }}</strong
-            ><span>{{ personName(event.actorId) }} · {{ event.occurredAt | date: 'medium' }}</span>
-          </div>
-          <p>{{ event.note }}</p>
-        </li>
-      }
-    </ol>
-  </section>
+} @else if (reader.loading()) {
+    <section
+        class="panel state"
+        role="status"
+    >
+        Loading asset…
+    </section>
+} @else if (reader.error()) {
+    <section
+        class="panel state"
+        role="alert"
+    >
+        <h2>Asset unavailable</h2>
+        <p>{{ reader.error() }}</p>
+        <button (click)="reader.retry()">Try again</button>
+    </section>
+} @else if (reader.record(); as asset) {
+    <section class="panel detail-section">
+        <div class="panel-header">
+            <h2>Inventory details</h2>
+            <ui-status [value]="asset.status" />
+        </div>
+        <div class="panel-body">
+            <dl class="facts">
+                <div>
+                    <dt>Type</dt>
+                    <dd>{{ asset.type }}</dd>
+                </div>
+                <div>
+                    <dt>Serial / license</dt>
+                    <dd>{{ asset.serialNumber }}</dd>
+                </div>
+                <div>
+                    <dt>Supplier</dt>
+                    <dd>{{ supplierName(asset.supplierId) }}</dd>
+                </div>
+                <div>
+                    <dt>Assigned to</dt>
+                    <dd>{{ personName(asset.assigneeId) }}</dd>
+                </div>
+            </dl>
+            <p>{{ asset.notes }}</p>
+            <div class="detail-actions">
+                @if (asset.requestId) {
+                    <a
+                        class="button"
+                        [routerLink]="['/requests', asset.requestId]"
+                    >
+                        View fulfilled request
+                    </a>
+                }
+                @if (
+                    administrator() &&
+                    asset.status === 'available' &&
+                    !assignment()
+                ) {
+                    <a
+                        class="button primary"
+                        [routerLink]="['/assets', asset.id, 'assign']"
+                    >
+                        Assign asset
+                    </a>
+                }
+            </div>
+        </div>
+    </section>
+    @if (assignment()) {
+        <section class="panel detail-section">
+            <div class="panel-header">
+                <h2>Assign to an approved request</h2>
+            </div>
+            <div class="panel-body">
+                @if (mutation.error()) {
+                    <p
+                        class="form-alert"
+                        role="alert"
+                    >
+                        {{ mutation.error() }}
+                    </p>
+                }
+                @if (asset.status !== 'available') {
+                    <p role="status">
+                        This asset is no longer available for assignment.
+                    </p>
+                } @else if (candidates.isLoading()) {
+                    <p role="status">Loading compatible requests…</p>
+                } @else if (optionError()) {
+                    <div role="alert">
+                        <p>{{ optionError() }}</p>
+                        <button (click)="retryOptions()">Try again</button>
+                    </div>
+                } @else if (!options().length) {
+                    <p role="status">
+                        No compatible approved requests. Approve an
+                        {{ asset.type }} request first.
+                    </p>
+                } @else {
+                    <fieldset [disabled]="mutation.busy()">
+                        <legend class="sr-only">
+                            Select request for assignment
+                        </legend>
+                        <div class="field">
+                            <label for="assignment-request">
+                                Approved request
+                            </label>
+                            <select
+                                id="assignment-request"
+                                #selection
+                                (change)="selected.set(selection.value)"
+                            >
+                                @for (
+                                    candidate of options();
+                                    track candidate.id
+                                ) {
+                                    <option
+                                        [value]="candidate.id"
+                                        [selected]="selected() === candidate.id"
+                                    >
+                                        {{ candidate.id }} ·
+                                        {{ candidate.title }} ·
+                                        {{ personName(candidate.requesterId) }}
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        @if (request(); as request) {
+                            <p>
+                                This assigns the asset to
+                                <strong>
+                                    {{ personName(request.requesterId) }}
+                                </strong>
+                                and fulfills
+                                <a [routerLink]="['/requests', request.id]">
+                                    {{ request.id }}
+                                </a>
+                                .
+                            </p>
+                        }
+                        <button
+                            class="primary"
+                            [disabled]="!request()"
+                            (click)="assign()"
+                        >
+                            {{
+                                mutation.busy()
+                                    ? 'Assigning…'
+                                    : 'Assign and fulfill request'
+                            }}
+                        </button>
+                    </fieldset>
+                }
+            </div>
+        </section>
+    }
+    <section class="panel detail-section">
+        <div class="panel-header"><h2>Asset history</h2></div>
+        <ol class="history panel-body">
+            @for (event of asset.history; track event.id) {
+                <li>
+                    <div>
+                        <strong>{{ event.action }}</strong>
+                        <span>
+                            {{ personName(event.actorId) }} ·
+                            {{ event.occurredAt | date: 'medium' }}
+                        </span>
+                    </div>
+                    <p>{{ event.note }}</p>
+                </li>
+            }
+        </ol>
+    </section>
 }

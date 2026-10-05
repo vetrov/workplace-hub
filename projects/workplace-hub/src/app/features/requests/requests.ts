@@ -9,24 +9,37 @@ import { RequestListService } from './request-list.service';
 import { Scenario } from '../../core/scenarios/scenario';
 
 @Component({
-  imports: [RouterLink, DatePipe, StatusBadge],
-  providers: [{ provide: LIST_KIND, useValue: 'requests' }, ListQueryState, RequestListService],
-  templateUrl: './requests.html',
+    imports: [RouterLink, DatePipe, StatusBadge],
+    providers: [
+        { provide: LIST_KIND, useValue: 'requests' },
+        ListQueryState,
+        RequestListService,
+    ],
+    templateUrl: './requests.html',
 })
 export class Requests {
-  readonly session = inject(Session);
-  readonly list = inject(RequestListService);
-  readonly query = inject(ListQueryState);
-  readonly Math = Math;
-  private readonly scenario = inject(Scenario);
-  retry(): void {
-    this.scenario.retry();
-    this.list.retry();
-  }
-  personName(id: string): string {
-    return INITIAL_DATA.people.find((p) => p.id === id)?.name ?? 'Unknown person';
-  }
-  setSize(value: string): void {
-    this.query.update({ pageSize: Number(value) as 25 | 50 | 100, page: 1 });
-  }
+    readonly session = inject(Session);
+    readonly list = inject(RequestListService);
+    readonly query = inject(ListQueryState);
+    readonly Math = Math;
+    private readonly scenario = inject(Scenario);
+
+    retry(): void {
+        this.scenario.retry();
+        this.list.retry();
+    }
+
+    personName(id: string): string {
+        return (
+            INITIAL_DATA.people.find((p) => p.id === id)?.name ??
+            'Unknown person'
+        );
+    }
+
+    setSize(value: string): void {
+        this.query.update({
+            pageSize: Number(value) as 25 | 50 | 100,
+            page: 1,
+        });
+    }
 }

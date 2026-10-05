@@ -1,47 +1,47 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "paths": {
-      "domain": ["./projects/domain/src/public-api.ts"],
-      "ui": ["./projects/ui/src/public-api.ts"]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "paths": {
+            "domain": ["./projects/domain/src/public-api.ts"],
+            "ui": ["./projects/ui/src/public-api.ts"]
+        },
+        "noImplicitOverride": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true,
+        "isolatedModules": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "ES2022",
+        "module": "preserve",
+        "strict": true
     },
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,
-    "isolatedModules": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "ES2022",
-    "module": "preserve",
-    "strict": true
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  },
-  "files": [],
-  "references": [
-    {
-      "path": "./projects/workplace-hub/tsconfig.app.json"
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "strictTemplates": true
     },
-    {
-      "path": "./projects/workplace-hub/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/domain/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/domain/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/ui/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/ui/tsconfig.spec.json"
-    }
-  ]
+    "files": [],
+    "references": [
+        {
+            "path": "./projects/workplace-hub/tsconfig.app.json"
+        },
+        {
+            "path": "./projects/workplace-hub/tsconfig.spec.json"
+        },
+        {
+            "path": "./projects/domain/tsconfig.lib.json"
+        },
+        {
+            "path": "./projects/domain/tsconfig.spec.json"
+        },
+        {
+            "path": "./projects/ui/tsconfig.lib.json"
+        },
+        {
+            "path": "./projects/ui/tsconfig.spec.json"
+        }
+    ]
 }

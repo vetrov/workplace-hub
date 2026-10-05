@@ -1,131 +1,164 @@
 <div class="page-header">
-  <div>
-    <p class="eyebrow">Workplace operations</p>
-    <h1>Assets</h1>
-    <p>A clear inventory of your equipment, software and assignments.</p>
-  </div>
-  @if (session.identity().role === 'administrator') {
-    <a class="button primary" routerLink="/assets/new">Create asset</a>
-  }
-</div>
-<section class="panel" aria-labelledby="asset-list-heading" [attr.aria-busy]="list.state().loading">
-  <div class="panel-header">
     <div>
-      <h2 id="asset-list-heading">Asset inventory</h2>
-      <p>Records available to your selected demo identity</p>
+        <p class="eyebrow">Workplace operations</p>
+        <h1>Assets</h1>
+        <p>A clear inventory of your equipment, software and assignments.</p>
     </div>
-    <span class="section-tag">{{ list.state().page?.total ?? '—' }} records</span>
-  </div>
-  <form
-    class="toolbar"
-    (submit)="$event.preventDefault(); query.update({ q: search.value, page: 1 })"
-  >
-    <div class="field search-field">
-      <label for="asset-search">Search assets</label
-      ><input
-        id="asset-search"
-        type="search"
-        #search
-        [value]="query.query().q"
-        (input)="query.search(search.value)"
-        placeholder="Search by name or asset ID"
-      />
-    </div>
-    <button type="submit">Search</button>
-    <div class="field">
-      <label for="asset-sort">Sort by</label
-      ><select
-        id="asset-sort"
-        #sort
-        [value]="query.query().sort"
-        (change)="query.update({ sort: sort.value, page: 1 })"
-      >
-        <option value="name:asc">Name A–Z</option>
-        <option value="name:desc">Name Z–A</option>
-        <option value="status:asc">Status A–Z</option>
-        <option value="status:desc">Status Z–A</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="asset-page-size">Rows</label
-      ><select
-        id="asset-page-size"
-        #size
-        [value]="query.query().pageSize"
-        (change)="setSize(size.value)"
-      >
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-      </select>
-    </div>
-  </form>
-  @if (list.state().loading) {
-    <div class="state" role="status">
-      <span class="loading-dot" aria-hidden="true"></span>
-      <p>Loading assets…</p>
-    </div>
-  } @else if (list.state().error) {
-    <div class="state" role="alert">
-      <h2>Assets are unavailable</h2>
-      <p>{{ list.state().error }}</p>
-      <button (click)="retry()">Try again</button>
-    </div>
-  } @else if (!list.state().page?.total) {
-    <div class="state" role="status">
-      <h2>No assets found</h2>
-      <p>Try another search or restore the normal demo scenario.</p>
-    </div>
-  } @else if (list.state().page; as result) {
-    <div class="table-wrap">
-      <table>
-        <caption class="sr-only">
-          Visible equipment and software inventory
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Asset</th>
-            <th scope="col">Assigned to</th>
-            <th scope="col">Status</th>
-            <th scope="col">Supplier</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (asset of result.items; track asset.id) {
-            <tr>
-              <td class="record-id">{{ asset.id }}</td>
-              <td>
-                <a [routerLink]="['/assets', asset.id]"
-                  ><strong>{{ asset.name }}</strong></a
-                ><small>{{ asset.type }}</small>
-              </td>
-              <td>{{ personName(asset.assigneeId) }}</td>
-              <td><ui-status [value]="asset.status" /></td>
-              <td>{{ supplierName(asset.supplierId) }}</td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-    <div class="pagination">
-      <span
-        >Showing {{ (result.page - 1) * result.pageSize + 1 }}–{{
-          Math.min(result.page * result.pageSize, result.total)
-        }}
-        of {{ result.total }} assets</span
-      >
-      <div>
-        <button [disabled]="result.page === 1" (click)="query.update({ page: result.page - 1 })">
-          Previous</button
-        ><span>Page {{ result.page }} of {{ Math.ceil(result.total / result.pageSize) }}</span
-        ><button
-          [disabled]="result.page * result.pageSize >= result.total"
-          (click)="query.update({ page: result.page + 1 })"
+    @if (session.identity().role === 'administrator') {
+        <a
+            class="button primary"
+            routerLink="/assets/new"
         >
-          Next
-        </button>
-      </div>
+            Create asset
+        </a>
+    }
+</div>
+<section
+    class="panel"
+    aria-labelledby="asset-list-heading"
+    [attr.aria-busy]="list.state().loading"
+>
+    <div class="panel-header">
+        <div>
+            <h2 id="asset-list-heading">Asset inventory</h2>
+            <p>Records available to your selected demo identity</p>
+        </div>
+        <span class="section-tag">
+            {{ list.state().page?.total ?? '—' }} records
+        </span>
     </div>
-  }
+    <form
+        class="toolbar"
+        (submit)="
+            $event.preventDefault(); query.update({ q: search.value, page: 1 })
+        "
+    >
+        <div class="field search-field">
+            <label for="asset-search">Search assets</label>
+            <input
+                id="asset-search"
+                type="search"
+                #search
+                [value]="query.query().q"
+                (input)="query.search(search.value)"
+                placeholder="Search by name or asset ID"
+            />
+        </div>
+        <button type="submit">Search</button>
+        <div class="field">
+            <label for="asset-sort">Sort by</label>
+            <select
+                id="asset-sort"
+                #sort
+                [value]="query.query().sort"
+                (change)="query.update({ sort: sort.value, page: 1 })"
+            >
+                <option value="name:asc">Name A–Z</option>
+                <option value="name:desc">Name Z–A</option>
+                <option value="status:asc">Status A–Z</option>
+                <option value="status:desc">Status Z–A</option>
+            </select>
+        </div>
+        <div class="field">
+            <label for="asset-page-size">Rows</label>
+            <select
+                id="asset-page-size"
+                #size
+                [value]="query.query().pageSize"
+                (change)="setSize(size.value)"
+            >
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+    </form>
+    @if (list.state().loading) {
+        <div
+            class="state"
+            role="status"
+        >
+            <span
+                class="loading-dot"
+                aria-hidden="true"
+            ></span>
+            <p>Loading assets…</p>
+        </div>
+    } @else if (list.state().error) {
+        <div
+            class="state"
+            role="alert"
+        >
+            <h2>Assets are unavailable</h2>
+            <p>{{ list.state().error }}</p>
+            <button (click)="retry()">Try again</button>
+        </div>
+    } @else if (!list.state().page?.total) {
+        <div
+            class="state"
+            role="status"
+        >
+            <h2>No assets found</h2>
+            <p>Try another search or restore the normal demo scenario.</p>
+        </div>
+    } @else if (list.state().page; as result) {
+        <div class="table-wrap">
+            <table>
+                <caption class="sr-only">
+                    Visible equipment and software inventory
+                </caption>
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Asset</th>
+                        <th scope="col">Assigned to</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Supplier</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (asset of result.items; track asset.id) {
+                        <tr>
+                            <td class="record-id">{{ asset.id }}</td>
+                            <td>
+                                <a [routerLink]="['/assets', asset.id]">
+                                    <strong>{{ asset.name }}</strong>
+                                </a>
+                                <small>{{ asset.type }}</small>
+                            </td>
+                            <td>{{ personName(asset.assigneeId) }}</td>
+                            <td><ui-status [value]="asset.status" /></td>
+                            <td>{{ supplierName(asset.supplierId) }}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <span>
+                Showing {{ (result.page - 1) * result.pageSize + 1 }}–{{
+                    Math.min(result.page * result.pageSize, result.total)
+                }}
+                of {{ result.total }} assets
+            </span>
+            <div>
+                <button
+                    [disabled]="result.page === 1"
+                    (click)="query.update({ page: result.page - 1 })"
+                >
+                    Previous
+                </button>
+                <span>
+                    Page {{ result.page }} of
+                    {{ Math.ceil(result.total / result.pageSize) }}
+                </span>
+                <button
+                    [disabled]="result.page * result.pageSize >= result.total"
+                    (click)="query.update({ page: result.page + 1 })"
+                >
+                    Next
+                </button>
+            </div>
+        </div>
+    }
 </section>

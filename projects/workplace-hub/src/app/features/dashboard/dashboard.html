@@ -1,102 +1,149 @@
 <div class="page-header">
-  <div>
-    <p class="eyebrow">Workspace overview</p>
-    <h1>Your workspace, at a glance.</h1>
-    <p>{{ roleDescription() }}</p>
-  </div>
-  <span class="section-tag">Demo environment</span>
+    <div>
+        <p class="eyebrow">Workspace overview</p>
+        <h1>Your workspace, at a glance.</h1>
+        <p>{{ roleDescription() }}</p>
+    </div>
+    <span class="section-tag">Demo environment</span>
 </div>
 @if (error()) {
-  <div class="notice" role="alert">{{ error() }} <button (click)="retry()">Try again</button></div>
+    <div
+        class="notice"
+        role="alert"
+    >
+        {{ error() }}
+        <button (click)="retry()">Try again</button>
+    </div>
 }
-<section class="metrics" aria-label="Workspace summary" [attr.aria-busy]="loading()">
-  <div class="metric">
-    <div class="metric-label">Visible requests <span aria-hidden="true">≡</span></div>
-    <strong>{{ summary()?.requests ?? '—' }}</strong
-    ><small>Across all request statuses</small>
-  </div>
-  <div class="metric accent">
-    <div class="metric-label">Awaiting approval <span aria-hidden="true">↗</span></div>
-    <strong>{{ summary()?.pending ?? '—' }}</strong
-    ><small>Submitted and ready for review</small>
-  </div>
-  <div class="metric">
-    <div class="metric-label">Visible assets <span aria-hidden="true">▣</span></div>
-    <strong>{{ summary()?.assets ?? '—' }}</strong
-    ><small>Equipment and software</small>
-  </div>
-  <div class="metric">
-    <div class="metric-label">Available assets <span aria-hidden="true">✓</span></div>
-    <strong>{{ summary()?.available ?? '—' }}</strong
-    ><small>Ready for assignment</small>
-  </div>
+<section
+    class="metrics"
+    aria-label="Workspace summary"
+    [attr.aria-busy]="loading()"
+>
+    <div class="metric">
+        <div class="metric-label">
+            Visible requests
+            <span aria-hidden="true">≡</span>
+        </div>
+        <strong>{{ summary()?.requests ?? '—' }}</strong>
+        <small>Across all request statuses</small>
+    </div>
+    <div class="metric accent">
+        <div class="metric-label">
+            Awaiting approval
+            <span aria-hidden="true">↗</span>
+        </div>
+        <strong>{{ summary()?.pending ?? '—' }}</strong>
+        <small>Submitted and ready for review</small>
+    </div>
+    <div class="metric">
+        <div class="metric-label">
+            Visible assets
+            <span aria-hidden="true">▣</span>
+        </div>
+        <strong>{{ summary()?.assets ?? '—' }}</strong>
+        <small>Equipment and software</small>
+    </div>
+    <div class="metric">
+        <div class="metric-label">
+            Available assets
+            <span aria-hidden="true">✓</span>
+        </div>
+        <strong>{{ summary()?.available ?? '—' }}</strong>
+        <small>Ready for assignment</small>
+    </div>
 </section>
 <div class="dashboard-columns">
-  <section class="panel" aria-labelledby="recent-heading">
-    <div class="panel-header">
-      <div>
-        <h2 id="recent-heading">Recent requests</h2>
-        <p>The latest records in your workspace</p>
-      </div>
-      <a routerLink="/requests">View all →</a>
-    </div>
-    @if (requests().length) {
-      <div class="table-wrap">
-        <table>
-          <caption class="sr-only">
-            Recent requests
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col">Request</th>
-              <th scope="col">Status</th>
-              <th scope="col">Created</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (request of requests(); track request.id) {
-              <tr>
-                <td>
-                  <a [routerLink]="['/requests', request.id]"
-                    ><strong>{{ request.title }}</strong></a
-                  ><small>{{ request.id }}</small>
-                </td>
-                <td><ui-status [value]="request.status" /></td>
-                <td>{{ request.createdAt | date: 'MMM d, yyyy' }}</td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
-    } @else {
-      <div class="state">
-        <p>{{ loading() ? 'Loading recent requests…' : 'No recent requests to show.' }}</p>
-      </div>
-    }
-  </section>
-  <section class="panel" aria-labelledby="asset-heading">
-    <div class="panel-header">
-      <div>
-        <h2 id="asset-heading">Equipment & software</h2>
-        <p>A snapshot of your visible assets</p>
-      </div>
-      <a routerLink="/assets">View all →</a>
-    </div>
-    @for (asset of assets(); track asset.id) {
-      <div class="asset-preview">
-        <span class="asset-icon" aria-hidden="true">▣</span>
-        <div>
-          <a [routerLink]="['/assets', asset.id]"
-            ><strong>{{ asset.name }}</strong></a
-          ><small>{{ asset.id }} · {{ asset.type }}</small>
+    <section
+        class="panel"
+        aria-labelledby="recent-heading"
+    >
+        <div class="panel-header">
+            <div>
+                <h2 id="recent-heading">Recent requests</h2>
+                <p>The latest records in your workspace</p>
+            </div>
+            <a routerLink="/requests">View all →</a>
         </div>
-        <ui-status [value]="asset.status" />
-      </div>
-    }
-    @if (!assets().length) {
-      <div class="state">
-        <p>{{ loading() ? 'Loading equipment…' : 'No assets to show.' }}</p>
-      </div>
-    }
-  </section>
+        @if (requests().length) {
+            <div class="table-wrap">
+                <table>
+                    <caption class="sr-only">Recent requests</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Request</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (request of requests(); track request.id) {
+                            <tr>
+                                <td>
+                                    <a [routerLink]="['/requests', request.id]">
+                                        <strong>{{ request.title }}</strong>
+                                    </a>
+                                    <small>{{ request.id }}</small>
+                                </td>
+                                <td><ui-status [value]="request.status" /></td>
+                                <td>
+                                    {{
+                                        request.createdAt | date: 'MMM d, yyyy'
+                                    }}
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        } @else {
+            <div class="state">
+                <p>
+                    {{
+                        loading()
+                            ? 'Loading recent requests…'
+                            : 'No recent requests to show.'
+                    }}
+                </p>
+            </div>
+        }
+    </section>
+    <section
+        class="panel"
+        aria-labelledby="asset-heading"
+    >
+        <div class="panel-header">
+            <div>
+                <h2 id="asset-heading">Equipment & software</h2>
+                <p>A snapshot of your visible assets</p>
+            </div>
+            <a routerLink="/assets">View all →</a>
+        </div>
+        @for (asset of assets(); track asset.id) {
+            <div class="asset-preview">
+                <span
+                    class="asset-icon"
+                    aria-hidden="true"
+                >
+                    ▣
+                </span>
+                <div>
+                    <a [routerLink]="['/assets', asset.id]">
+                        <strong>{{ asset.name }}</strong>
+                    </a>
+                    <small>{{ asset.id }} · {{ asset.type }}</small>
+                </div>
+                <ui-status [value]="asset.status" />
+            </div>
+        }
+        @if (!assets().length) {
+            <div class="state">
+                <p>
+                    {{
+                        loading() ? 'Loading equipment…' : 'No assets to show.'
+                    }}
+                </p>
+            </div>
+        }
+    </section>
 </div>

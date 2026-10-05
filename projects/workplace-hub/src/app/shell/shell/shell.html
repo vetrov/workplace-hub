@@ -1,68 +1,124 @@
-<a class="skip-link" href="#main">Skip to content</a>
+<a
+    class="skip-link"
+    href="#main"
+>
+    Skip to content
+</a>
 <div class="app-frame">
-  <aside class="sidebar" aria-label="Workspace navigation">
-    <div class="brand">
-      <span class="brand-mark" aria-hidden="true">w</span>
-      <div class="brand-name">workplace<small>Company operations</small></div>
-    </div>
-    <nav aria-label="Main navigation">
-      <p class="workspace-label">Workspace</p>
-      @for (link of links; track link.path) {
-        <a
-          class="nav-link"
-          [routerLink]="link.path"
-          routerLinkActive="active"
-          ariaCurrentWhenActive="page"
-          ><span class="nav-icon" aria-hidden="true">{{ link.icon }}</span
-          >{{ link.label }}</a
-        >
-      }
-      @for (label of planned; track label) {
-        <div class="planned-nav">
-          <span class="nav-icon" aria-hidden="true">·</span>{{ label }}<small>Planned</small>
-        </div>
-      }
-    </nav>
-    <div class="sidebar-footer">
-      <strong>Demo workspace</strong>Local records. Ready to explore.
-    </div>
-  </aside>
-  <div class="main-column">
-    <header class="topbar">
-      <div class="breadcrumb">
-        Workspace / <span>{{ section() }}</span>
-      </div>
-      <div class="identity-area">
-        <label for="demo-identity">Demo identity</label
-        ><select id="demo-identity" #identitySelect (change)="session.select(identitySelect.value)">
-          @for (identity of session.identities; track identity.personId) {
-            <option
-              [value]="identity.personId"
-              [selected]="identity.personId === session.identity().personId"
+    <aside
+        class="sidebar"
+        aria-label="Workspace navigation"
+    >
+        <div class="brand">
+            <span
+                class="brand-mark"
+                aria-hidden="true"
             >
-              {{ identity.label }}
-            </option>
-          }</select
-        ><span class="avatar" aria-hidden="true">{{ session.initials() }}</span>
-      </div>
-    </header>
-    <main id="main" tabindex="-1">
-      <div class="scenario-bar">
-        <label for="demo-scenario">Demo response</label
-        ><select
-          id="demo-scenario"
-          #scenarioSelect
-          [value]="scenario.mode()"
-          (change)="setScenario(scenarioSelect.value)"
+                w
+            </span>
+            <div class="brand-name">
+                workplace
+                <small>Company operations</small>
+            </div>
+        </div>
+        <nav aria-label="Main navigation">
+            <p class="workspace-label">Workspace</p>
+            @for (link of links; track link.path) {
+                <a
+                    class="nav-link"
+                    [routerLink]="link.path"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page"
+                >
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        {{ link.icon }}
+                    </span>
+                    {{ link.label }}
+                </a>
+            }
+            @for (label of planned; track label) {
+                <div class="planned-nav">
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        ·
+                    </span>
+                    {{ label }}
+                    <small>Planned</small>
+                </div>
+            }
+        </nav>
+        <div class="sidebar-footer">
+            <strong>Demo workspace</strong>
+            Local records. Ready to explore.
+        </div>
+    </aside>
+    <div class="main-column">
+        <header class="topbar">
+            <div class="breadcrumb">
+                Workspace /
+                <span>{{ section() }}</span>
+            </div>
+            <div class="identity-area">
+                <label for="demo-identity">Demo identity</label>
+                <select
+                    id="demo-identity"
+                    #identitySelect
+                    (change)="session.select(identitySelect.value)"
+                >
+                    @for (
+                        identity of session.identities;
+                        track identity.personId
+                    ) {
+                        <option
+                            [value]="identity.personId"
+                            [selected]="
+                                identity.personId ===
+                                session.identity().personId
+                            "
+                        >
+                            {{ identity.label }}
+                        </option>
+                    }
+                </select>
+                <span
+                    class="avatar"
+                    aria-hidden="true"
+                >
+                    {{ session.initials() }}
+                </span>
+            </div>
+        </header>
+        <main
+            id="main"
+            tabindex="-1"
         >
-          <option value="normal">Normal</option>
-          <option value="empty">Empty results</option>
-          <option value="delayed">Delayed (2 seconds)</option>
-          <option value="error">Failed response</option></select
-        ><span>Reset restores the original records.</span
-        ><button class="reset" (click)="scenario.reset()">Reset demo</button>
-      </div>
-      <router-outlet />
-    </main>
-  </div>
+            <div class="scenario-bar">
+                <label for="demo-scenario">Demo response</label>
+                <select
+                    id="demo-scenario"
+                    #scenarioSelect
+                    [value]="scenario.mode()"
+                    (change)="setScenario(scenarioSelect.value)"
+                >
+                    <option value="normal">Normal</option>
+                    <option value="empty">Empty results</option>
+                    <option value="delayed">Delayed (2 seconds)</option>
+                    <option value="error">Failed response</option>
+                </select>
+                <span>Reset restores the original records.</span>
+                <button
+                    class="reset"
+                    (click)="scenario.reset()"
+                >
+                    Reset demo
+                </button>
+            </div>
+            <router-outlet />
+        </main>
+    </div>
 </div>

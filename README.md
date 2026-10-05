@@ -44,13 +44,26 @@ and [foundation results](specs/001-application-foundation/tasks.md). The new wor
 [validation guide](specs/002-request-asset-workflow/quickstart.md) and
 [recorded results](specs/002-request-asset-workflow/tasks.md).
 
+## Formatting
+
+Use `npm run format` to format the repository and `npm run format:check` to verify it.
+The pinned Prettier version uses its [standard style](https://prettier.io/docs/options)
+with four spaces, an 80-column target, single quotes and one HTML attribute per line.
+Angular templates use whitespace-insensitive layout to keep opening and closing tags readable.
+`.editorconfig` uses the same indentation. Generated output, dependencies and the npm lockfile
+are excluded by `.prettierignore`; unsupported file types are skipped.
+
+Keep blank lines after import groups, between declarations and between class methods.
+Separate longer field initializers from adjacent fields. Prettier preserves these logical
+separators; it does not insert them automatically.
+
 ## Explore the demo
 
-| Identity | Scope | Seeded request / asset totals |
-| --- | --- | --- |
-| Alex Garcia · Employee | Own requests and assigned assets | 3 / 6 |
-| Alex Chen · Manager | Team requests and assigned assets | 22 / 44 |
-| Taylor Patel · Administrator | All records | 250 / 2,000 |
+| Identity                     | Scope                             | Seeded request / asset totals |
+| ---------------------------- | --------------------------------- | ----------------------------- |
+| Alex Garcia · Employee       | Own requests and assigned assets  | 3 / 6                         |
+| Alex Chen · Manager          | Team requests and assigned assets | 22 / 44                       |
+| Taylor Patel · Administrator | All records                       | 250 / 2,000                   |
 
 The related seed also contains 80 people, 12 teams, and 40 suppliers. The terminal functional
 HTTP interceptor returns synthetic responses inside the app; no separate backend runs and these

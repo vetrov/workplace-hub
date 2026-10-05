@@ -1,76 +1,112 @@
 <div class="page-header">
-  <div>
-    <p class="eyebrow">Personal settings</p>
-    <h1>Preferences</h1>
-    <p>Make your workspace feel right. Choose how information looks and fits.</p>
-  </div>
-  <span class="section-tag">Personal display</span>
+    <div>
+        <p class="eyebrow">Personal settings</p>
+        <h1>Preferences</h1>
+        <p>
+            Make your workspace feel right. Choose how information looks and
+            fits.
+        </p>
+    </div>
+    <span class="section-tag">Personal display</span>
 </div>
-<form class="panel settings-panel" #preferencesForm="ngForm" (ngSubmit)="save(preferencesForm)">
-  <section class="settings-section">
-    <fieldset>
-      <legend>Appearance</legend>
-      <p id="appearance-help">Choose the color palette for your workspace.</p>
-      <div class="option-grid">
-        <label class="option"
-          ><input
-            type="radio"
-            name="appearance"
-            value="light"
-            required
-            [(ngModel)]="draft.appearance"
-            (ngModelChange)="notice.set('')"
-            aria-describedby="appearance-help"
-          /><span><strong>Light</strong><small>A bright, clear workspace</small></span></label
+<form
+    class="panel settings-panel"
+    #preferencesForm="ngForm"
+    (ngSubmit)="save(preferencesForm)"
+>
+    <section class="settings-section">
+        <fieldset>
+            <legend>Appearance</legend>
+            <p id="appearance-help">
+                Choose the color palette for your workspace.
+            </p>
+            <div class="option-grid">
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="appearance"
+                        value="light"
+                        required
+                        [(ngModel)]="draft.appearance"
+                        (ngModelChange)="notice.set('')"
+                        aria-describedby="appearance-help"
+                    />
+                    <span>
+                        <strong>Light</strong>
+                        <small>A bright, clear workspace</small>
+                    </span>
+                </label>
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="appearance"
+                        value="dark"
+                        required
+                        [(ngModel)]="draft.appearance"
+                        (ngModelChange)="notice.set('')"
+                        aria-describedby="appearance-help"
+                    />
+                    <span>
+                        <strong>Dark</strong>
+                        <small>A softer view in low light</small>
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+    </section>
+    <section class="settings-section">
+        <fieldset>
+            <legend>Information density</legend>
+            <p id="density-help">
+                Set the spacing of rows in your request and asset tables.
+            </p>
+            <div class="option-grid">
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="density"
+                        value="comfortable"
+                        required
+                        [(ngModel)]="draft.density"
+                        (ngModelChange)="notice.set('')"
+                        aria-describedby="density-help"
+                    />
+                    <span>
+                        <strong>Comfortable</strong>
+                        <small>More room between records</small>
+                    </span>
+                </label>
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="density"
+                        value="compact"
+                        required
+                        [(ngModel)]="draft.density"
+                        (ngModelChange)="notice.set('')"
+                        aria-describedby="density-help"
+                    />
+                    <span>
+                        <strong>Compact</strong>
+                        <small>More information in view</small>
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+    </section>
+    <div class="settings-actions">
+        <button
+            class="primary"
+            type="submit"
+            [disabled]="preferencesForm.invalid"
         >
-        <label class="option"
-          ><input
-            type="radio"
-            name="appearance"
-            value="dark"
-            required
-            [(ngModel)]="draft.appearance"
-            (ngModelChange)="notice.set('')"
-            aria-describedby="appearance-help"
-          /><span><strong>Dark</strong><small>A softer view in low light</small></span></label
+            Save preferences
+        </button>
+        <p
+            role="status"
+            aria-live="polite"
         >
-      </div>
-    </fieldset>
-  </section>
-  <section class="settings-section">
-    <fieldset>
-      <legend>Information density</legend>
-      <p id="density-help">Set the spacing of rows in your request and asset tables.</p>
-      <div class="option-grid">
-        <label class="option"
-          ><input
-            type="radio"
-            name="density"
-            value="comfortable"
-            required
-            [(ngModel)]="draft.density"
-            (ngModelChange)="notice.set('')"
-            aria-describedby="density-help"
-          /><span><strong>Comfortable</strong><small>More room between records</small></span></label
-        >
-        <label class="option"
-          ><input
-            type="radio"
-            name="density"
-            value="compact"
-            required
-            [(ngModel)]="draft.density"
-            (ngModelChange)="notice.set('')"
-            aria-describedby="density-help"
-          /><span><strong>Compact</strong><small>More information in view</small></span></label
-        >
-      </div>
-    </fieldset>
-  </section>
-  <div class="settings-actions">
-    <button class="primary" type="submit" [disabled]="preferencesForm.invalid">
-      Save preferences
-    </button>
-    <p role="status" aria-live="polite">{{ notice() || 'Demo reset keeps your preferences.' }}</p>
-  </div>
+            {{ notice() || 'Demo reset keeps your preferences.' }}
+        </p>
+    </div>
 </form>
