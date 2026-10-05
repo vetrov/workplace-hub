@@ -54,7 +54,7 @@ import { AssetSummary } from 'domain';
                             [readOnly]="false"
                             (editRequested)="edit($event)"
                         />
-                        <dl class="detail-facts">
+                        <dl class="facts">
                             <div>
                                 <dt>Supplier ID</dt>
                                 <dd>

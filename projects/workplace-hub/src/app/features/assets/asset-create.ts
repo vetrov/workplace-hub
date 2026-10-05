@@ -13,11 +13,11 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AssetDetail } from 'domain';
+import { AssetDetail, Supplier } from 'domain';
 import { Session } from '../../core/session/session';
 import { Scenario } from '../../core/scenarios/scenario';
 import { WorkflowClient } from '../../core/workflow-client';
-import { INITIAL_DATA } from '../../core/mock-http/seed-data';
+import { collectionResource } from '../../core/workflow-read';
 import { fieldError, trimmedText } from '../requests/request-form';
 
 @Component({
@@ -85,12 +85,34 @@ import { fieldError, trimmedText } from '../requests/request-form';
                         </div>
                         <div class="field">
                             <label for="asset-supplier">Supplier</label>
+                            @if (suppliers.loading()) {
+                                <small role="status">Loading suppliers…</small>
+                            }
+                            @if (suppliers.error()) {
+                                <div role="alert">
+                                    <p>{{ suppliers.error() }}</p>
+                                    <button
+                                        type="button"
+                                        (click)="suppliers.retry()"
+                                    >
+                                        Retry suppliers
+                                    </button>
+                                </div>
+                            } @else if (
+                                !suppliers.loading() &&
+                                !suppliers.items().length
+                            ) {
+                                <small>
+                                    No suppliers are available. Reset the demo
+                                    to restore options.
+                                </small>
+                            }
                             <select
                                 id="asset-supplier"
                                 formControlName="supplierId"
                             >
                                 @for (
-                                    supplier of suppliers;
+                                    supplier of suppliers.items();
                                     track supplier.id
                                 ) {
                                     <option [value]="supplier.id">
@@ -127,6 +149,9 @@ import { fieldError, trimmedText } from '../requests/request-form';
                         <button
                             type="submit"
                             class="primary"
+                            [disabled]="
+                                suppliers.loading() || !suppliers.items().length
+                            "
                         >
                             {{ mutation.busy() ? 'Creating…' : 'Create asset' }}
                         </button>
@@ -144,7 +169,9 @@ export class AssetCreate {
     readonly administrator = computed(
         () => this.session.identity().role === 'administrator',
     );
-    readonly suppliers = INITIAL_DATA.suppliers;
+    readonly suppliers = collectionResource<Supplier>(() =>
+        this.administrator() ? '/api/supplier-options' : undefined,
+    );
 
     readonly form = new FormGroup({
         name: new FormControl('', {
@@ -193,7 +220,14 @@ export class AssetCreate {
 
     save(): void {
         this.form.markAllAsTouched();
-        if (this.form.invalid || !this.administrator()) return;
+        if (
+            this.form.invalid ||
+            !this.administrator() ||
+            !this.suppliers
+                .items()
+                .some((s) => s.id === this.form.controls.supplierId.value)
+        )
+            return;
         this.mutation.run<AssetDetail>(
             'POST',
             '/api/assets',

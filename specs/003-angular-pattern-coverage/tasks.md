@@ -32,7 +32,7 @@
 
 ## Phase 6: Integration and verification
 
-- [ ] T007 Connect current suppliers to inventory options/names through core/workflow-read.ts and features/assets/{asset-create,asset-detail}.ts; verify new supplier selection and rename propagation with permission-safe name-only responses.
+- [x] T007 Connect current suppliers to inventory options/names through core/workflow-read.ts and features/assets/{asset-create,asset-detail}.ts; verify new supplier selection and rename propagation with permission-safe name-only responses.
 - [ ] T008 Audit spec/plan/tasks and update README.md, AGENTS.md, docs/{route-map,angular-coverage,implementation-roadmap}.md; run formatting/unit/app/library and isolated Chrome principal/new workflows, response/permission/cancellation/keyboard/390px checks; record evidence here and commit locally.
 
 ## Dependencies and execution
@@ -57,3 +57,5 @@ T004: 82 tests and production build passed; Chrome verified paging/query search,
 T005: 85 tests and production build passed; Chrome verified projected invalid-control focus, dirty navigation cancel, reset clears drafts, failed-save input retention, create/edit and delayed-reset cancellation.
 
 T006: 89 tests passed; real editor failed-save retry regression and custom FormField control/schema/submission tests pass. Production build and Chrome keyboard/dirty/error-retry/version/purchasing-limit workflow pass; policy editor remains a separate lazy chunk.
+
+T007: 90 tests, app build and both library builds passed; Chrome verified new supplier selection, inventory creation and name changes on linked assets without reload. Added ownership/version-before-policy regression check.

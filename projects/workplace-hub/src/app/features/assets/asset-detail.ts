@@ -14,14 +14,15 @@ import {
     AssetDetail,
     CollectionResult,
     RequestDetail,
+    Supplier,
 } from 'domain';
 import { StatusBadge } from 'ui';
 import { DemoContext, responseError } from '../../core/mock-http/context';
 import { Session } from '../../core/session/session';
 import { Scenario } from '../../core/scenarios/scenario';
 import { WorkflowClient } from '../../core/workflow-client';
-import { recordResource } from '../../core/workflow-read';
-import { personName, supplierName } from '../../core/record-labels';
+import { collectionResource, recordResource } from '../../core/workflow-read';
+import { personName } from '../../core/record-labels';
 
 @Component({
     imports: [RouterLink, DatePipe, StatusBadge],
@@ -43,7 +44,11 @@ export class AssetDetailPage {
         () => this.session.identity().role === 'administrator',
     );
     readonly personName = personName;
-    readonly supplierName = supplierName;
+    private readonly suppliers = collectionResource<Supplier>(
+        () => '/api/supplier-options',
+    );
+    readonly supplierName = (id: string) =>
+        this.suppliers.items().find((s) => s.id === id)?.name ?? id;
 
     readonly candidates = httpResource<CollectionResult<RequestDetail>>(() =>
         this.assignment() &&

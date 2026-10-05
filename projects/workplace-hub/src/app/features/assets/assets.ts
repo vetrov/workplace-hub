@@ -6,6 +6,8 @@ import { LIST_KIND, ListQueryState } from '../../core/list-query';
 import { INITIAL_DATA } from '../../core/mock-http/seed-data';
 import { AssetListService } from './asset-list.service';
 import { Scenario } from '../../core/scenarios/scenario';
+import { Supplier } from 'domain';
+import { collectionResource } from '../../core/workflow-read';
 
 @Component({
     imports: [RouterLink, StatusBadge],
@@ -22,6 +24,9 @@ export class Assets {
     readonly query = inject(ListQueryState);
     readonly Math = Math;
     private readonly scenario = inject(Scenario);
+    private readonly suppliers = collectionResource<Supplier>(
+        () => '/api/supplier-options',
+    );
 
     retry(): void {
         this.scenario.retry();
@@ -36,10 +41,7 @@ export class Assets {
     }
 
     supplierName(id: string): string {
-        return (
-            INITIAL_DATA.suppliers.find((s) => s.id === id)?.name ??
-            'Unknown supplier'
-        );
+        return this.suppliers.items().find((s) => s.id === id)?.name ?? id;
     }
 
     setSize(value: string): void {

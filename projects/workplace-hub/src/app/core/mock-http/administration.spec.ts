@@ -166,4 +166,31 @@ describe('immutable supplier and purchasing-policy repository', () => {
         expect(repo.policy(original.id, admin)).toEqual(original);
         expect(repo.createSupplier(supplier, admin).id).toBe('S041');
     });
+    it('checks draft permissions and versions before configured budget validation', () => {
+        const policy = repo.policy('POL-equipment', admin);
+        repo.updatePolicy(policy.id, { ...policy, maximumTotal: 100 }, admin);
+        const draft = repo.createRequest(
+            { ...request, status: 'draft' },
+            employee,
+        );
+        rejects(
+            () =>
+                repo.updateRequest(
+                    draft.id,
+                    { ...request, version: draft.version },
+                    manager,
+                ),
+            403,
+        );
+        rejects(
+            () =>
+                repo.updateRequest(
+                    draft.id,
+                    { ...request, version: draft.version + 1 },
+                    employee,
+                ),
+            409,
+        );
+        expect(repo.request(draft.id, employee).status).toBe('draft');
+    });
 });

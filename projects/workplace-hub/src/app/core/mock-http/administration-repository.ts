@@ -7,6 +7,7 @@ import {
     PurchasingPolicy,
     RequestDetail,
     commandBody,
+    canEditRequest,
     expectedVersion,
     requireRule,
     validateSupplier,
@@ -203,7 +204,13 @@ export class AdministrationRepository
         value: unknown,
         actor: DemoIdentity,
     ): RequestDetail {
-        this.request(id, actor);
+        const current = this.request(id, actor);
+        requireRule(
+            canEditRequest(current, actor),
+            403,
+            'Only the owning employee can edit this draft.',
+        );
+        expectedVersion(commandBody(value)['version'], current.version);
         enforcePurchasingPolicies(validateRequest(value), this.policyRecords);
         return super.updateRequest(id, value, actor);
     }
