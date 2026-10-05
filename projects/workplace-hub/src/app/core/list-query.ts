@@ -3,6 +3,7 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ASSET_SORTS, ListKind, ListQuery, normalizeQuery, REQUEST_SORTS } from 'domain';
 import { debounceTime, Subject } from 'rxjs';
+import { Scenario } from './scenarios/scenario';
 
 export const LIST_KIND = new InjectionToken<ListKind>('List kind');
 
@@ -13,6 +14,7 @@ export class ListQueryState {
   private readonly router = inject(Router);
   private readonly parameters = toSignal(this.route.queryParamMap, { initialValue: this.route.snapshot.queryParamMap });
   private readonly searchInput = new Subject<string>();
+  private readonly scenario = inject(Scenario);
   readonly sorts = this.kind === 'requests' ? REQUEST_SORTS : ASSET_SORTS;
   readonly query = computed(() => {
     const params = this.parameters();
@@ -20,6 +22,11 @@ export class ListQueryState {
   });
 
   constructor() {
+    let lastReset = this.scenario.resetVersion();
+    effect(() => {
+      const version = this.scenario.resetVersion();
+      if (version !== lastReset) { lastReset = version; untracked(() => this.reset()); }
+    });
     this.searchInput.pipe(debounceTime(250), takeUntilDestroyed()).subscribe(q => this.update({ q, page: 1 }));
     effect(() => {
       const raw = this.parameters();
