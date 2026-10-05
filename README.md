@@ -5,18 +5,24 @@ The business domain is equipment requests, approvals, suppliers, and asset manag
 
 ## Current implementation
 
-The foundation and request-to-asset workflow are implemented and verified. Twelve business
-screens cover Dashboard; request list/create/edit/details; approval queue/review; asset
-list/create/details/assignment; and Preferences. Employees save or submit typed reactive request
-forms, managers approve/reject team submissions, and administrators create inventory and fulfill
-approved requests. Request/asset histories and allocation links reflect the full workflow.
+Milestones 0–3 are implemented and verified. Eighteen business screens cover Dashboard;
+request list/create/edit/details; approval queue/review; asset list/create/details/assignment;
+Suppliers directory/create/details/edit; purchasing policy list/editor; and Preferences.
+Employees create typed Reactive Forms requests, managers review them, and administrators fulfill
+approved requests, maintain supplier contacts and configure future submission limits.
 
-The shell includes demo identity switching, normal/empty/delayed/error responses and deterministic
-reset. Lists support search/sort/paging/query URLs. Preferences use a template-driven form for
-appearance/density. Request forms use nested FormGroup/FormArray and a custom money value accessor;
-Approvals use signal input/output/model and linkedSignal selection. Signal Forms, NgModule Suppliers,
-decorator component APIs and the remaining enterprise screens are still planned.
-See the [coverage matrix](docs/angular-coverage.md) for working examples and remaining patterns.
+Suppliers is a lazy NgModule with decorator component APIs, constructor injection, lifecycle/query
+examples, RxJS/BehaviorSubject state and a feature-local class HTTP interceptor forwarding to the root
+functional mock. Purchasing policies use actual Angular Signal Forms, schema validation, FormField/submit
+and a reusable FormValueControl category picker. Preferences remain template-driven.
+Supplier changes update inventory options and labels; policy limits apply to future submissions,
+while drafts and previous decisions retain their existing behavior.
+
+The shell supports demo identities, normal/empty/delayed/error responses and deterministic reset.
+Lists use query URLs, and editors protect unsaved changes and cancel pending writes on context changes.
+People/Teams, Reports, asset editing and remaining administration pages are next. Query/template/directive,
+deferred/dynamic-rendering and resolver examples still have explicitly planned coverage entries.
+See the [coverage matrix](docs/angular-coverage.md) for actual source locations and remaining patterns.
 Design-system evaluation and context graph evaluation/integration are outside this task. No SSR.
 
 ## Run locally
@@ -37,12 +43,14 @@ npm run build
 npm run build:libs
 ```
 
-The unit suite has 47 focused checks. Production output is `dist/workplace-hub/browser`;
+The unit suite has 90 focused checks across 18 files. Production output is `dist/workplace-hub/browser`;
 static hosting must provide SPA history fallback. Domain and UI builds output to `dist/domain`
 and `dist/ui`. See [the validation guide](specs/001-application-foundation/quickstart.md)
 and [foundation results](specs/001-application-foundation/tasks.md). The new workflow has its own
 [validation guide](specs/002-request-asset-workflow/quickstart.md) and
-[recorded results](specs/002-request-asset-workflow/tasks.md).
+[recorded results](specs/002-request-asset-workflow/tasks.md). Suppliers and policies have their own
+[validation guide](specs/003-angular-pattern-coverage/quickstart.md) and
+[recorded results](specs/003-angular-pattern-coverage/tasks.md).
 
 ## Formatting
 
@@ -77,6 +85,10 @@ delivery and 1–10 cost items. One compatible available asset fulfills a demo r
 items describe budget rather than multiple inventory allocations. Valid drafts meet the same
 field constraints as submissions. Rejected requests remain readable, with resubmission planned.
 Record versions prevent stale writes; reset/identity changes cancel pending commands.
+Supplier contacts are administrator-only; authorized inventory pages read ID/name options without contacts.
+New suppliers use stable IDs and case-insensitive unique names. Three category policies start at €50,000;
+enabled policies reject over-limit future submissions, combining same-category limits by minimum.
+Reset restores original suppliers and policies along with requests and inventory.
 
 ## Structure and planning
 
@@ -96,8 +108,8 @@ Record versions prevent stale writes; reset/identity changes cancel pending comm
 Spec Kit 1.1.0 project skills live in `.agents/skills/`. Use the constitution once, then
 specification, plan, tasks, implementation, and convergence per feature. The local active feature
 is recorded in `.specify/feature.json`. The setup CLI used an isolated environment and is not
-installed globally. The next feature is Angular pattern coverage: NgModule Suppliers with decorator
-APIs/RxJS state and an actual Signal Forms policy editor. Specify it before implementation.
+installed globally. Suppliers and actual Signal Forms policies are delivered. The next feature is enterprise breadth:
+People/Teams, Reports, asset editing and remaining administration, followed by the completion audit.
 Small fixes use ordinary development tasks.
 
 Source: https://github.github.com/spec-kit/installation.html

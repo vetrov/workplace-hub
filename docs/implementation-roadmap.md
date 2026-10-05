@@ -2,15 +2,15 @@
 
 ## Current status
 
-Milestones 0, 1 and 2 are complete in `/Users/avetrov/repos/workplace-hub`. The Angular 22.2.1
-SPA has 12 working business screens: the foundation plus typed Reactive Forms request creation/
-editing, request histories, signal-based manager decisions, inventory creation/details and
-atomic request fulfillment. All 23 foundation and 14 workflow tasks are complete, with local
-commits after each step and focused fixes. The 47-test suite, app/library builds and Chrome
-workflow, keyboard, permissions, reset/cancellation and mobile checks pass.
-The route map now targets 29 business screens, including inventory creation required by Milestone 2.
-Next: Milestone 3, NgModule Suppliers, decorator APIs/RxJS state and actual Signal Forms policies.
-The remaining 17 screens and later Angular patterns remain explicitly planned.
+Milestones 0–3 are complete in `/Users/avetrov/repos/workplace-hub`. The browser-only Angular 22.2.1
+SPA has 18 working business screens. Suppliers adds a lazy NgModule, decorator APIs, constructor DI,
+RxJS facade and class interceptor; purchasing policies add real Signal Forms/schema/custom-control
+integration and future submission limits. Supplier changes flow into inventory without reload.
+All 23 foundation, 14 workflow and 8 coverage tasks are complete; implementation steps have local commits.
+The 90-test suite, app/library builds and Chrome workflows, permissions/cancellation, keyboard/recovery
+and 390px checks pass. Intentional old/new patterns and four-space formatting remain in place.
+Next: implement the remaining 11 screens in Milestone 4, then complete the remaining Angular coverage,
+accessibility/navigation and documentation audit in Milestone 5. Neither phase is complete yet.
 
 ## Purpose
 
@@ -69,7 +69,7 @@ Design-system tool evaluation, alternative library integrations, a Design System
 | 0. Scope and architecture (complete)     | Product overview, constitution, route map, Angular coverage matrix, architecture decisions                                                        | Each required pattern has an owner and example; experimental and deprecated APIs are identified                                 |
 | 1. Application foundation (complete)     | Angular workspace, SPA routing, shell, domain contracts, reusable UI, application styling, mock HTTP, seeded data, role switching, scenario reset | App runs locally; lazy navigation, roles, and deterministic reset work                                                          |
 | 2. Complete business workflow (complete) | Reactive request wizard, signal-based approval queue, asset creation/assignment, shared policy rules, audit history                               | Create → approve/reject → assign works end to end; validation, failures, and permissions are observable                         |
-| 3. Angular pattern coverage              | NgModule-based Suppliers, decorator APIs, RxJS facade, Signal Forms policy editor, template-driven preferences, custom controls                   | Coverage matrix points to working examples; forms, controls, and state transitions behave correctly                             |
+| 3. Angular pattern coverage (complete)   | NgModule-based Suppliers, decorator APIs, RxJS facade, Signal Forms policy editor, template-driven preferences, custom controls                   | Coverage matrix points to working examples; forms, controls, and state transitions behave correctly                             |
 | 4. Enterprise breadth                    | People, reports, remaining administration pages, saved filters, bulk actions, deferred views, larger datasets                                     | Remaining sections share realistic data and reusable patterns; major routes expose loading, empty, error, and permission states |
 | 5. Application completion                | Navigation and accessibility review, focused automated tests, build checks, setup documentation, coverage audit                                   | App builds successfully; key workflows pass; required Angular patterns are implemented and documented                           |
 
@@ -115,6 +115,6 @@ Keep this roadmap as the project overview. Detail only the next feature's implem
 
 ## First usable milestone
 
-The shell, mock HTTP/reset, reactive request wizard, signal-based approvals and asset details/
-assignment are delivered. Add a small actual Signal Forms policy editor in Milestone 3 to
-complete the first usable milestone's form diversity before expanding all enterprise sections.
+The shell, mock HTTP/reset, reactive request wizard, signal-based approvals, inventory workflow,
+NgModule Suppliers, template-driven preferences and actual Signal Forms purchasing policies are delivered.
+Expand the enterprise sections and remaining coverage next, retaining all delivered profiles.

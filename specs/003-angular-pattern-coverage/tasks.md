@@ -33,7 +33,7 @@
 ## Phase 6: Integration and verification
 
 - [x] T007 Connect current suppliers to inventory options/names through core/workflow-read.ts and features/assets/{asset-create,asset-detail}.ts; verify new supplier selection and rename propagation with permission-safe name-only responses.
-- [ ] T008 Audit spec/plan/tasks and update README.md, AGENTS.md, docs/{route-map,angular-coverage,implementation-roadmap}.md; run formatting/unit/app/library and isolated Chrome principal/new workflows, response/permission/cancellation/keyboard/390px checks; record evidence here and commit locally.
+- [x] T008 Audit spec/plan/tasks and update README.md, AGENTS.md, docs/{route-map,angular-coverage,implementation-roadmap}.md; run formatting/unit/app/library and isolated Chrome principal/new workflows, response/permission/cancellation/keyboard/390px checks; record evidence here and commit locally.
 
 ## Dependencies and execution
 
@@ -64,3 +64,5 @@ T008 preliminary review: visual inspection found the custom picker initially sho
 for a loaded category. A real editor assertion reproduced the defect; explicit selected-option bindings
 fix it. The 90-test suite, app/library builds and rerun policy/mobile/recovery browser checks pass.
 The navigation labels distinguish delivered purchasing policies from remaining administration pages.
+
+T008: 90 tests across 18 files, app (372.65 kB raw / 103.35 kB transfer) and both library builds passed. Chrome main workflow, Suppliers/policies, permissions, cancellation, keyboard, retry and 390px route checks pass. All eight tasks verified; four-space format and browser-only scope preserved.
