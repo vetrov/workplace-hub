@@ -28,8 +28,9 @@ An asset cannot be assigned to two people simultaneously. Fulfilled requests can
 ## Application sections
 
 Dashboard; Requests; Approvals; Assets; Suppliers; People and Teams; Reports; Administration;
-and personal preferences. Twelve of the route map's 29 business screens are implemented,
-including the first end-to-end request-to-asset workflow. The other 17 remain planned.
+and personal preferences. All 29 business screens and 31 required Angular patterns are implemented,
+including the end-to-end request-to-asset workflow and enterprise reporting/administration.
+The final application verification/navigation/accessibility/documentation audit is in progress.
 Current form/category and one-asset allocation limits are documented in the workflow specification.
 
 ## Reproducibility
@@ -39,7 +40,10 @@ Use deterministic seeded records and reset controls. Foundation data: 80 people,
 statuses. Empty, delayed, and failed responses are selectable demo scenarios. Refresh resets
 business data; role, appearance, and density preferences may persist separately.
 
-These counts are provisional implementation defaults, not performance benchmarks.
+The enterprise seed adds four saved reports, three purchasing policies, three category configurations,
+manager report flags and organization defaults. These are deterministic implementation defaults,
+not performance benchmarks. Team membership changes affect current asset visibility; prior requests
+retain their historical team. Reports store filters and recompute authorized totals/export on every run.
 
 ## Scope boundaries
 

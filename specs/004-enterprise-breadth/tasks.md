@@ -1,6 +1,6 @@
 # Tasks: Enterprise Breadth
 
-Input: spec, plan, research, data model and contracts. No clarification blockers; checklist8/8.
+Input: spec, plan, research, data model and contracts. No clarification blockers; checklist 8/8.
 
 ## Phase 1: Setup
 
@@ -30,7 +30,7 @@ Input: spec, plan, research, data model and contracts. No clarification blockers
 
 ## Phase 7: Integration
 
-- [ ] T009 Verify all11 new routes and principal stories in Chrome (keyboard,390px,states,permissions,cancellation), run complete tests/app/library builds; update route/coverage/docs with source evidence and converge.
+- [x] T009 Verify all 11 new routes and principal stories in Chrome (keyboard,390px,states,permissions,cancellation), run complete tests/app/library builds; update route/coverage/docs with source evidence and converge.
 
 Dependencies: T001→T002→T003→T004→T005→T006→T007→T008→T009.
 Each completed task is a local commit. Tests are part of owning implementation; no failing suite committed.
@@ -42,14 +42,16 @@ T001: Checklist8/8; pinned API research completed by two read-only research agen
 
 T002: 101 tests across 19 files pass, including 11 enterprise boundary/normalization/CSV checks. No new dependencies.
 
-T003: 115 tests across21 files and production build pass. Live report scoping/full CSV, membership transfers, protected allocation, config effects, optimistic versions and delayed reset/identity/unsubscribe cancellation verified.
+T003: 115 tests across 21 files and production build pass. Live report scoping/full CSV, membership transfers, protected allocation, config effects, optimistic versions and delayed reset/identity/unsubscribe cancellation verified.
 
-T004: 117 tests across22 files and app build pass. Real employee CVA tests cover pristine/touched/disabled and changing options; render hook retains unavailable selection. Chrome search/paging/profile scope, transfer/invalid focus, role cancellation, recovery and390px checks pass.
+T004: 117 tests across 22 files and app build pass. Real employee CVA tests cover pristine/touched/disabled and changing options; render hook retains unavailable selection. Chrome search/paging/profile scope, transfer/invalid focus, role cancellation, recovery and 390px checks pass.
 
-T005: 119 tests across23 files and app build pass. Real editor retry/reset/identity/single-flight tests and Chrome maintenance→assignment/history, dirty cancel, failed retry, delayed reset and390px pass. Shared form helpers preserve existing Reactive Forms behavior; successful commands release busy before navigation.
+T005: 119 tests across 23 files and app build pass. Real editor retry/reset/identity/single-flight tests and Chrome maintenance→assignment/history, dirty cancel, failed retry, delayed reset and 390px pass. Shared form helpers preserve existing Reactive Forms behavior; successful commands release busy before navigation.
 
-T006: 125 tests across27 files, app and both library builds pass. Real form/default/retry, typed contentChildren/template outlets, resolver cancellation/errors/envelopes and detail reuse/context clearing verified. Chrome owner scope, filtered save/full CSV, recovery/roles and390px pass; Reports remain lazy.
+T006: 125 tests across 27 files, app and both library builds pass. Real form/default/retry, typed contentChildren/template outlets, resolver cancellation/errors/envelopes and detail reuse/context clearing verified. Chrome owner scope, filtered save/full CSV, recovery/roles and 390px pass; Reports remain lazy.
 
-T007: 127 tests across29 files, app/library builds pass. Production Chrome proves separate chart chunk absent before interaction, keyboard/loading/error/reload states; table remains usable on failure. Actual component switching, host-directive labels, structural role changes, modern queries/render hooks, pipe and390px verified. Initial399.93kB/111.39kB transfer.
+T007: 127 tests across 29 files, app/library builds pass. Production Chrome proves separate chart chunk absent before interaction, keyboard/loading/error/reload states; table remains usable on failure. Actual component switching, host-directive labels, structural role changes, modern queries/render hooks, pipe and 390px verified. Initial399.93kB/111.39kB transfer.
 
-T008: 130 tests across30 files and app build pass. Real settings validation/focus/retry, category dirty-switch/uniqueness and capability clearing tests pass. Chrome settings→shell/default dataset, category pause→rejected submit/allowed draft→enable/resubmit, manager create/export flags, pending/reset/identity and390px pass. All29 business routes now implemented.
+T008: 130 tests across 30 files and app build pass. Real settings validation/focus/retry, category dirty-switch/uniqueness and capability clearing tests pass. Chrome settings→shell/default dataset, category pause→rejected submit/allowed draft→enable/resubmit, manager create/export flags, pending/reset/identity and 390px pass. All29 business routes now implemented.
+
+T009: 131 tests across 31 files, production app (402.65kB raw /113.19kB transfer) and both libraries pass. Chrome validates all11 new first-load empty/error/retry/mobile states, principal stories, role/missing/cancellation boundaries, retained transfer retry and production lazy/dynamic states. All29 routes and31 required patterns have documented source; final completion audit follows.

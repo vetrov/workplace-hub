@@ -1,6 +1,6 @@
 # ADR 0001: Application architecture
 
-Date: 2026-10-05. Status: accepted and implemented for foundation/workflow; later feature profiles remain planned.
+Date: 2026-10-05. Status: accepted and implemented across all business features. Completion audit in progress.
 
 ## Decision
 
@@ -8,8 +8,7 @@ Use an Angular CLI npm workspace with one browser-only application and focused `
 libraries. Put simple design tokens in the UI library's styles. Lazy-load business features.
 Use strict typing and one Angular 22 runtime; retain intentional older-pattern feature profiles.
 
-Source structure (Dashboard, Requests, Approvals, Assets, Preferences, core, domain and UI exist;
-later Suppliers/people/reports/administration features remain planned):
+Implemented source structure:
 
 ```text
 projects/workplace-hub/src/app/
@@ -17,7 +16,7 @@ projects/workplace-hub/src/app/
   core/{session,mock-http,scenarios}/
   features/{dashboard,requests,approvals,assets,suppliers,people,teams,reports,administration,preferences}/
 projects/domain/src/lib/{models,policies}/
-projects/ui/src/lib/{components,directives,pipes,styles}/
+projects/ui/src/lib/{components,styles}/
 ```
 
 Dependencies: feature pages → feature services/state → domain contracts;
@@ -39,7 +38,7 @@ scenario generation must not overwrite a new scenario's state.
 Start with semantic HTML and shared CSS styling. Add Angular CDK behaviors only for concrete
 overlay, focus, or scrolling requirements. Do not introduce alternate UI libraries or tool comparisons.
 
-The application uses Angular CLI-supported Vitest/jsdom with 47 passing unit tests and focused
+The application uses Angular CLI-supported Vitest/jsdom with focused automated tests and isolated
 Chrome verification of the principal workflow, keyboard operation, permission/unsaved guards and
 pending-write cancellation. Browser checks used temporary isolated automation; committed unit
 checks run through npm, and quickstart guides retain repeatable browser scenarios.
@@ -75,3 +74,20 @@ seed snapshots, versions, links and counters. Writes execute only after context 
 the cancellable mock timer. A scoped WorkflowClient provides single-flight/finalize state and
 advances context after success so resource/list reads refresh. Active pages clear old context
 content in addition to functional entry guards. CanDeactivate protects dirty request forms.
+
+## Enterprise and pattern extensions
+
+AdministrationRepository and EnterpriseRepository extend the immutable workflow store with contacts,
+policies, memberships, report definitions and versioned organization configuration. Known actors,
+optimistic versions, record relationships and context checks remain at commit time. Current membership
+controls asset visibility; historical request team IDs remain fixed. Reports scope every run/export before
+applying saved filters, summarize all matches and render at most 100 rows. Category availability and
+purchasing limits apply to future submissions; manager capability flags affect create/export commands.
+
+Suppliers uses a feature-local DI class interceptor with withRequestsMadeViaParent. Reports resolve
+first-navigation data as a cancelable Observable with error/EMPTY recovery; an input-bound page-local
+resource refreshes after context changes and suppresses obsolete results immediately. Organization
+summary caching and editor drafts are scoped to identity/reset; transient failures retain editable values.
+UI owns generic CVAs/FormValueControl, typed projected table templates, display pipe and host region behavior.
+The deferred chart has its own production chunk; dynamic Dashboard types remain inside the lazy Dashboard.
+No new dependencies, external backend or alternate Angular runtime were introduced.

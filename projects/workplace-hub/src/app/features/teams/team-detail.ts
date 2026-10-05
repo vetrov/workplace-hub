@@ -8,6 +8,7 @@ import {
     Injector,
     input,
     signal,
+    untracked,
     viewChild,
 } from '@angular/core';
 import {
@@ -64,7 +65,7 @@ import { DEMO_IDENTITIES } from '../../core/mock-http/seed-data';
                 <button (click)="reader.retry()">Retry team</button>
             </div>
         }
-        @if (reader.record(); as view) {
+        @if (view(); as view) {
             <section class="panel">
                 <div class="panel-header">
                     <div>
@@ -248,22 +249,47 @@ export class TeamDetail {
         this.administrator() ? '/api/teams' : undefined,
     );
 
+    private readonly scope = computed(
+        () =>
+            `${this.session.epoch()}:${this.scenario.resetVersion()}:${this.id()}`,
+    );
+    private readonly snapshot = signal<
+        | {
+              scope: string;
+              view: TeamView;
+              people: readonly Person[];
+              teams: readonly VersionedTeam[];
+          }
+        | undefined
+    >(undefined);
+    readonly view = computed(() =>
+        this.allowed() && this.snapshot()?.scope === this.scope()
+            ? this.snapshot()?.view
+            : undefined,
+    );
+    private readonly retainedPeople = computed(() =>
+        this.snapshot()?.scope === this.scope() ? this.snapshot()!.people : [],
+    );
     readonly options = computed(() =>
-        this.teams.loading() || this.teams.error()
-            ? []
-            : this.people
-                  .items()
+        this.administrator() &&
+        this.snapshot()?.scope === this.scope() &&
+        !!this.snapshot()?.teams.length
+            ? this.retainedPeople()
                   .filter(
                       (p) =>
                           p.teamId !== this.id() &&
                           !DEMO_IDENTITIES.some((a) => a.personId === p.id) &&
-                          !this.teams.items().some((t) => t.managerId === p.id),
+                          !this.snapshot()!.teams.some(
+                              (t) => t.managerId === p.id,
+                          ),
                   )
                   .map((p) => ({
                       value: p.id,
                       label: `${p.name} · ${p.teamId}`,
-                  })),
+                  }))
+            : [],
     );
+
     readonly form = new FormGroup({
         personId: new FormControl<string | null>(null, Validators.required),
     });
@@ -271,6 +297,33 @@ export class TeamDetail {
     private readonly picker = viewChild(EmployeePicker);
 
     constructor() {
+        effect(() => {
+            const view = this.reader.record(),
+                people = this.people.items(),
+                teams = this.teams.items(),
+                scope = this.scope();
+            untracked(() => {
+                const previous =
+                    this.snapshot()?.scope === scope
+                        ? this.snapshot()
+                        : undefined;
+                if (view && view.team.id === this.id())
+                    this.snapshot.set({
+                        scope,
+                        view,
+                        people: people.length
+                            ? people
+                            : (previous?.people ?? []),
+                        teams: teams.length ? teams : (previous?.teams ?? []),
+                    });
+                else if (previous && (people.length || teams.length))
+                    this.snapshot.set({
+                        ...previous,
+                        people: people.length ? people : previous.people,
+                        teams: teams.length ? teams : previous.teams,
+                    });
+            });
+        });
         const cdr = inject(ChangeDetectorRef);
         this.form.events
             .pipe(takeUntilDestroyed())
@@ -311,10 +364,10 @@ export class TeamDetail {
             );
             return;
         }
-        const view = this.reader.record(),
-            person = this.people
-                .items()
-                .find((p) => p.id === this.form.controls.personId.value);
+        const view = this.view(),
+            person = this.retainedPeople().find(
+                (p) => p.id === this.form.controls.personId.value,
+            );
         if (!view || !person || !this.administrator()) return;
         this.mutation.run<TeamView>(
             'POST',

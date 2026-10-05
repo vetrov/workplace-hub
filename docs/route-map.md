@@ -1,8 +1,7 @@
 # Route map
 
-Eighteen of the 29 business screens below are implemented: foundation/workflow, all four Suppliers
-screens and the purchasing policy list/editor. The remaining 11 screens are next in enterprise breadth.
-Navigation distinguishes working features from planned sections.
+All 29 business screens below are implemented and verified. Navigation links open working features;
+role entry guards and reactive views enforce the demo identity's permissions.
 
 | Route                               | Screen                     | Primary access                                        | Delivery                            |
 | ----------------------------------- | -------------------------- | ----------------------------------------------------- | ----------------------------------- |
@@ -16,30 +15,31 @@ Navigation distinguishes working features from planned sections.
 | `/assets`                           | Asset inventory/list       | Employee: assigned; manager: team; administrator: all | Foundation + workflow — implemented |
 | `/assets/new`                       | Create available inventory | Administrator                                         | Workflow — implemented              |
 | `/assets/:id`                       | Asset detail               | Authorized employee, team manager, administrator      | Workflow — implemented              |
-| `/assets/:id/edit`                  | Edit asset                 | Administrator                                         | Enterprise breadth                  |
+| `/assets/:id/edit`                  | Edit asset                 | Administrator                                         | Enterprise breadth — implemented    |
 | `/assets/:id/assign`                | Assign asset               | Administrator                                         | Workflow — implemented              |
 | `/suppliers`                        | Supplier directory         | Administrator                                         | Angular coverage — implemented      |
 | `/suppliers/new`                    | Create supplier            | Administrator                                         | Angular coverage — implemented      |
 | `/suppliers/:id`                    | Supplier detail/contacts   | Administrator                                         | Angular coverage — implemented      |
 | `/suppliers/:id/edit`               | Edit supplier              | Administrator                                         | Angular coverage — implemented      |
-| `/people`                           | People directory           | All demo identities                                   | Enterprise breadth                  |
-| `/people/:id`                       | Employee profile           | All demo identities                                   | Enterprise breadth                  |
-| `/teams`                            | Teams                      | Manager, administrator                                | Enterprise breadth                  |
-| `/teams/:id`                        | Team membership            | Manager: own team; administrator: all                 | Enterprise breadth                  |
-| `/reports`                          | Saved reports              | Manager, administrator                                | Enterprise breadth                  |
-| `/reports/new`                      | Configure report           | Manager, administrator                                | Enterprise breadth                  |
-| `/reports/:id`                      | Report results             | Report owner, administrator                           | Enterprise breadth                  |
+| `/people`                           | People directory           | All demo identities                                   | Enterprise breadth — implemented    |
+| `/people/:id`                       | Employee profile           | All demo identities                                   | Enterprise breadth — implemented    |
+| `/teams`                            | Teams                      | Manager, administrator                                | Enterprise breadth — implemented    |
+| `/teams/:id`                        | Team membership            | Manager: own team; administrator: all                 | Enterprise breadth — implemented    |
+| `/reports`                          | Saved reports              | Manager, administrator                                | Enterprise breadth — implemented    |
+| `/reports/new`                      | Configure report           | Manager, administrator                                | Enterprise breadth — implemented    |
+| `/reports/:id`                      | Report results             | Report owner, administrator                           | Enterprise breadth — implemented    |
 | `/administration/policies`          | Policy list                | Administrator                                         | Angular coverage — implemented      |
 | `/administration/policies/:id/edit` | Policy editor              | Administrator                                         | Angular coverage — implemented      |
-| `/administration/roles`             | Role configuration         | Administrator                                         | Enterprise breadth                  |
-| `/administration/categories`        | Request categories         | Administrator                                         | Enterprise breadth                  |
-| `/administration/settings`          | Organization settings      | Administrator                                         | Enterprise breadth                  |
+| `/administration/roles`             | Role configuration         | Administrator                                         | Enterprise breadth — implemented    |
+| `/administration/categories`        | Request categories         | Administrator                                         | Enterprise breadth — implemented    |
+| `/administration/settings`          | Organization settings      | Administrator                                         | Enterprise breadth — implemented    |
 | `/preferences`                      | User preferences           | All demo identities                                   | Foundation — implemented            |
 
 Redirect `/` to `/dashboard`. Unknown paths show an accessible not-found page. An access-denied helper is available at
 `/access-denied`; functional entry guards protect employee creation/editing, manager reviews and administrator
 inventory actions, supplier administration and purchasing policies. Active pages react to identity changes;
-request, supplier and policy editors protect unsaved changes and pending saves. Helper pages are not part of the 29-screen count.
+request, supplier, policy, team transfer, asset maintenance, report configuration and organization editors
+protect unsaved changes and pending saves. Helper pages are not part of the 29-screen count.
 Declare literal paths such as `new` before parameter paths such as `:id`. Preserve list filters,
 sort, and pagination in query parameters. Static hosting must provide SPA history fallback.
 

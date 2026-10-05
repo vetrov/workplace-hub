@@ -14,15 +14,15 @@ specification and plan before changing implementation.
 - Track meaningful verification in the feature tasks; avoid tests that only repeat trivial code.
 - New libraries and tooling must have a concrete requirement. Do not add evaluation frameworks.
 
-The foundation, request-to-asset workflow, NgModule Suppliers and actual Signal Forms purchasing
-policies are implemented and verified. Preserve older APIs in Suppliers, including deprecated
-NgIf/NgFor and the explicit Default/Eager card; Angular 22 still supports them. Preserve scoped
-class-interceptor forwarding, decorator queries and zoneless notifications. Policies must use
-actual @angular/forms/signals, and their custom picker must display initially loaded values.
-Preserve unchanged-value failed-save retries, actor/version/transition ordering, atomic assignment,
-policy checks on future submissions and reset/identity cancellation. People/Teams, Reports,
-asset editing, remaining administration and unbuilt coverage entries remain planned. Consult the
-coverage matrix. Commit each completed step locally; user instructions take precedence.
+All 29 planned business routes and 31 required Angular coverage entries are implemented.
+Preserve older Suppliers APIs (deprecated NgIf/NgFor and explicit Default/Eager), scoped class-interceptor
+forwarding, decorator queries and zoneless notifications. Policies must keep actual Signal Forms and
+loaded native selection/unchanged-input retries. Preserve snapshot/version/cancellation checks,
+protected assignment, historical request teams, current membership visibility and scoped report runs/export.
+Keep typed projected templates, resolver EMPTY/error recovery, independently deferred chart, actual dynamic
+widgets/host directives, custom controls and render hooks. Settings/category/role pages must retain their
+real cross-feature effects. Milestone 5 final audit remains in progress. Consult the coverage matrix;
+commit each completed step locally. User instructions take precedence.
 
 Use the repository Prettier configuration (four spaces) and run `npm run format:check`
 before committing. Keep blank lines after import groups, between top-level declarations,
