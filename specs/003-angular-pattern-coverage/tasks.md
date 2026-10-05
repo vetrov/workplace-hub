@@ -10,7 +10,7 @@
 ## Phase 2: Shared foundations
 
 - [x] T002 Implement contracts/domain validators in projects/domain/src/lib/{models,policies}/administration.ts; write focused administration-domain.spec.ts first. Supplier name/contactName trimmed 3–100, email 3–160 and valid, phone at most 40, notes at most 1000; policy name 3–100, category equipment/software/service, maximumTotal 0.01–10000000 with at most two decimals, enabled boolean; positive integer versions.
-- [ ] T003 Implement immutable administration-repository.ts and extend mock.interceptor.ts; write administration.spec.ts/administration-http.spec.ts first for actor checks, unique supplier names, stale versions, policy submission effects and delayed context cancellation; reset restores 40 suppliers/3 policies.
+- [x] T003 Implement immutable administration-repository.ts and extend mock.interceptor.ts; write administration.spec.ts/administration-http.spec.ts first for actor checks, unique supplier names, stale versions, policy submission effects and delayed context cancellation; reset restores 40 suppliers/3 policies.
 
 ## Phase 3: US1 — Find suppliers
 
@@ -49,3 +49,5 @@ T001: Spec quality checklist 8/8 passed; API research verified against installed
 and official documentation. Constitution pre/post-design checks pass. No extension hooks configured.
 
 T002: 66 tests passed, including 19 new malformed-contact, policy-money, draft and combined-limit checks; no new dependencies.
+
+T003: 80 tests passed; contacts/known actors, duplicate names, stale versions, policy limits, deterministic reset and delayed/unsubscribed HTTP writes verified.

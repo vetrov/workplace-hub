@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { defer, EMPTY, mergeMap, of, throwError, timer } from 'rxjs';
-import { WorkflowError } from 'domain';
+import { WorkflowError, normalizeQuery } from 'domain';
 import { DEMO_SESSION, REPOSITORY, SCENARIO_CONTEXT } from './mock-repository';
 import { DEMO_IDENTITIES } from './seed-data';
 
@@ -68,6 +68,12 @@ export const mockInterceptor: HttpInterceptorFn = (request) => {
                 const assetMatch = request.url.match(
                     /^\/api\/assets\/([^/]+)(?:\/(assign))?$/,
                 );
+                const supplierMatch = request.url.match(
+                    /^\/api\/suppliers\/([^/]+)$/,
+                );
+                const policyMatch = request.url.match(
+                    /^\/api\/policies\/([^/]+)$/,
+                );
                 const methods: Record<string, () => unknown> = {};
                 const record = (value: unknown) => ({
                     record: value,
@@ -84,6 +90,64 @@ export const mockInterceptor: HttpInterceptorFn = (request) => {
                         repository.list('assets', params, actor, contextKey);
                     methods['POST'] = () =>
                         record(repository.createAsset(bodySnapshot, actor));
+                } else if (request.url === '/api/suppliers') {
+                    methods['GET'] = () => {
+                        const query = normalizeQuery('assets', params);
+                        const needle = query.q.toLowerCase();
+                        const items = repository
+                            .suppliers(actor)
+                            .filter((s) =>
+                                `${s.id} ${s.name} ${s.email}`
+                                    .toLowerCase()
+                                    .includes(needle),
+                            )
+                            .sort(
+                                (a, b) =>
+                                    a.name.localeCompare(b.name) ||
+                                    a.id.localeCompare(b.id),
+                            );
+                        const page = Math.min(
+                            query.page,
+                            Math.max(1, Math.ceil(items.length / 25)),
+                        );
+                        return {
+                            items: items.slice((page - 1) * 25, page * 25),
+                            total: items.length,
+                            page,
+                            pageSize: 25,
+                            contextKey,
+                        };
+                    };
+                    methods['POST'] = () =>
+                        record(repository.createSupplier(bodySnapshot, actor));
+                } else if (request.url === '/api/supplier-options') {
+                    methods['GET'] = () =>
+                        collection(repository.supplierOptions(actor));
+                } else if (supplierMatch) {
+                    methods['GET'] = () =>
+                        record(repository.supplier(supplierMatch[1], actor));
+                    methods['PATCH'] = () =>
+                        record(
+                            repository.updateSupplier(
+                                supplierMatch[1],
+                                bodySnapshot,
+                                actor,
+                            ),
+                        );
+                } else if (request.url === '/api/policies') {
+                    methods['GET'] = () =>
+                        collection(repository.policies(actor));
+                } else if (policyMatch) {
+                    methods['GET'] = () =>
+                        record(repository.policy(policyMatch[1], actor));
+                    methods['PATCH'] = () =>
+                        record(
+                            repository.updatePolicy(
+                                policyMatch[1],
+                                bodySnapshot,
+                                actor,
+                            ),
+                        );
                 } else if (request.url === '/api/dashboard')
                     methods['GET'] = () =>
                         repository.dashboard(actor, contextKey);

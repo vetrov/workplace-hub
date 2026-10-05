@@ -10,12 +10,12 @@ import {
     PageResult,
     RequestSummary,
     SeedData,
-    WorkflowStore,
+    AdministrationStore,
 } from 'domain';
 import { DEMO_IDENTITIES } from './seed-data';
-import { WorkflowRepository } from './workflow-repository';
+import { AdministrationRepository } from './administration-repository';
 
-export interface Repository extends WorkflowStore {
+export interface Repository extends AdministrationStore {
     readonly data: SeedData;
     reset(): void;
     list(
@@ -28,7 +28,10 @@ export interface Repository extends WorkflowStore {
 }
 
 @Injectable({ providedIn: 'root' })
-export class MockRepository extends WorkflowRepository implements Repository {
+export class MockRepository
+    extends AdministrationRepository
+    implements Repository
+{
     constructor() {
         super();
     }
