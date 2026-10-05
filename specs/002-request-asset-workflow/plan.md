@@ -12,7 +12,7 @@ feature ownership. Use no new dependencies.
 
 TypeScript 6.0.3; Angular 22.2.1; RxJS 7.8.2; Node 22.23.2/npm 10.9.8. Browser-only/zoneless.
 In-memory repository; existing localStorage identity/display persistence. Vitest/jsdom and focused
-isolated Chrome checks. Bounded list rendering; nine additional business routes (13 of 29 total).
+isolated Chrome checks. Bounded list rendering; eight additional business routes (12 of 29 total).
 No SSR, production services, evaluation work, or persistent business database.
 
 ## Constitution Check

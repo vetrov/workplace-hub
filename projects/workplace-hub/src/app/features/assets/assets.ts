@@ -1,4 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Session } from '../../core/session/session';
 import { StatusBadge } from 'ui';
 import { LIST_KIND, ListQueryState } from '../../core/list-query';
 import { INITIAL_DATA } from '../../core/mock-http/seed-data';
@@ -6,11 +8,12 @@ import { AssetListService } from './asset-list.service';
 import { Scenario } from '../../core/scenarios/scenario';
 
 @Component({
-  imports: [StatusBadge],
+  imports: [RouterLink, StatusBadge],
   providers: [{ provide: LIST_KIND, useValue: 'assets' }, ListQueryState, AssetListService],
   templateUrl: './assets.html',
 })
 export class Assets {
+  readonly session = inject(Session);
   readonly list = inject(AssetListService);
   readonly query = inject(ListQueryState);
   readonly Math = Math;

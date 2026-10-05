@@ -4,7 +4,9 @@
     <h1>Assets</h1>
     <p>A clear inventory of your equipment, software and assignments.</p>
   </div>
-  <span class="section-tag">Read-only inventory</span>
+  @if (session.identity().role === 'administrator') {
+    <a class="button primary" routerLink="/assets/new">Create asset</a>
+  }
 </div>
 <section class="panel" aria-labelledby="asset-list-heading" [attr.aria-busy]="list.state().loading">
   <div class="panel-header">
@@ -94,7 +96,8 @@
             <tr>
               <td class="record-id">{{ asset.id }}</td>
               <td>
-                <strong>{{ asset.name }}</strong
+                <a [routerLink]="['/assets', asset.id]"
+                  ><strong>{{ asset.name }}</strong></a
                 ><small>{{ asset.type }}</small>
               </td>
               <td>{{ personName(asset.assigneeId) }}</td>

@@ -57,7 +57,8 @@
             @for (request of requests(); track request.id) {
               <tr>
                 <td>
-                  <strong>{{ request.title }}</strong
+                  <a [routerLink]="['/requests', request.id]"
+                    ><strong>{{ request.title }}</strong></a
                   ><small>{{ request.id }}</small>
                 </td>
                 <td><ui-status [value]="request.status" /></td>
@@ -85,7 +86,8 @@
       <div class="asset-preview">
         <span class="asset-icon" aria-hidden="true">▣</span>
         <div>
-          <strong>{{ asset.name }}</strong
+          <a [routerLink]="['/assets', asset.id]"
+            ><strong>{{ asset.name }}</strong></a
           ><small>{{ asset.id }} · {{ asset.type }}</small>
         </div>
         <ui-status [value]="asset.status" />

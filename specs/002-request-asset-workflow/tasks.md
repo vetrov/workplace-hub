@@ -1,7 +1,7 @@
 # Tasks: Request-to-Asset Workflow
 
 **Input**: spec.md, plan.md, research.md, data-model.md, contracts/workflow.md and quickstart.md.
-**Status**: 11/14 tasks complete; implementation in progress.
+**Status**: 12/14 tasks complete; implementation in progress.
 
 ## Phase 1: Setup
 
@@ -37,7 +37,7 @@ Goal: inventory creation/details/assignment. Independent test: seeded approved r
 
 ## Phase 6: Integration and Verification
 
-- [ ] T012 Add lazy routes/functional entry and request CanDeactivate guards in `projects/workplace-hub/src/app/app.routes.ts` and `core/workflow-guards.ts`; integrate real list/detail/new/approval navigation and responsive shared workflow styles in `projects/ui/src/lib/styles/_foundation.scss`.
+- [x] T012 Add lazy routes/functional entry and request CanDeactivate guards in `projects/workplace-hub/src/app/app.routes.ts` and `core/workflow-guards.ts`; integrate real list/detail/new/approval navigation and responsive shared workflow styles in `projects/ui/src/lib/styles/_foundation.scss`.
 - [ ] T013 Run unit/app/library builds and browser scenarios in `specs/002-request-asset-workflow/quickstart.md`; verify complete create → approve → assign and rejection, controls, permission/unsaved behavior and cancellation; fix issues and record actual evidence in `tasks.md`.
 - [ ] T014 Update `README.md`, `AGENTS.md`, `docs/angular-coverage.md`, `docs/route-map.md`, `docs/implementation-roadmap.md` and this feature's status with working behavior, actual pattern sources and remaining scope.
 

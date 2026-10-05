@@ -1,4 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Session } from '../../core/session/session';
 import { DatePipe } from '@angular/common';
 import { StatusBadge } from 'ui';
 import { LIST_KIND, ListQueryState } from '../../core/list-query';
@@ -7,11 +9,12 @@ import { RequestListService } from './request-list.service';
 import { Scenario } from '../../core/scenarios/scenario';
 
 @Component({
-  imports: [DatePipe, StatusBadge],
+  imports: [RouterLink, DatePipe, StatusBadge],
   providers: [{ provide: LIST_KIND, useValue: 'requests' }, ListQueryState, RequestListService],
   templateUrl: './requests.html',
 })
 export class Requests {
+  readonly session = inject(Session);
   readonly list = inject(RequestListService);
   readonly query = inject(ListQueryState);
   readonly Math = Math;

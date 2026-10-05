@@ -4,7 +4,9 @@
     <h1>Requests</h1>
     <p>Track equipment, software and service requests across your workspace.</p>
   </div>
-  <span class="section-tag">Read-only register</span>
+  @if (session.identity().role === 'employee') {
+    <a class="button primary" routerLink="/requests/new">Create request</a>
+  }
 </div>
 <section
   class="panel"
@@ -98,7 +100,8 @@
             <tr>
               <td class="record-id">{{ request.id }}</td>
               <td>
-                <strong>{{ request.title }}</strong
+                <a [routerLink]="['/requests', request.id]"
+                  ><strong>{{ request.title }}</strong></a
                 ><small>{{ request.category }}</small>
               </td>
               <td>{{ personName(request.requesterId) }}</td>

@@ -28,18 +28,22 @@ export class Shell {
   );
   readonly section = computed(
     () =>
-      ({
-        dashboard: 'Overview',
-        requests: 'Requests',
-        assets: 'Assets',
-        preferences: 'Preferences',
-      })[this.path().split('/')[1]?.split('?')[0] as 'dashboard'] ?? 'Workspace',
+      (
+        ({
+          dashboard: 'Overview',
+          requests: 'Requests',
+          assets: 'Assets',
+          approvals: 'Approvals',
+          preferences: 'Preferences',
+        }) as Record<string, string>
+      )[this.path().split('/')[1]?.split('?')[0]] ?? 'Workspace',
   );
   readonly links = [
     { path: '/dashboard', label: 'Overview', icon: '◫' },
     { path: '/requests', label: 'Requests', icon: '≡' },
+    { path: '/approvals', label: 'Approvals', icon: '✓' },
     { path: '/assets', label: 'Assets', icon: '▣' },
     { path: '/preferences', label: 'Preferences', icon: '⚙' },
   ];
-  readonly planned = ['Approvals', 'Suppliers', 'People & teams', 'Reports', 'Administration'];
+  readonly planned = ['Suppliers', 'People & teams', 'Reports', 'Administration'];
 }
