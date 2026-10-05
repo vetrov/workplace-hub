@@ -94,6 +94,9 @@ it('retries a failed Signal Forms save with unchanged values and retains dirty s
     await fixture.whenStable();
     const page = fixture.componentInstance;
     expect(page.loaded()).toBe(true);
+    expect(fixture.nativeElement.querySelector('#policy-category').value).toBe(
+        'equipment',
+    );
     page.policyForm.maximumTotal().controlValue.set(100);
     await page.save(new Event('submit', { cancelable: true }));
     await fixture.whenStable();

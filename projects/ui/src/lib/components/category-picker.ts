@@ -28,9 +28,19 @@ export interface CategoryOption {
             (change)="choose($event)"
             (blur)="touch.emit()"
         >
-            <option value="">Choose category</option>
+            <option
+                value=""
+                [selected]="!value()"
+            >
+                Choose category
+            </option>
             @for (option of options(); track option.value) {
-                <option [value]="option.value">{{ option.label }}</option>
+                <option
+                    [value]="option.value"
+                    [selected]="value() === option.value"
+                >
+                    {{ option.label }}
+                </option>
             }
         </select>
     `,

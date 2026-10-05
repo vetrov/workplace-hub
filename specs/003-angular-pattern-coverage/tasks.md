@@ -59,3 +59,8 @@ T005: 85 tests and production build passed; Chrome verified projected invalid-co
 T006: 89 tests passed; real editor failed-save retry regression and custom FormField control/schema/submission tests pass. Production build and Chrome keyboard/dirty/error-retry/version/purchasing-limit workflow pass; policy editor remains a separate lazy chunk.
 
 T007: 90 tests, app build and both library builds passed; Chrome verified new supplier selection, inventory creation and name changes on linked assets without reload. Added ownership/version-before-policy regression check.
+
+T008 preliminary review: visual inspection found the custom picker initially showed its placeholder
+for a loaded category. A real editor assertion reproduced the defect; explicit selected-option bindings
+fix it. The 90-test suite, app/library builds and rerun policy/mobile/recovery browser checks pass.
+The navigation labels distinguish delivered purchasing policies from remaining administration pages.

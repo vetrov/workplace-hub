@@ -65,5 +65,5 @@ export class Shell {
         { path: '/preferences', label: 'Preferences', icon: '⚙' },
     ];
 
-    readonly planned = ['People & teams', 'Reports', 'Administration'];
+    readonly planned = ['People & teams', 'Reports', 'More administration'];
 }
