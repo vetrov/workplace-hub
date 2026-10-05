@@ -32,7 +32,7 @@ describe('synthetic HTTP scenarios', () => {
     await vi.advanceTimersByTimeAsync(250); expect((await empty).total).toBe(0);
     scenario.select('error');
     const failed = firstValueFrom(http.get('/api/requests')).catch(error => error as HttpErrorResponse);
-    await vi.advanceTimersByTimeAsync(250); expect((await failed).status).toBe(503);
+    await vi.advanceTimersByTimeAsync(250); expect(await failed).toMatchObject({status: 503});
     scenario.retry();
     const recovered = firstValueFrom(http.get<PageResult<RequestSummary>>('/api/requests'));
     await vi.advanceTimersByTimeAsync(250); expect((await recovered).total).toBeGreaterThan(0);
@@ -50,6 +50,6 @@ describe('synthetic HTTP scenarios', () => {
     const mutation = firstValueFrom(http.post('/api/requests', {})).catch(e => e as HttpErrorResponse);
     const received = vi.fn(); const subscription = http.get('/api/assets').subscribe(received); subscription.unsubscribe();
     await vi.advanceTimersByTimeAsync(250);
-    expect((await unknown).status).toBe(404); expect((await mutation).status).toBe(405); expect(received).not.toHaveBeenCalled();
+    expect(await unknown).toMatchObject({status: 404}); expect(await mutation).toMatchObject({status: 405}); expect(received).not.toHaveBeenCalled();
   });
 });
