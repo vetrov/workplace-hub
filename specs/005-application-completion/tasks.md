@@ -1,0 +1,30 @@
+# Tasks: Application Completion
+
+Input: spec, plan, research, data model, UI contract and quickstart. Checklist 16/16 passes.
+
+## Phase 1: Setup
+
+- [x] T001 Specify/design/research final audit, initialize artifacts and check constitution.
+
+## Phase 2: US1 — Editor safeguards
+
+- [ ] T002 Test and repair RequestWizard/AssetCreate pending/dirty guards, valid-form gates, asset options recovery and assets/new route guard. Verify save/failure/retry/reset/identity behavior.
+
+## Phase 3: US2 — Keyboard navigation
+
+- [ ] T003 Implement/test render-safe Shell navigation focus and request wizard/asset invalid/step focus; preserve legacy focus and query interactions; remove unused planned navigation loop.
+
+## Phase 4: US3 — Final verification
+
+- [ ] T004 Audit all 29 business routes, helper pages, keyboard/labels/titles/390px, preferences, response states and principal workflow regressions. Run full tests/app/library builds/format; verify pinned setup and all 31 source coverage entries. Fix any observed defects and record concrete evidence.
+
+## Phase 5: Completion
+
+- [ ] T005 Write docs/verification.md, update README/AGENTS/roadmap/coverage/routes/product/architecture completion evidence, complete feature tasks/spec and run convergence. Confirm clean locally committed repository.
+
+Dependencies: T001→T002→T003→T004→T005. Source/tests execute sequentially; independent browser checks may run concurrently.
+Every completed task receives a local commit on main. No push/PR/deployment. No extra dependencies or product scope.
+
+## Evidence
+
+T001: Requirements checklist 16/16; two read-only research agents confirm pinned guard/render/router integration. Constitution pre/post-design checks pass. Existing workflow, Suppliers and policies regressions pass after enterprise integration; feature 004 convergence has zero findings (10 FR, 4 SC, 20 acceptance scenarios, 9 tasks, 5 principles).
