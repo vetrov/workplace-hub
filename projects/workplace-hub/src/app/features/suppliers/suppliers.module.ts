@@ -10,10 +10,11 @@ import {
 import { SupplierDirectory } from './supplier-directory';
 import { SupplierDetailPage } from './supplier-detail';
 import { SupplierWidgetsModule } from './supplier-widgets';
+import { SupplierEditPage, supplierChangesGuard } from './supplier-edit-page';
 import { SupplierClient, SupplierMetadataInterceptor } from './supplier-client';
 
 @NgModule({
-    declarations: [SupplierDirectory, SupplierDetailPage],
+    declarations: [SupplierDirectory, SupplierDetailPage, SupplierEditPage],
     imports: [
         CommonModule,
         SupplierWidgetsModule,
@@ -22,6 +23,18 @@ import { SupplierClient, SupplierMetadataInterceptor } from './supplier-client';
                 path: '',
                 component: SupplierDirectory,
                 title: 'Suppliers · Workplace Hub',
+            },
+            {
+                path: 'new',
+                component: SupplierEditPage,
+                canDeactivate: [supplierChangesGuard],
+                title: 'Create supplier · Workplace Hub',
+            },
+            {
+                path: ':id/edit',
+                component: SupplierEditPage,
+                canDeactivate: [supplierChangesGuard],
+                title: 'Edit supplier · Workplace Hub',
             },
             {
                 path: ':id',

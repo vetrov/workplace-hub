@@ -11,6 +11,9 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SupplierDetail } from 'domain';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SupplierEditor } from './supplier-editor';
+import { SupplierField, SupplierControl } from './supplier-field';
 
 @Component({
     selector: 'app-supplier-card',
@@ -43,8 +46,13 @@ export class SupplierCard implements OnChanges {
 }
 
 @NgModule({
-    declarations: [SupplierCard],
-    imports: [CommonModule],
-    exports: [SupplierCard],
+    declarations: [
+        SupplierCard,
+        SupplierEditor,
+        SupplierField,
+        SupplierControl,
+    ],
+    imports: [CommonModule, ReactiveFormsModule],
+    exports: [SupplierCard, SupplierEditor],
 })
 export class SupplierWidgetsModule {}

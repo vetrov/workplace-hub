@@ -49,6 +49,9 @@ export class SupplierFacade {
         injector: Injector,
     ) {
         this.context$ = toObservable(context.key, { injector });
+        this.context$
+            .pipe(takeUntilDestroyed(destroy))
+            .subscribe(() => this.saveError.next(''));
         this.directory$ = combineLatest([
             this.context$,
             this.query,

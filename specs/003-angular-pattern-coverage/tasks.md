@@ -22,7 +22,7 @@
 
 **Independent verification**: Supplier create/edit/conflicts; dirty navigation; identity/reset cancellation and invalid-control focus.
 
-- [ ] T005 [US2] Implement supplier-editor.ts, supplier-edit-page.ts, projected field/query directives and editor guard in features/suppliers/; write meaningful input/query/form tests first; wire new/edit routes, lifecycle/constructor DI and EventEmitter intent.
+- [x] T005 [US2] Implement supplier-editor.ts, supplier-edit-page.ts, projected field/query directives and editor guard in features/suppliers/; write meaningful input/query/form tests first; wire new/edit routes, lifecycle/constructor DI and EventEmitter intent.
 
 ## Phase 5: US3 — Purchasing policies
 
@@ -53,3 +53,5 @@ T002: 66 tests passed, including 19 new malformed-contact, policy-money, draft a
 T003: 80 tests passed; contacts/known actors, duplicate names, stale versions, policy limits, deterministic reset and delayed/unsubscribed HTTP writes verified.
 
 T004: 82 tests and production build passed; Chrome verified paging/query search, linked inventory and immediate role clearing. Unit checks prove aliased inputs/transform/Default rendering and lazy class-interceptor metadata reaching the root mock.
+
+T005: 85 tests and production build passed; Chrome verified projected invalid-control focus, dirty navigation cancel, reset clears drafts, failed-save input retention, create/edit and delayed-reset cancellation.
