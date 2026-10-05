@@ -1,4 +1,13 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { ReportChart } from './report-chart';
+import {
+    Component,
+    computed,
+    effect,
+    inject,
+    input,
+    signal,
+    untracked,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ReportRow, ReportRun, reportRole } from 'domain';
 import { ColumnSpec, ComposedTable, StatusBadge, TableColumn } from 'ui';
@@ -9,7 +18,7 @@ import { Organization } from '../../core/organization';
 import { ReportResolution } from './report-resolver';
 
 @Component({
-    imports: [RouterLink, ComposedTable, TableColumn, StatusBadge],
+    imports: [RouterLink, ComposedTable, TableColumn, StatusBadge, ReportChart],
     providers: [WorkflowClient],
     template: `
         <div class="page-header">
@@ -144,6 +153,36 @@ import { ReportResolution } from './report-resolver';
                     </div>
                 }
             </section>
+            @defer (on interaction(chartTrigger)) {
+                <app-report-chart
+                    [buckets]="result.buckets"
+                    [total]="result.total"
+                />
+            } @placeholder {
+                <section class="panel state">
+                    <h2>Visualize this report</h2>
+                    <p>Load the status breakdown when you need it.</p>
+                    <button #chartTrigger>Show visualization</button>
+                </section>
+            } @loading (after 100ms; minimum 200ms) {
+                <section
+                    class="panel state"
+                    role="status"
+                >
+                    Loading visualization…
+                </section>
+            } @error {
+                <section
+                    class="panel state"
+                    role="alert"
+                >
+                    <h2>Visualization unavailable</h2>
+                    <p>
+                        The table and CSV remain available. Reload the page to
+                        retry loading the visualization.
+                    </p>
+                </section>
+            }
         }
     `,
 })
@@ -208,6 +247,13 @@ export class ReportDetail {
         heading: 'Person',
         value: (r) => r.personId,
     };
+
+    constructor() {
+        effect(() => {
+            this.resolved();
+            untracked(() => this.requested.set(false));
+        });
+    }
 
     retry(): void {
         this.requested.set(true);

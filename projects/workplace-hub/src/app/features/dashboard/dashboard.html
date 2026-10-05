@@ -147,3 +147,44 @@
         }
     </section>
 </div>
+
+<section class="panel dashboard-widget-panel">
+    <div class="panel-header">
+        <div>
+            <h2>Workspace focus</h2>
+            <p>Choose the summary that helps with your next action.</p>
+        </div>
+        <div class="field">
+            <label for="dashboard-widget">Summary widget</label>
+            <select
+                id="dashboard-widget"
+                #widgetChoice
+                [value]="selectedWidget()"
+                (change)="chooseWidget(widgetChoice.value)"
+            >
+                @for (widget of widgets; track widget.id) {
+                    <option
+                        [value]="widget.id"
+                        [selected]="selectedWidget() === widget.id"
+                    >
+                        {{ widget.label }}
+                    </option>
+                }
+            </select>
+        </div>
+    </div>
+    @if (summary()) {
+        <ng-container
+            [ngComponentOutlet]="widget().component"
+            [ngComponentOutletInputs]="widgetInputs()"
+        />
+    } @else {
+        <p class="state">
+            {{
+                loading()
+                    ? 'Loading workspace summary…'
+                    : 'No workspace summary available.'
+            }}
+        </p>
+    }
+</section>

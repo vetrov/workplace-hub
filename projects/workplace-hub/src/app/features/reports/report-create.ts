@@ -26,7 +26,7 @@ import {
     REPORT_STATUSES,
     reportRole,
 } from 'domain';
-import { EmployeePicker } from 'ui';
+import { EmployeePicker, DisplayLabel } from 'ui';
 import { collectionResource } from '../../core/workflow-read';
 import { WorkflowClient } from '../../core/workflow-client';
 import { Organization } from '../../core/organization';
@@ -35,7 +35,7 @@ import { Scenario } from '../../core/scenarios/scenario';
 import { fieldError, trimmedText } from '../../core/form-validation';
 
 @Component({
-    imports: [RouterLink, ReactiveFormsModule, EmployeePicker],
+    imports: [RouterLink, ReactiveFormsModule, EmployeePicker, DisplayLabel],
     providers: [WorkflowClient],
     template: `
         <div class="page-header">
@@ -124,7 +124,9 @@ import { fieldError, trimmedText } from '../../core/form-validation';
                         >
                             <option value="">All statuses</option>
                             @for (status of statuses(); track status) {
-                                <option [value]="status">{{ status }}</option>
+                                <option [value]="status">
+                                    {{ status | displayLabel }}
+                                </option>
                             }
                         </select>
                     </div>

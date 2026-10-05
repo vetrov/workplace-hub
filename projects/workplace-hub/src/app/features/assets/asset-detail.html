@@ -68,9 +68,10 @@
             </dl>
             <p>{{ asset.notes }}</p>
             <div class="detail-actions">
-                @if (administrator() && !assignment()) {
+                @if (!assignment()) {
                     <a
                         class="button"
+                        *appRoleOnly="'administrator'"
                         [routerLink]="['/assets', asset.id, 'edit']"
                     >
                         Edit asset

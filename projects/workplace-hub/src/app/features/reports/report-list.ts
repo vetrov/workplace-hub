@@ -1,3 +1,4 @@
+import { DisplayLabel } from 'ui';
 import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -7,7 +8,7 @@ import { Organization } from '../../core/organization';
 import { Session } from '../../core/session/session';
 
 @Component({
-    imports: [RouterLink],
+    imports: [RouterLink, DisplayLabel],
     template: `
         <div class="page-header">
             <div>
@@ -84,8 +85,12 @@ import { Session } from '../../core/session/session';
                                 </a>
                             </h2>
                             <p>
-                                {{ report.dataset }} ·
-                                {{ report.status || 'All statuses' }} ·
+                                {{ report.dataset | displayLabel }} ·
+                                {{
+                                    report.status || 'All statuses'
+                                        | displayLabel
+                                }}
+                                ·
                                 {{ report.personId || 'All visible people' }}
                             </p>
                             <small>

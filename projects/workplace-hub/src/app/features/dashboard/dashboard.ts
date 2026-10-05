@@ -1,6 +1,7 @@
-import { Component, computed, inject } from '@angular/core';
+import { DASHBOARD_WIDGETS } from './dashboard-widgets';
+import { Component, computed, inject, signal } from '@angular/core';
 import { httpResource } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgComponentOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import {
     AssetSummary,
@@ -13,7 +14,7 @@ import { DemoContext, responseError } from '../../core/mock-http/context';
 import { Scenario } from '../../core/scenarios/scenario';
 
 @Component({
-    imports: [RouterLink, DatePipe, StatusBadge],
+    imports: [RouterLink, DatePipe, StatusBadge, NgComponentOutlet],
     templateUrl: './dashboard.html',
 })
 export class Dashboard {
@@ -62,6 +63,20 @@ export class Dashboard {
             ? (this.assetsResource.value()?.items.slice(0, 4) ?? [])
             : [],
     );
+
+    readonly widgets = DASHBOARD_WIDGETS;
+    readonly selectedWidget = signal<'work' | 'inventory'>('work');
+    readonly widget = computed(() =>
+        this.widgets.find((widget) => widget.id === this.selectedWidget())!,
+    );
+    readonly widgetInputs = computed(() => ({
+        summary: this.summary()!,
+        widgetLabel: this.widget().label,
+    }));
+
+    chooseWidget(id: string): void {
+        if (id === 'work' || id === 'inventory') this.selectedWidget.set(id);
+    }
 
     readonly loading = this.summaryResource.isLoading;
     readonly error = computed(() =>

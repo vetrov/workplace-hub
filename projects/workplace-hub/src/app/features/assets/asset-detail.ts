@@ -1,3 +1,4 @@
+import { RoleOnly } from '../../core/role-only';
 import {
     booleanAttribute,
     Component,
@@ -25,7 +26,7 @@ import { collectionResource, recordResource } from '../../core/workflow-read';
 import { personName } from '../../core/record-labels';
 
 @Component({
-    imports: [RouterLink, DatePipe, StatusBadge],
+    imports: [RouterLink, DatePipe, StatusBadge, RoleOnly],
     providers: [WorkflowClient],
     templateUrl: './asset-detail.html',
 })
