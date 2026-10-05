@@ -1,7 +1,7 @@
 # Tasks: Request-to-Asset Workflow
 
 **Input**: spec.md, plan.md, research.md, data-model.md, contracts/workflow.md and quickstart.md.
-**Status**: 9/14 tasks complete; implementation in progress.
+**Status**: 10/14 tasks complete; implementation in progress.
 
 ## Phase 1: Setup
 
@@ -27,7 +27,7 @@ Goal: a complete employee create/edit/submit/details slice. Independent test: va
 
 Goal: manager queue and review. Independent test: seeded decisions and queue selection reconciliation.
 
-- [ ] T010 [US2] Build `projects/workplace-hub/src/app/features/approvals/approvals.ts`, `.html`, `approval-actions.ts`, and `approval-filter.ts` with linkedSignal ID selection, signal inputs/output, real model two-way filtering, reasons, detail review, states and single-flight commands.
+- [x] T010 [US2] Build `projects/workplace-hub/src/app/features/approvals/approvals.ts`, `.html`, `approval-actions.ts`, and `approval-filter.ts` with linkedSignal ID selection, signal inputs/output, real model two-way filtering, reasons, detail review, states and single-flight commands.
 
 ## Phase 5: US3 — Create Inventory and Fulfill (P3)
 
