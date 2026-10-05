@@ -8,7 +8,7 @@ Input: spec, plan, research, data model and contracts. No clarification blockers
 
 ## Phase 2: Shared foundation
 
-- [ ] T002 Implement domain enterprise contracts/validators/CSV in models/enterprise.ts and policies/enterprise.ts; focused domain tests first.
+- [x] T002 Implement domain enterprise contracts/validators/CSV in models/enterprise.ts and policies/enterprise.ts; focused domain tests first.
 - [ ] T003 Implement immutable enterprise-repository.ts and mock endpoints; tests for permissions, relationships, versions, export and context cancellation first.
 
 ## Phase 3: US1 — People and Teams
@@ -39,3 +39,5 @@ Main branch retained; no push/PR/deployment. Milestone5 completion audit follows
 ## Evidence
 
 T001: Checklist8/8; pinned API research completed by two read-only research agents; constitution pre/post gates pass.
+
+T002: 101 tests across 19 files pass, including 11 enterprise boundary/normalization/CSV checks. No new dependencies.

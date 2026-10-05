@@ -9,3 +9,7 @@ export * from './lib/policies/workflow';
 export * from './lib/models/administration';
 
 export * from './lib/policies/administration';
+
+export * from './lib/models/enterprise';
+
+export * from './lib/policies/enterprise';
