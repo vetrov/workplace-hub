@@ -6,7 +6,7 @@ describe('typed request form validation', () => {
   const valid = {
     title: 'Office laptop',
     justification: 'Replacement for daily development work.',
-    category: 'equipment',
+    category: 'equipment' as const,
     delivery: { location: 'Helsinki', neededBy: '2026-12-01' },
     items: [{ description: 'Laptop computer', quantity: 2, unitCost: 10.25 }],
   };

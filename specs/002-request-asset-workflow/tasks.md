@@ -1,7 +1,7 @@
 # Tasks: Request-to-Asset Workflow
 
 **Input**: spec.md, plan.md, research.md, data-model.md, contracts/workflow.md and quickstart.md.
-**Status**: 6/14 tasks complete; implementation in progress.
+**Status**: 7/14 tasks complete; implementation in progress.
 
 ## Phase 1: Setup
 
@@ -19,7 +19,7 @@
 Goal: a complete employee create/edit/submit/details slice. Independent test: valid draft → edit → submit, visible history and invalid/unsaved feedback.
 
 - [x] T006 [US1] Write meaningful nested request validation and custom-control write/change/touched/disabled checks in `projects/workplace-hub/src/app/features/requests/request-form.spec.ts` and `money-input.spec.ts`; confirm missing behavior fails.
-- [ ] T007 [US1] Implement typed request FormGroup/nested delivery/FormArray factory in `projects/workplace-hub/src/app/features/requests/request-form.ts` and generic money ControlValueAccessor/Validator in `projects/ui/src/lib/components/money-input.ts`; export UI control and pass T006 tests.
+- [x] T007 [US1] Implement typed request FormGroup/nested delivery/FormArray factory in `projects/workplace-hub/src/app/features/requests/request-form.ts` and generic money ControlValueAccessor/Validator in `projects/ui/src/lib/components/money-input.ts`; export UI control and pass T006 tests.
 - [ ] T008 [US1] Build three-step reactive wizard in `projects/workplace-hub/src/app/features/requests/request-wizard.ts` and `.html`, with repeated rows, validation summary, totals, draft/save/submit, edit loading/errors, cancellation and zoneless form updates.
 - [ ] T009 [US1] Build resource-backed detail/history and owned-draft actions in `projects/workplace-hub/src/app/features/requests/request-detail.ts` and `.html`; react to context and role changes without stale content.
 
