@@ -1,4 +1,4 @@
-<div class="page-header"><div><p class="eyebrow">Personal settings</p><h1>Preferences</h1><p>Make your workspace feel right. Choose how information looks and fits.</p></div><span class="section-tag">Saved in this browser</span></div>
+<div class="page-header"><div><p class="eyebrow">Personal settings</p><h1>Preferences</h1><p>Make your workspace feel right. Choose how information looks and fits.</p></div><span class="section-tag">Personal display</span></div>
 <form class="panel settings-panel" #preferencesForm="ngForm" (ngSubmit)="save(preferencesForm)">
   <section class="settings-section"><fieldset><legend>Appearance</legend><p id="appearance-help">Choose the color palette for your workspace.</p><div class="option-grid">
     <label class="option"><input type="radio" name="appearance" value="light" required [(ngModel)]="draft.appearance" (ngModelChange)="notice.set('')" aria-describedby="appearance-help" /><span><strong>Light</strong><small>A bright, clear workspace</small></span></label>
