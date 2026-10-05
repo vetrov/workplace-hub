@@ -93,6 +93,37 @@ export const routes: Routes = [
             import('./features/assets/assets').then((m) => m.Assets),
     },
     {
+        path: 'people',
+        title: 'People · Workplace Hub',
+        loadComponent: () =>
+            import('./features/people/people-directory').then(
+                (m) => m.PeopleDirectory,
+            ),
+    },
+    {
+        path: 'people/:id',
+        title: 'Colleague · Workplace Hub',
+        loadComponent: () =>
+            import('./features/people/person-profile').then(
+                (m) => m.PersonProfile,
+            ),
+    },
+    {
+        path: 'teams',
+        title: 'Teams · Workplace Hub',
+        canActivate: [roleGuard('manager', 'administrator')],
+        loadComponent: () =>
+            import('./features/teams/team-list').then((m) => m.TeamList),
+    },
+    {
+        path: 'teams/:id',
+        title: 'Team membership · Workplace Hub',
+        canActivate: [roleGuard('manager', 'administrator')],
+        canDeactivate: [unsavedChangesGuard],
+        loadComponent: () =>
+            import('./features/teams/team-detail').then((m) => m.TeamDetail),
+    },
+    {
         path: 'suppliers',
         canActivate: [roleGuard('administrator')],
         loadChildren: () =>

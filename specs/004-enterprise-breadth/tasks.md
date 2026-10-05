@@ -13,7 +13,7 @@ Input: spec, plan, research, data model and contracts. No clarification blockers
 
 ## Phase 3: US1 — People and Teams
 
-- [ ] T004 Implement features/people directory/profile and features/teams list/detail/transfer; EmployeePicker CVA/validators; query navigation, scoped links and focused tests.
+- [x] T004 Implement features/people directory/profile and features/teams list/detail/transfer; EmployeePicker CVA/validators; query navigation, scoped links and focused tests.
 
 ## Phase 4: US2 — Inventory maintenance
 
@@ -43,3 +43,5 @@ T001: Checklist8/8; pinned API research completed by two read-only research agen
 T002: 101 tests across 19 files pass, including 11 enterprise boundary/normalization/CSV checks. No new dependencies.
 
 T003: 115 tests across21 files and production build pass. Live report scoping/full CSV, membership transfers, protected allocation, config effects, optimistic versions and delayed reset/identity/unsubscribe cancellation verified.
+
+T004: 117 tests across22 files and app build pass. Real employee CVA tests cover pristine/touched/disabled and changing options; render hook retains unavailable selection. Chrome search/paging/profile scope, transfer/invalid focus, role cancellation, recovery and390px checks pass.

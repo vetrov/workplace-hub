@@ -46,6 +46,8 @@ export class Shell {
                     approvals: 'Approvals',
                     preferences: 'Preferences',
                     suppliers: 'Suppliers',
+                    people: 'People',
+                    teams: 'Teams',
                     administration: 'Administration',
                 }) as Record<string, string>
             )[this.path().split('/')[1]?.split('?')[0]] ?? 'Workspace',
@@ -56,6 +58,8 @@ export class Shell {
         { path: '/requests', label: 'Requests', icon: '≡' },
         { path: '/approvals', label: 'Approvals', icon: '✓' },
         { path: '/assets', label: 'Assets', icon: '▣' },
+        { path: '/people', label: 'People', icon: '◎' },
+        { path: '/teams', label: 'Teams', icon: '◈' },
         { path: '/suppliers', label: 'Suppliers', icon: '◇' },
         {
             path: '/administration/policies',
@@ -65,5 +69,5 @@ export class Shell {
         { path: '/preferences', label: 'Preferences', icon: '⚙' },
     ];
 
-    readonly planned = ['People & teams', 'Reports', 'More administration'];
+    readonly planned = ['Reports', 'More administration'];
 }

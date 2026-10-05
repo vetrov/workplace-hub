@@ -115,7 +115,9 @@ export const mockInterceptor: HttpInterceptorFn = (request) => {
                             contextKey,
                         };
                     };
-                } else if (personMatch)
+                } else if (request.url === '/api/people-options')
+                    methods['GET'] = () => collection(repository.people(actor));
+                else if (personMatch)
                     methods['GET'] = () =>
                         record(repository.person(personMatch[1], actor));
                 else if (request.url === '/api/teams')
