@@ -10,12 +10,12 @@ import {
     PageResult,
     RequestSummary,
     SeedData,
-    AdministrationStore,
+    EnterpriseStore,
 } from 'domain';
 import { DEMO_IDENTITIES } from './seed-data';
-import { AdministrationRepository } from './administration-repository';
+import { EnterpriseRepository } from './enterprise-repository';
 
-export interface Repository extends AdministrationStore {
+export interface Repository extends EnterpriseStore {
     readonly data: SeedData;
     reset(): void;
     list(
@@ -28,10 +28,7 @@ export interface Repository extends AdministrationStore {
 }
 
 @Injectable({ providedIn: 'root' })
-export class MockRepository
-    extends AdministrationRepository
-    implements Repository
-{
+export class MockRepository extends EnterpriseRepository implements Repository {
     constructor() {
         super();
     }

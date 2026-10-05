@@ -74,13 +74,101 @@ export const mockInterceptor: HttpInterceptorFn = (request) => {
                 const policyMatch = request.url.match(
                     /^\/api\/policies\/([^/]+)$/,
                 );
+                const personMatch = request.url.match(
+                    /^\/api\/people\/([^/]+)$/,
+                );
+                const teamMatch = request.url.match(
+                    /^\/api\/teams\/([^/]+)(?:\/(transfer))?$/,
+                );
+                const reportMatch = request.url.match(
+                    /^\/api\/reports\/([^/]+)(?:\/(export))?$/,
+                );
+                const categoryMatch = request.url.match(
+                    /^\/api\/config\/categories\/([^/]+)$/,
+                );
                 const methods: Record<string, () => unknown> = {};
                 const record = (value: unknown) => ({
                     record: value,
                     contextKey,
                 });
                 const collection = (items: unknown) => ({ items, contextKey });
-                if (request.url === '/api/requests') {
+                if (request.url === '/api/people') {
+                    methods['GET'] = () => {
+                        const q = (params['q'] ?? '').trim().toLowerCase(),
+                            items = repository
+                                .people(actor)
+                                .filter((p) =>
+                                    `${p.id} ${p.name} ${p.email}`
+                                        .toLowerCase()
+                                        .includes(q),
+                                );
+                        const requested = normalizeQuery('assets', params).page,
+                            page = Math.min(
+                                requested,
+                                Math.max(1, Math.ceil(items.length / 25)),
+                            );
+                        return {
+                            items: items.slice((page - 1) * 25, page * 25),
+                            total: items.length,
+                            page,
+                            pageSize: 25,
+                            contextKey,
+                        };
+                    };
+                } else if (personMatch)
+                    methods['GET'] = () =>
+                        record(repository.person(personMatch[1], actor));
+                else if (request.url === '/api/teams')
+                    methods['GET'] = () => collection(repository.teams(actor));
+                else if (teamMatch) {
+                    if (teamMatch[2])
+                        methods['POST'] = () =>
+                            record(
+                                repository.transfer(
+                                    teamMatch[1],
+                                    bodySnapshot,
+                                    actor,
+                                ),
+                            );
+                    else
+                        methods['GET'] = () =>
+                            record(repository.team(teamMatch[1], actor));
+                } else if (request.url === '/api/reports') {
+                    methods['GET'] = () =>
+                        collection(repository.reports(actor));
+                    methods['POST'] = () =>
+                        record(repository.createReport(bodySnapshot, actor));
+                } else if (reportMatch)
+                    methods['GET'] = () =>
+                        record(
+                            reportMatch[2]
+                                ? repository.exportReport(reportMatch[1], actor)
+                                : repository.report(reportMatch[1], actor),
+                        );
+                else if (request.url === '/api/organization')
+                    methods['GET'] = () =>
+                        record(repository.organization(actor));
+                else if (request.url === '/api/config/roles') {
+                    methods['GET'] = () => record(repository.roles(actor));
+                    methods['PATCH'] = () =>
+                        record(repository.updateRoles(bodySnapshot, actor));
+                } else if (request.url === '/api/config/settings') {
+                    methods['GET'] = () => record(repository.settings(actor));
+                    methods['PATCH'] = () =>
+                        record(repository.updateSettings(bodySnapshot, actor));
+                } else if (request.url === '/api/config/categories')
+                    methods['GET'] = () =>
+                        collection(repository.categories(actor));
+                else if (categoryMatch)
+                    methods['PATCH'] = () =>
+                        record(
+                            repository.updateCategory(
+                                categoryMatch[1],
+                                bodySnapshot,
+                                actor,
+                            ),
+                        );
+                else if (request.url === '/api/requests') {
                     methods['GET'] = () =>
                         repository.list('requests', params, actor, contextKey);
                     methods['POST'] = () =>
@@ -194,9 +282,18 @@ export const mockInterceptor: HttpInterceptorFn = (request) => {
                                     actor,
                                 ),
                             );
-                    else
+                    else {
                         methods['GET'] = () =>
                             record(repository.asset(assetMatch[1], actor));
+                        methods['PATCH'] = () =>
+                            record(
+                                repository.updateAsset(
+                                    assetMatch[1],
+                                    bodySnapshot,
+                                    actor,
+                                ),
+                            );
+                    }
                 } else return error(404, 'The demo endpoint does not exist.');
                 const execute = methods[request.method];
                 if (!execute)
