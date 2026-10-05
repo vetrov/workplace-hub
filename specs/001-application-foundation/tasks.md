@@ -2,7 +2,7 @@
 
 **Input**: Design documents from `/specs/001-application-foundation/`.
 **Prerequisites**: spec.md, plan.md, research.md, data-model.md, contracts/foundation.md.
-**Status**: 19/23 tasks complete; implementation in progress.
+**Status**: 20/23 tasks complete; implementation in progress.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -58,7 +58,7 @@ instruction to launch agents or to perform user-approved work in another chat.
 **Independent Test**: Save both choices, refresh, and exercise invalid/unavailable storage.
 
 - [x] T019 [US4] Write preference validation and storage-fallback checks in `projects/workplace-hub/src/app/core/preferences/preferences.spec.ts`; verify default "light and comfortable", enum rejection, refresh restoration, and session-only persistence failures.
-- [ ] T020 [US4] Implement preference service and a template-driven FormsModule/ngModel settings page in `projects/workplace-hub/src/app/core/preferences/preferences.ts` and `features/preferences/`; apply appearance/density through shared styles, validate persisted values, and surface session-only feedback on failure.
+- [x] T020 [US4] Implement preference service and a template-driven FormsModule/ngModel settings page in `projects/workplace-hub/src/app/core/preferences/preferences.ts` and `features/preferences/`; apply appearance/density through shared styles, validate persisted values, and surface session-only feedback on failure.
 - [ ] T021 [US4] Complete preference keyboard labels, focus, save feedback, and safe styling defaults in `projects/workplace-hub/src/app/features/preferences/` and `projects/ui/src/lib/styles/`; run the independent preference scenario and record results.
 
 ## Phase 7: Polish and Cross-Cutting Verification

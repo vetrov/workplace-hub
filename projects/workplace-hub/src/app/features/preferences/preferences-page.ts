@@ -1,3 +1,17 @@
-import { Component } from '@angular/core';
-@Component({ template: '<div class="page-header"><div><p class="eyebrow">Personal settings</p><h1>Preferences</h1><p>Display preferences are being implemented in the next foundation step.</p></div></div>' })
-export class PreferencesPage {}
+import { Component, inject, signal } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { DisplayPreferences } from 'domain';
+import { Preferences } from '../../core/preferences/preferences';
+
+@Component({ imports: [FormsModule], templateUrl: './preferences-page.html' })
+export class PreferencesPage {
+  private readonly preferences = inject(Preferences);
+  draft: DisplayPreferences = { ...this.preferences.value() };
+  readonly notice = signal('');
+  save(form: NgForm): void {
+    if (form.invalid) return;
+    this.preferences.save(this.draft);
+    this.notice.set(this.preferences.feedback());
+    form.form.markAsPristine();
+  }
+}
