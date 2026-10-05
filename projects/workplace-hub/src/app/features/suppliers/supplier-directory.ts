@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Session } from '../../core/session/session';
 import { SupplierFacade } from './supplier-facade';
-import { SupplierDetail } from 'domain';
+import { PageResult, SupplierDetail } from 'domain';
 
 @Component({
     standalone: false,
@@ -94,34 +94,61 @@ import { SupplierDetail } from 'domain';
                                 </a>
                             </div>
                         </div>
-                        <div class="pagination">
-                            <span>
-                                {{ page.total }} suppliers · Page
-                                {{ page.page }}
-                            </span>
-                            <button
-                                [disabled]="page.page <= 1"
-                                (click)="pageTo(page.page - 1)"
-                            >
-                                Previous
-                            </button>
-                            <button
-                                [disabled]="
-                                    page.page * page.pageSize >= page.total
-                                "
-                                (click)="pageTo(page.page + 1)"
-                            >
-                                Next
-                            </button>
-                        </div>
                     </ng-container>
                 </ng-container>
+                <div class="pagination">
+                    <span
+                        *ngIf="
+                            state.value && state.key === facade.context.key()
+                        "
+                    >
+                        {{ state.value.total }} suppliers · Page
+                        {{ state.value.page }}
+                    </span>
+                    <button
+                        type="button"
+                        [attr.aria-disabled]="
+                            state.loading ||
+                            state.key !== facade.context.key() ||
+                            !state.value ||
+                            state.value.page <= 1
+                        "
+                        (click)="
+                            pageTo((state.value?.page ?? pageNumber) - 1, state)
+                        "
+                    >
+                        Previous
+                    </button>
+                    <span
+                        *ngIf="
+                            !state.value || state.key !== facade.context.key()
+                        "
+                    >
+                        Page {{ pageNumber }}
+                    </span>
+                    <button
+                        type="button"
+                        [attr.aria-disabled]="
+                            state.loading ||
+                            state.key !== facade.context.key() ||
+                            !state.value ||
+                            state.value.page * state.value.pageSize >=
+                                state.value.total
+                        "
+                        (click)="
+                            pageTo((state.value?.page ?? pageNumber) + 1, state)
+                        "
+                    >
+                        Next
+                    </button>
+                </div>
             </section>
         </ng-template>
     `,
 })
 export class SupplierDirectory {
     searchText = '';
+    pageNumber = 1;
 
     constructor(
         readonly facade: SupplierFacade,
@@ -135,10 +162,9 @@ export class SupplierDirectory {
             .subscribe((params) => {
                 const page = Number(params.get('page'));
                 this.searchText = (params.get('q') ?? '').trim();
-                facade.setQuery({
-                    q: this.searchText,
-                    page: Number.isSafeInteger(page) && page > 0 ? page : 1,
-                });
+                this.pageNumber =
+                    Number.isSafeInteger(page) && page > 0 ? page : 1;
+                facade.setQuery({ q: this.searchText, page: this.pageNumber });
             });
     }
 
@@ -153,7 +179,24 @@ export class SupplierDirectory {
         });
     }
 
-    pageTo(page: number): void {
+    pageTo(
+        page: number,
+        state: {
+            loading: boolean;
+            key: string;
+            value: PageResult<SupplierDetail> | null;
+        },
+    ): void {
+        if (
+            state.loading ||
+            state.key !== this.facade.context.key() ||
+            !state.value ||
+            page < 1 ||
+            page >
+                Math.max(1, Math.ceil(state.value.total / state.value.pageSize))
+        )
+            return;
+
         void this.router.navigate([], {
             relativeTo: this.route,
             queryParams: { page },

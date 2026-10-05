@@ -82,25 +82,53 @@ import { directoryRead } from '../../core/directory-read';
                         <p>Try another name or reset the demo.</p>
                     </div>
                 }
-                <div class="pagination">
-                    <button
-                        [disabled]="result.page <= 1"
-                        (click)="reader.page(result.page - 1)"
-                    >
-                        Previous
-                    </button>
-                    <span>{{ result.total }} results</span>
-                    <button
-                        [disabled]="result.page * 25 >= result.total"
-                        (click)="reader.page(result.page + 1)"
-                    >
-                        Next
-                    </button>
-                </div>
             </section>
         }
+        <div class="pagination">
+            <button
+                type="button"
+                [attr.aria-disabled]="
+                    !reader.result() ||
+                    (reader.result()?.page ?? reader.query().page) <= 1
+                "
+                (click)="
+                    pageTo((reader.result()?.page ?? reader.query().page) - 1)
+                "
+            >
+                Previous
+            </button>
+            <span>
+                Page {{ reader.result()?.page ?? reader.query().page }}
+                @if (reader.result(); as result) {
+                    · {{ result.total }} results
+                }
+            </span>
+            <button
+                type="button"
+                [attr.aria-disabled]="
+                    !reader.result() ||
+                    (reader.result()?.page ?? reader.query().page) * 25 >=
+                        (reader.result()?.total ?? 0)
+                "
+                (click)="
+                    pageTo((reader.result()?.page ?? reader.query().page) + 1)
+                "
+            >
+                Next
+            </button>
+        </div>
     `,
 })
 export class PeopleDirectory {
     readonly reader = directoryRead<Person>('/api/people');
+
+    pageTo(page: number): void {
+        const result = this.reader.result();
+        if (
+            result &&
+            page >= 1 &&
+            page <= Math.max(1, Math.ceil(result.total / 25))
+        )
+            this.reader.page(page);
+    }
 }

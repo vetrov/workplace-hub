@@ -16,7 +16,7 @@ Input: spec, plan, research, data model, UI contract and quickstart. Checklist 1
 
 ## Phase 4: US3 — Final verification
 
-- [ ] T004 Audit all 29 business routes, helper pages, keyboard/labels/titles/390px, preferences, response states and principal workflow regressions. Run full tests/app/library builds/format; verify pinned setup and all 31 source coverage entries. Fix any observed defects and record concrete evidence.
+- [x] T004 Audit all 29 business routes, helper pages, keyboard/labels/titles/390px, preferences, response states and principal workflow regressions. Run full tests/app/library builds/format; verify pinned setup and all 31 source coverage entries. Fix any observed defects and record concrete evidence.
 
 ## Phase 5: Completion
 
@@ -32,3 +32,5 @@ T001: Requirements checklist 16/16; two read-only research agents confirm pinned
 T002: 138 tests across 32 files and production build pass. Production Chrome verifies both pristine/dirty cancel-discard, unchanged-input failed-save retries, cached supplier recovery, pending navigation without dialogs and successful saved-record navigation. Identity/reset cancels pending writes; no duplicate mutations.
 
 T003: 143 tests across 33 files and production build pass (403.74kB raw /113.58kB transfer). Production Chrome verifies native skip/page/recovery focus, persistent query-control focus, invalid native money and asset inputs, forward/back/review steps, denied navigation, record-ID reuse and preserved legacy Supplier initial/edit focus. Pending render callbacks cancel on navigation/context changes.
+
+T004: Final audit passes all 29 production direct routes/reloads at 1440px and 390px, two recovery routes, labels/landmarks/titles/unique IDs and representative dark/compact settings. Audit-driven repair preserves all four paged-list controls with aria-disabled/action guards and normalized bounds. Principal request-to-asset/Suppliers/policies and enterprise/state/permission/cancellation regressions pass. Clean offline lockfile install reproduces 143 tests/33 files, app (403.82kB/113.61kB transfer), both libraries and format checks; all 31 coverage entries resolve to working source. No SSR/external business calls.

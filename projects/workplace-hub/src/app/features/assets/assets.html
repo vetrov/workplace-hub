@@ -134,31 +134,47 @@
                 </tbody>
             </table>
         </div>
-        <div class="pagination">
+    }
+    <div class="pagination">
+        @if (list.state().page; as result) {
             <span>
-                Showing {{ (result.page - 1) * result.pageSize + 1 }}–{{
+                Showing
+                {{
+                    result.total ? (result.page - 1) * result.pageSize + 1 : 0
+                }}–{{
                     Math.min(result.page * result.pageSize, result.total)
                 }}
                 of {{ result.total }} assets
             </span>
-            <div>
-                <button
-                    [disabled]="result.page === 1"
-                    (click)="query.update({ page: result.page - 1 })"
-                >
-                    Previous
-                </button>
-                <span>
-                    Page {{ result.page }} of
-                    {{ Math.ceil(result.total / result.pageSize) }}
-                </span>
-                <button
-                    [disabled]="result.page * result.pageSize >= result.total"
-                    (click)="query.update({ page: result.page + 1 })"
-                >
-                    Next
-                </button>
-            </div>
+        }
+        <div>
+            <button
+                type="button"
+                [attr.aria-disabled]="
+                    !list.state().page || query.query().page <= 1
+                "
+                (click)="pageTo(query.query().page - 1)"
+            >
+                Previous
+            </button>
+            <span>
+                Page {{ query.query().page }}
+                @if (list.state().page; as result) {
+                    of
+                    {{ Math.max(1, Math.ceil(result.total / result.pageSize)) }}
+                }
+            </span>
+            <button
+                type="button"
+                [attr.aria-disabled]="
+                    !list.state().page ||
+                    query.query().page * query.query().pageSize >=
+                        (list.state().page?.total ?? 0)
+                "
+                (click)="pageTo(query.query().page + 1)"
+            >
+                Next
+            </button>
         </div>
-    }
+    </div>
 </section>

@@ -44,6 +44,16 @@ export class Assets {
         return this.suppliers.items().find((s) => s.id === id)?.name ?? id;
     }
 
+    pageTo(page: number): void {
+        const result = this.list.state().page;
+        if (
+            result &&
+            page >= 1 &&
+            page <= Math.max(1, Math.ceil(result.total / result.pageSize))
+        )
+            this.query.update({ page });
+    }
+
     setSize(value: string): void {
         this.query.update({
             pageSize: Number(value) as 25 | 50 | 100,
