@@ -46,6 +46,7 @@ export class Shell {
                     approvals: 'Approvals',
                     preferences: 'Preferences',
                     suppliers: 'Suppliers',
+                    administration: 'Administration',
                 }) as Record<string, string>
             )[this.path().split('/')[1]?.split('?')[0]] ?? 'Workspace',
     );
@@ -56,6 +57,11 @@ export class Shell {
         { path: '/approvals', label: 'Approvals', icon: '✓' },
         { path: '/assets', label: 'Assets', icon: '▣' },
         { path: '/suppliers', label: 'Suppliers', icon: '◇' },
+        {
+            path: '/administration/policies',
+            label: 'Purchasing policies',
+            icon: '⚑',
+        },
         { path: '/preferences', label: 'Preferences', icon: '⚙' },
     ];
 

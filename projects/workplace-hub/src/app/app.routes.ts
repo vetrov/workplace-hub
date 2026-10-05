@@ -1,5 +1,9 @@
 import { Routes } from '@angular/router';
-import { requestChangesGuard, roleGuard } from './core/workflow-guards';
+import {
+    requestChangesGuard,
+    roleGuard,
+    unsavedChangesGuard,
+} from './core/workflow-guards';
 
 export const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
@@ -94,6 +98,25 @@ export const routes: Routes = [
         loadChildren: () =>
             import('./features/suppliers/suppliers.module').then(
                 (m) => m.SuppliersModule,
+            ),
+    },
+    {
+        path: 'administration/policies/:id/edit',
+        title: 'Edit policy · Workplace Hub',
+        canActivate: [roleGuard('administrator')],
+        canDeactivate: [unsavedChangesGuard],
+        loadComponent: () =>
+            import('./features/administration/policy-editor').then(
+                (m) => m.PolicyEditor,
+            ),
+    },
+    {
+        path: 'administration/policies',
+        title: 'Purchasing policies · Workplace Hub',
+        canActivate: [roleGuard('administrator')],
+        loadComponent: () =>
+            import('./features/administration/policy-list').then(
+                (m) => m.PolicyList,
             ),
     },
     {

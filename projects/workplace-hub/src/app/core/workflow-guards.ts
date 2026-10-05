@@ -13,5 +13,7 @@ export interface UnsavedPage {
     canLeave(): boolean;
 }
 
-export const requestChangesGuard: CanDeactivateFn<UnsavedPage> = (page) =>
+export const unsavedChangesGuard: CanDeactivateFn<UnsavedPage> = (page) =>
     page.canLeave();
+
+export const requestChangesGuard = unsavedChangesGuard;

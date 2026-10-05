@@ -28,7 +28,7 @@
 
 **Independent verification**: Schema/custom control validation and touched/dirty/save/reset; limit effect on future submissions.
 
-- [ ] T006 [US3] Implement projects/ui/src/lib/components/category-picker.ts and features/administration/{policy-list,policy-editor}.ts with actual Signal Forms/form/schema/FormField/submit, viewChild/focus control, admin and unsaved guards; write focused custom-control/editor tests first.
+- [x] T006 [US3] Implement projects/ui/src/lib/components/category-picker.ts and features/administration/{policy-list,policy-editor}.ts with actual Signal Forms/form/schema/FormField/submit, viewChild/focus control, admin and unsaved guards; write focused custom-control/editor tests first.
 
 ## Phase 6: Integration and verification
 
@@ -55,3 +55,5 @@ T003: 80 tests passed; contacts/known actors, duplicate names, stale versions, p
 T004: 82 tests and production build passed; Chrome verified paging/query search, linked inventory and immediate role clearing. Unit checks prove aliased inputs/transform/Default rendering and lazy class-interceptor metadata reaching the root mock.
 
 T005: 85 tests and production build passed; Chrome verified projected invalid-control focus, dirty navigation cancel, reset clears drafts, failed-save input retention, create/edit and delayed-reset cancellation.
+
+T006: 89 tests passed; real editor failed-save retry regression and custom FormField control/schema/submission tests pass. Production build and Chrome keyboard/dirty/error-retry/version/purchasing-limit workflow pass; policy editor remains a separate lazy chunk.
