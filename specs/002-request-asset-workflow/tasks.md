@@ -1,11 +1,11 @@
 # Tasks: Request-to-Asset Workflow
 
 **Input**: spec.md, plan.md, research.md, data-model.md, contracts/workflow.md and quickstart.md.
-**Status**: 0/14 tasks complete; implementation in progress.
+**Status**: 1/14 tasks complete; implementation in progress.
 
 ## Phase 1: Setup
 
-- [ ] T001 Add typed request/detail/item/delivery/command/audit contracts and shared constraint constants in `projects/domain/src/lib/models/workflow.ts` and export from `projects/domain/src/public-api.ts`; preserve foundation summaries. Constraints: title "3–100 trimmed characters", justification "10–2,000 trimmed characters", location "3–120 trimmed characters", date "valid YYYY-MM-DD calendar date", items "1–10 items", description "3–120 trimmed characters", quantity "integer 1–100", unitCost "0.01–100,000 with at most two decimal places", inventory name "3–100 trimmed characters", serial "3–80 trimmed characters", notes "0–1,000 characters", new category/type "equipment or software", supplier "existing supplier ID", reason reject "3–500 trimmed characters"/approve "0–500 trimmed characters", versions "positive integer".
+- [x] T001 Add typed request/detail/item/delivery/command/audit contracts and shared constraint constants in `projects/domain/src/lib/models/workflow.ts` and export from `projects/domain/src/public-api.ts`; preserve foundation summaries. Constraints: title "3–100 trimmed characters", justification "10–2,000 trimmed characters", location "3–120 trimmed characters", date "valid YYYY-MM-DD calendar date", items "1–10 items", description "3–120 trimmed characters", quantity "integer 1–100", unitCost "0.01–100,000 with at most two decimal places", inventory name "3–100 trimmed characters", serial "3–80 trimmed characters", notes "0–1,000 characters", new category/type "equipment or software", supplier "existing supplier ID", reason reject "3–500 trimmed characters"/approve "0–500 trimmed characters", versions "positive integer".
 
 ## Phase 2: Shared Workflow Foundation
 
