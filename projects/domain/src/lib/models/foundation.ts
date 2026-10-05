@@ -29,7 +29,7 @@ export interface AssetSummary {
 export interface DisplayPreferences { appearance: 'light' | 'dark'; density: 'comfortable' | 'compact'; }
 export interface ListQuery { readonly q: string; readonly sort: string; readonly page: number; readonly pageSize: 25 | 50 | 100; }
 export interface ScenarioState { readonly mode: ScenarioMode; readonly generation: number; }
-export interface PageResult<T> { readonly items: readonly T[]; readonly total: number; readonly page: number; readonly pageSize: number; readonly contextKey: string; }
+export interface PageResult<T> { readonly items: readonly T[]; readonly total: number; readonly page: number; readonly pageSize: number; readonly contextKey: string; readonly queryKey?: string; }
 export interface DashboardSummary { readonly requests: number; readonly pending: number; readonly assets: number; readonly available: number; readonly contextKey: string; }
 export interface SeedData {
   readonly people: readonly Person[];

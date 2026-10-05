@@ -1,5 +1,5 @@
 import { Injectable, InjectionToken } from '@angular/core';
-import { AssetSummary, DashboardSummary, DemoIdentity, ListKind, PageResult, RequestSummary, SeedData } from 'domain';
+import { AssetSummary, canSeeAsset, canSeeRequest, DashboardSummary, DemoIdentity, ListKind, normalizeQuery, PageResult, RequestSummary, SeedData } from 'domain';
 import { createSeedData, DEMO_IDENTITIES } from './seed-data';
 
 export interface Repository {
@@ -15,14 +15,26 @@ export class MockRepository implements Repository {
 
   reset(): void { this.data = createSeedData(); }
 
-  list(kind: ListKind, _params: Record<string, string>, _identity: DemoIdentity, contextKey: string): PageResult<RequestSummary | AssetSummary> {
-    const records = kind === 'requests' ? this.data.requests : this.data.assets;
-    return { items: records.slice(0, 25), total: records.length, page: 1, pageSize: 25, contextKey };
+  list(kind: ListKind, params: Record<string, string>, identity: DemoIdentity, contextKey: string): PageResult<RequestSummary | AssetSummary> {
+    const query = normalizeQuery(kind, params);
+    const records: (RequestSummary | AssetSummary)[] = kind === 'requests'
+      ? this.data.requests.filter(r => canSeeRequest(r, identity))
+      : this.data.assets.filter(a => canSeeAsset(a, identity, this.data.people));
+    const needle = query.q.toLowerCase();
+    const filtered = records.filter(r => `${r.id} ${'title' in r ? r.title : r.name}`.toLowerCase().includes(needle));
+    const [field, direction] = query.sort.split(':');
+    const value = (r: RequestSummary | AssetSummary) => field === 'createdAt' && 'createdAt' in r ? r.createdAt : field === 'status' ? r.status : 'title' in r ? r.title : r.name;
+    filtered.sort((a, b) => (direction === 'desc' ? -1 : 1) * value(a).localeCompare(value(b)) || a.id.localeCompare(b.id));
+    const page = Math.min(query.page, Math.max(1, Math.ceil(filtered.length / query.pageSize)));
+    return { items: filtered.slice((page - 1) * query.pageSize, page * query.pageSize), total: filtered.length,
+      page, pageSize: query.pageSize, contextKey, queryKey: JSON.stringify(query) };
   }
 
-  dashboard(_identity: DemoIdentity, contextKey: string): DashboardSummary {
-    return { requests: this.data.requests.length, pending: this.data.requests.filter(r => r.status === 'submitted').length,
-      assets: this.data.assets.length, available: this.data.assets.filter(a => a.status === 'available').length, contextKey };
+  dashboard(identity: DemoIdentity, contextKey: string): DashboardSummary {
+    const requests = this.data.requests.filter(r => canSeeRequest(r, identity));
+    const assets = this.data.assets.filter(a => canSeeAsset(a, identity, this.data.people));
+    return { requests: requests.length, pending: requests.filter(r => r.status === 'submitted').length,
+      assets: assets.length, available: assets.filter(a => a.status === 'available').length, contextKey };
   }
 }
 
