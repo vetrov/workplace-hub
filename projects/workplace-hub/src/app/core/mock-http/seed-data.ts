@@ -44,7 +44,14 @@ const requestStates: readonly RequestStatus[] = [
   'rejected',
   'fulfilled',
 ];
-const categories: readonly RequestCategory[] = ['equipment', 'software', 'service'];
+const categories: readonly RequestCategory[] = [
+  'equipment',
+  'equipment',
+  'software',
+  'equipment',
+  'equipment',
+  'service',
+];
 const assetStates: readonly AssetStatus[] = ['available', 'assigned', 'maintenance', 'retired'];
 const assetNames = [
   'MacBook Pro 14',
@@ -95,14 +102,20 @@ export function createSeedData(): SeedData {
     title: titles[i % titles.length],
     requesterId: people[i % 80].id,
     teamId: people[i % 80].teamId,
-    category: categories[i % 3],
-    status: requestStates[i % 5],
+    category: categories[i % titles.length],
+    status: requestStates[(i + Math.floor(i / people.length)) % requestStates.length],
     createdAt: new Date(Date.UTC(2026, 0, 1) + i * 86400000).toISOString(),
   }));
+  const assetName = (i: number) =>
+    assetNames[
+      (i + Math.floor(i / assetNames.length) + Math.floor(i / people.length)) % assetNames.length
+    ];
   const assets = Array.from({ length: 2000 }, (_, i) => ({
     id: id('A', i + 1, 4),
-    name: assetNames[i % assetNames.length],
-    type: i % 5 === 0 ? ('software' as const) : ('equipment' as const),
+    name: assetName(i),
+    type: ['Adobe Creative Cloud', 'Notion Workspace'].includes(assetName(i))
+      ? ('software' as const)
+      : ('equipment' as const),
     status: assetStates[i % 4],
     supplierId: suppliers[i % 40].id,
     assigneeId: i % 4 === 1 ? people[Math.floor(i / 4) % 80].id : null,

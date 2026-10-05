@@ -21,7 +21,7 @@ export class Dashboard {
   }));
   private readonly assetsResource = httpResource<PageResult<AssetSummary>>(() => ({
     url: '/api/assets',
-    params: { context: this.context.key() },
+    params: { context: this.context.key(), sort: 'status:asc' },
   }));
   readonly summary = computed(() =>
     this.summaryResource.hasValue() &&
