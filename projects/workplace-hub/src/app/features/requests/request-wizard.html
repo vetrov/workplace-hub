@@ -47,6 +47,7 @@
 } @else {
     <form
         class="panel workflow-form"
+        #requestForm
         [formGroup]="form"
         (ngSubmit)="step() < 3 ? next() : save('submitted')"
     >
@@ -284,7 +285,12 @@
                 }
                 @case (3) {
                     <legend class="sr-only">Review request</legend>
-                    <h2>{{ values().title }}</h2>
+                    <h2
+                        id="request-review"
+                        tabindex="-1"
+                    >
+                        {{ values().title }}
+                    </h2>
                     <p>{{ values().justification }}</p>
                     <dl class="facts">
                         <div>
@@ -324,7 +330,7 @@
                     @if (step() > 1) {
                         <button
                             type="button"
-                            (click)="step.set(step() - 1)"
+                            (click)="back()"
                         >
                             Back
                         </button>

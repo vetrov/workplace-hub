@@ -12,7 +12,7 @@ Input: spec, plan, research, data model, UI contract and quickstart. Checklist 1
 
 ## Phase 3: US2 — Keyboard navigation
 
-- [ ] T003 Implement/test render-safe Shell navigation focus and request wizard/asset invalid/step focus; preserve legacy focus and query interactions; remove unused planned navigation loop.
+- [x] T003 Implement/test render-safe Shell navigation focus and request wizard/asset invalid/step focus; preserve legacy focus and query interactions; remove unused planned navigation loop.
 
 ## Phase 4: US3 — Final verification
 
@@ -30,3 +30,5 @@ Every completed task receives a local commit on main. No push/PR/deployment. No 
 T001: Requirements checklist 16/16; two read-only research agents confirm pinned guard/render/router integration. Constitution pre/post-design checks pass. Existing workflow, Suppliers and policies regressions pass after enterprise integration; feature 004 convergence has zero findings (10 FR, 4 SC, 20 acceptance scenarios, 9 tasks, 5 principles).
 
 T002: 138 tests across 32 files and production build pass. Production Chrome verifies both pristine/dirty cancel-discard, unchanged-input failed-save retries, cached supplier recovery, pending navigation without dialogs and successful saved-record navigation. Identity/reset cancels pending writes; no duplicate mutations.
+
+T003: 143 tests across 33 files and production build pass (403.74kB raw /113.58kB transfer). Production Chrome verifies native skip/page/recovery focus, persistent query-control focus, invalid native money and asset inputs, forward/back/review steps, denied navigation, record-ID reuse and preserved legacy Supplier initial/edit focus. Pending render callbacks cancel on navigation/context changes.

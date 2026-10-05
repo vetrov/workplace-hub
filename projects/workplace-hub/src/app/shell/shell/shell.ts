@@ -1,14 +1,28 @@
-import { Organization } from '../../core/organization';
-import { Component, computed, inject } from '@angular/core';
+import {
+    AfterRenderRef,
+    afterNextRender,
+    Component,
+    computed,
+    ElementRef,
+    inject,
+    Injector,
+    viewChild,
+} from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import {
     Router,
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
     NavigationEnd,
+    NavigationStart,
+    NavigationCancel,
+    NavigationError,
+    NavigationSkipped,
 } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, startWith } from 'rxjs';
+import { Organization } from '../../core/organization';
 import { Session } from '../../core/session/session';
 import { Scenario } from '../../core/scenarios/scenario';
 import { ScenarioMode } from 'domain';
@@ -82,5 +96,76 @@ export class Shell {
 
     readonly navigating = computed(() => !!this.router.currentNavigation());
 
-    readonly planned: readonly string[] = [];
+    private readonly injector = inject(Injector);
+    private readonly document = inject(DOCUMENT);
+    private readonly content =
+        viewChild<ElementRef<HTMLElement>>('routeContent');
+    private pendingFocus?: AfterRenderRef;
+    private previousPath?: string;
+    private navigationId = 0;
+    private startingFocus: Element | null = null;
+
+    constructor() {
+        this.router.events.pipe(takeUntilDestroyed()).subscribe((event) => {
+            if (event instanceof NavigationStart) {
+                this.cancelFocus();
+                this.navigationId = event.id;
+                this.startingFocus = this.document.activeElement;
+            } else if (
+                event instanceof NavigationCancel ||
+                event instanceof NavigationError ||
+                event instanceof NavigationSkipped
+            ) {
+                this.cancelFocus();
+            } else if (event instanceof NavigationEnd) {
+                const path = event.urlAfterRedirects.split(/[?#]/, 1)[0];
+                const changed =
+                    this.previousPath !== undefined &&
+                    this.previousPath !== path;
+                this.previousPath = path;
+                if (!changed) return;
+                const navigationId = event.id,
+                    startingFocus = this.startingFocus;
+                this.pendingFocus = afterNextRender(
+                    {
+                        earlyRead: () => {
+                            const content = this.content()?.nativeElement;
+                            if (
+                                !content ||
+                                this.navigationId !== navigationId ||
+                                !content.isConnected
+                            )
+                                return undefined;
+                            const active = this.document.activeElement;
+                            if (
+                                active &&
+                                active !== startingFocus &&
+                                content.contains(active) &&
+                                active.matches(
+                                    'input,select,textarea,button,a,[tabindex]',
+                                )
+                            )
+                                return undefined;
+                            return (
+                                content.querySelector<HTMLElement>('h1') ??
+                                content
+                            );
+                        },
+                        write: (target) => {
+                            if (!target || !target.isConnected) return;
+                            if (!target.hasAttribute('tabindex'))
+                                target.setAttribute('tabindex', '-1');
+                            target.focus({ preventScroll: true });
+                        },
+                    },
+                    { injector: this.injector },
+                );
+            }
+        });
+    }
+
+    private cancelFocus(): void {
+        this.pendingFocus?.destroy();
+        this.pendingFocus = undefined;
+    }
 }

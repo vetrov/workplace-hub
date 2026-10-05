@@ -39,18 +39,6 @@
                     {{ link.label }}
                 </a>
             }
-            @for (label of planned; track label) {
-                <div class="planned-nav">
-                    <span
-                        class="nav-icon"
-                        aria-hidden="true"
-                    >
-                        ·
-                    </span>
-                    {{ label }}
-                    <small>Planned</small>
-                </div>
-            }
         </nav>
         <div class="sidebar-footer">
             <strong>Demo workspace</strong>
@@ -126,7 +114,12 @@
                     Loading page…
                 </p>
             }
-            <router-outlet />
+            <div
+                #routeContent
+                tabindex="-1"
+            >
+                <router-outlet />
+            </div>
         </main>
     </div>
 </div>

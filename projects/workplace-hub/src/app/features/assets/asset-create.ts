@@ -1,4 +1,8 @@
 import {
+    afterNextRender,
+    ElementRef,
+    Injector,
+    viewChild,
     ChangeDetectorRef,
     Component,
     computed,
@@ -50,6 +54,7 @@ import { fieldError, trimmedText } from '../../core/form-validation';
         } @else {
             <form
                 class="panel workflow-form"
+                #assetForm
                 [formGroup]="form"
                 (ngSubmit)="save()"
             >
@@ -153,6 +158,9 @@ import { fieldError, trimmedText } from '../../core/form-validation';
                             maxlength="1000"
                             rows="3"
                         ></textarea>
+                        @if (error('notes'); as message) {
+                            <small class="field-error">{{ message }}</small>
+                        }
                     </div>
                     <div class="form-actions">
                         <p>New assets are available and unassigned.</p>
@@ -177,6 +185,9 @@ export class AssetCreate {
     private readonly router = inject(Router);
     readonly mutation = inject(WorkflowClient);
     private readonly document = inject(DOCUMENT);
+    private readonly injector = inject(Injector);
+    private readonly formElement =
+        viewChild<ElementRef<HTMLFormElement>>('assetForm');
     private readonly optionsScope = computed(
         () => `${this.session.epoch()}:${this.scenario.resetVersion()}`,
     );
@@ -261,6 +272,29 @@ export class AssetCreate {
             : '';
     }
 
+    private focusField(fieldId: string): void {
+        const epoch = this.session.epoch(),
+            reset = this.scenario.resetVersion();
+        afterNextRender(
+            {
+                write: () => {
+                    if (
+                        this.session.epoch() !== epoch ||
+                        this.scenario.resetVersion() !== reset ||
+                        this.mutation.busy()
+                    )
+                        return;
+                    this.formElement()
+                        ?.nativeElement.querySelector<HTMLElement>(
+                            `#${fieldId}`,
+                        )
+                        ?.focus();
+                },
+            },
+            { injector: this.injector },
+        );
+    }
+
     canLeave(): boolean {
         return (
             !this.mutation.busy() &&
@@ -277,7 +311,20 @@ export class AssetCreate {
 
         this.form.markAllAsTouched();
         this.supplierError.set('');
-        if (!this.form.valid) return;
+        if (!this.form.valid) {
+            const fieldIds = {
+                name: 'asset-name',
+                type: 'asset-type',
+                supplierId: 'asset-supplier',
+                serialNumber: 'asset-serial',
+                notes: 'asset-notes',
+            };
+            const invalid = (
+                Object.keys(fieldIds) as (keyof typeof fieldIds)[]
+            ).find((key) => !this.form.controls[key].valid);
+            if (invalid) this.focusField(fieldIds[invalid]);
+            return;
+        }
         if (
             !this.supplierOptions().some(
                 (s) => s.id === this.form.controls.supplierId.value,
@@ -286,6 +333,7 @@ export class AssetCreate {
             this.supplierError.set(
                 'Choose an available supplier. Retry suppliers or reset the demo to restore choices.',
             );
+            this.focusField('asset-supplier');
             return;
         }
         this.mutation.run<AssetDetail>(
