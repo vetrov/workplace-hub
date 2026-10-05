@@ -89,6 +89,14 @@ export const routes: Routes = [
             import('./features/assets/assets').then((m) => m.Assets),
     },
     {
+        path: 'suppliers',
+        canActivate: [roleGuard('administrator')],
+        loadChildren: () =>
+            import('./features/suppliers/suppliers.module').then(
+                (m) => m.SuppliersModule,
+            ),
+    },
+    {
         path: 'preferences',
         title: 'Preferences · Workplace Hub',
         loadComponent: () =>

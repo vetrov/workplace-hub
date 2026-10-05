@@ -16,7 +16,7 @@
 
 **Independent verification**: Administrator directory query/paging/details/linked assets; permission and response states.
 
-- [ ] T004 [US1] Implement features/suppliers/suppliers.module.ts, supplier-client.ts, supplier-facade.ts, supplier-directory.ts, supplier-detail.ts and decorator card/widgets module; root lazy route/navigation; verify class metadata interceptor parent forwarding, AsyncPipe/BehaviorSubject state and zoneless Default card behavior.
+- [x] T004 [US1] Implement features/suppliers/suppliers.module.ts, supplier-client.ts, supplier-facade.ts, supplier-directory.ts, supplier-detail.ts and decorator card/widgets module; root lazy route/navigation; verify class metadata interceptor parent forwarding, AsyncPipe/BehaviorSubject state and zoneless Default card behavior.
 
 ## Phase 4: US2 — Maintain contacts
 
@@ -51,3 +51,5 @@ and official documentation. Constitution pre/post-design checks pass. No extensi
 T002: 66 tests passed, including 19 new malformed-contact, policy-money, draft and combined-limit checks; no new dependencies.
 
 T003: 80 tests passed; contacts/known actors, duplicate names, stale versions, policy limits, deterministic reset and delayed/unsubscribed HTTP writes verified.
+
+T004: 82 tests and production build passed; Chrome verified paging/query search, linked inventory and immediate role clearing. Unit checks prove aliased inputs/transform/Default rendering and lazy class-interceptor metadata reaching the root mock.
