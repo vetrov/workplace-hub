@@ -1,7 +1,7 @@
 # Tasks: Request-to-Asset Workflow
 
 **Input**: spec.md, plan.md, research.md, data-model.md, contracts/workflow.md and quickstart.md.
-**Status**: 10/14 tasks complete; implementation in progress.
+**Status**: 11/14 tasks complete; implementation in progress.
 
 ## Phase 1: Setup
 
@@ -33,7 +33,7 @@ Goal: manager queue and review. Independent test: seeded decisions and queue sel
 
 Goal: inventory creation/details/assignment. Independent test: seeded approved request assigned to new asset atomically.
 
-- [ ] T011 [US3] Build inventory creation and resource-backed detail/assignment pages in `projects/workplace-hub/src/app/features/assets/asset-create.ts`, `asset-detail.ts` and `.html`, with validation, compatible request selection, history, cancellation and role-aware controls.
+- [x] T011 [US3] Build inventory creation and resource-backed detail/assignment pages in `projects/workplace-hub/src/app/features/assets/asset-create.ts`, `asset-detail.ts` and `.html`, with validation, compatible request selection, history, cancellation and role-aware controls.
 
 ## Phase 6: Integration and Verification
 
