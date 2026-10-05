@@ -1,0 +1,36 @@
+<div class="page-header">
+  <div>
+    <p class="eyebrow">Request {{ id() }}</p>
+    <h1>{{ reader.record()?.title ?? 'Request details' }}</h1>
+    <p>Details, decisions and fulfillment in one place.</p>
+  </div>
+  <a class="button" routerLink="/requests">Back to requests</a>
+</div>
+@if (reader.loading()) {
+  <section class="panel state" role="status">Loading request…</section>
+} @else if (reader.error()) {
+  <section class="panel state" role="alert">
+    <h2>Request unavailable</h2>
+    <p>{{ reader.error() }}</p>
+    <button (click)="reader.retry()">Try again</button>
+  </section>
+} @else if (reader.record(); as request) {
+  <app-request-facts [request]="request">
+    @if (editable()) {
+      <a class="button primary" [routerLink]="['/requests', request.id, 'edit']">Edit draft</a>
+    }
+    @if (reviewable()) {
+      <a class="button primary" [routerLink]="['/approvals', request.id]">Review request</a>
+    }
+    @if (request.allocatedAssetId) {
+      <a class="button" [routerLink]="['/assets', request.allocatedAssetId]">View assigned asset</a>
+    }
+    @if (
+      session.identity().role === 'administrator' &&
+      request.status === 'approved' &&
+      request.category !== 'service'
+    ) {
+      <a class="button" routerLink="/assets">Find an available asset</a>
+    }
+  </app-request-facts>
+}
