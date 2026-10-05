@@ -5,9 +5,18 @@ import { Shell } from './shell';
 
 describe('saved demo identity in navigation', () => {
   it('shows the saved identity rather than the first dynamically rendered option', async () => {
-    TestBed.configureTestingModule({ providers: [provideRouter([]), { provide: BROWSER_STORAGE, useValue: {
-      getItem: (key: string) => key === 'workplace-hub.identity.v1' ? 'P013' : null, setItem: () => {},
-    } }] });
+    TestBed.configureTestingModule({
+      providers: [
+        provideRouter([]),
+        {
+          provide: BROWSER_STORAGE,
+          useValue: {
+            getItem: (key: string) => (key === 'workplace-hub.identity.v1' ? 'P013' : null),
+            setItem: () => {},
+          },
+        },
+      ],
+    });
     const fixture = TestBed.createComponent(Shell);
     await fixture.whenStable();
     const select = fixture.nativeElement.querySelector('#demo-identity') as HTMLSelectElement;

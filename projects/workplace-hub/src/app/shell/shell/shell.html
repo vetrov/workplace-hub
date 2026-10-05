@@ -34,14 +34,14 @@
       </div>
       <div class="identity-area">
         <label for="demo-identity">Demo identity</label
-        ><select
-          id="demo-identity"
-          #identitySelect
-          [value]="session.identity().personId"
-          (change)="session.select(identitySelect.value)"
-        >
+        ><select id="demo-identity" #identitySelect (change)="session.select(identitySelect.value)">
           @for (identity of session.identities; track identity.personId) {
-            <option [value]="identity.personId">{{ identity.label }}</option>
+            <option
+              [value]="identity.personId"
+              [selected]="identity.personId === session.identity().personId"
+            >
+              {{ identity.label }}
+            </option>
           }</select
         ><span class="avatar" aria-hidden="true">{{ session.initials() }}</span>
       </div>
