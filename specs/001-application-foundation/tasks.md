@@ -2,7 +2,7 @@
 
 **Input**: Design documents from `/specs/001-application-foundation/`.
 **Prerequisites**: spec.md, plan.md, research.md, data-model.md, contracts/foundation.md.
-**Status**: 4/23 tasks complete; implementation in progress.
+**Status**: 5/23 tasks complete; implementation in progress.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -19,7 +19,7 @@ instruction to launch agents or to perform user-approved work in another chat.
 ## Phase 2: Foundational (Blocking Prerequisites)
 
 - [x] T004 Create/export typed models in `projects/domain/src/lib/models/foundation.ts` and `projects/domain/src/public-api.ts`: IDs are "unique nonempty string"; required names/title are "nonempty string"; email is "valid email"; person/team/manager/supplier references exist; requester team equals requester's team; roles are "employee, manager, or administrator"; categories are "equipment, software, or service"; request states are "draft, submitted, approved, rejected, or fulfilled"; asset types are "equipment or software"; asset states are "available, assigned, maintenance, or retired"; dates are "valid ISO datetime"; assigned assets require an assignee and other seed statuses use null. Define preferences "light or dark" and "comfortable or compact"; query page is "positive integer", pageSize is "25, 50, or 100", with allowed sort values; scenario modes are "normal, empty, delayed, or error" and generation is an "increasing integer".
-- [ ] T005 Create deterministic seeds and a repository injection token in `projects/workplace-hub/src/app/core/mock-http/seed-data.ts` and `mock-repository.ts`; seed exactly 80 people, 12 teams, 40 suppliers, 250 requests, and 2,000 assets with valid references, fixed IDs/dates, immutable seeds, and at least one visible request/asset per demo identity.
+- [x] T005 Create deterministic seeds and a repository injection token in `projects/workplace-hub/src/app/core/mock-http/seed-data.ts` and `mock-repository.ts`; seed exactly 80 people, 12 teams, 40 suppliers, 250 requests, and 2,000 assets with valid references, fixed IDs/dates, immutable seeds, and at least one visible request/asset per demo identity.
 - [ ] T006 Register a terminal functional mock interceptor and baseline repository reads in `projects/workplace-hub/src/app/core/mock-http/mock.interceptor.ts` and `app.config.ts`; implement the three GET contracts, explicit 403/404/405 errors, cancellation, and no forwarding of `/api/` calls to external services.
 
 ## Phase 3: User Story 1 - Navigate the Application (Priority: P1)
