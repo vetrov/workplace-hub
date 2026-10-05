@@ -1,14 +1,12 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
       "domain": [
-        "./dist/domain"
+        "./projects/domain/src/public-api.ts"
       ],
       "ui": [
-        "./dist/ui"
+        "./projects/ui/src/public-api.ts"
       ]
     },
     "noImplicitOverride": true,
@@ -20,12 +18,14 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "strict": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   },
   "files": [],
   "references": [

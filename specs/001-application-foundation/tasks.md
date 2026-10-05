@@ -2,7 +2,7 @@
 
 **Input**: Design documents from `/specs/001-application-foundation/`.
 **Prerequisites**: spec.md, plan.md, research.md, data-model.md, contracts/foundation.md.
-**Status**: 2/23 tasks complete; implementation in progress.
+**Status**: 3/23 tasks complete; implementation in progress.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -14,7 +14,7 @@ instruction to launch agents or to perform user-approved work in another chat.
 
 - [x] T001 Verify Node/npm, Angular framework/CLI 22.2.1 publication, and compiler peer requirements; record exact accepted versions in `specs/001-application-foundation/research.md` before creating dependencies.
 - [x] T002 Generate a strict browser-only Angular CLI workspace, app, domain library, and UI library in a temporary location; merge generated `angular.json`, `package.json`, `package-lock.json`, `tsconfig.json`, and `projects/` into this repository while preserving `.specify/`, `.agents/`, `AGENTS.md`, `README.md`, `docs/`, and `specs/`.
-- [ ] T003 Configure start/test/build scripts for the app in `package.json`, use CLI-supported Vitest/jsdom, record Node in `.nvmrc`, and document exact dependency versions without adding SSR entries or evaluation tools.
+- [x] T003 Configure start/test/build scripts for the app in `package.json`, use CLI-supported Vitest/jsdom, record Node in `.nvmrc`, and document exact dependency versions without adding SSR entries or evaluation tools.
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
