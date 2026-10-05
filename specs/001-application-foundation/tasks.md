@@ -2,7 +2,7 @@
 
 **Input**: Design documents from `/specs/001-application-foundation/`.
 **Prerequisites**: spec.md, plan.md, research.md, data-model.md, contracts/foundation.md.
-**Status**: 9/23 tasks complete; implementation in progress.
+**Status**: 10/23 tasks complete; implementation in progress.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -36,7 +36,7 @@ instruction to launch agents or to perform user-approved work in another chat.
 **Goal**: Role-dependent records with searchable, sortable, paged lists.
 **Independent Test**: Verify own/team/all visibility for the three seeded identities and each list.
 
-- [ ] T010 [US2] Write focused visibility/session-switch checks in `projects/workplace-hub/src/app/core/session/session.spec.ts` and `core/mock-http/mock-repository.spec.ts`; confirm they fail for missing behavior before implementation, then verify they pass.
+- [x] T010 [US2] Write focused visibility/session-switch checks in `projects/workplace-hub/src/app/core/session/session.spec.ts` and `core/mock-http/mock-repository.spec.ts`; confirm they fail for missing behavior before implementation, then verify they pass.
 - [ ] T011 [US2] Implement three fixed demo identities, selected identity signal, persistence fallback, immediate stale-record clearing, and shell switcher in `projects/workplace-hub/src/app/core/session/session.ts` and `shell/shell/`; default to employee when saved identity is invalid.
 - [ ] T012 [US2] Apply identity visibility before filtering/sorting/paging/counts in `projects/workplace-hub/src/app/core/mock-http/mock-repository.ts`; enforce all relationship and visibility rules in data-model.md and implement the deterministic sorting/query normalization contract.
 - [ ] T013 [US2] Add HTTP-backed list services and query state in `projects/workplace-hub/src/app/features/requests/request-list.service.ts` and `features/assets/asset-list.service.ts`; use HttpClient for Requests and httpResource for Assets, synchronize URL queries, and cancel/ignore stale identity requests.
