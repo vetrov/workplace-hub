@@ -2,7 +2,7 @@
 
 **Input**: Design documents from `/specs/001-application-foundation/`.
 **Prerequisites**: spec.md, plan.md, research.md, data-model.md, contracts/foundation.md.
-**Status**: 21/23 tasks complete; implementation in progress.
+**Status**: 22/23 tasks complete; implementation in progress.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -63,7 +63,7 @@ instruction to launch agents or to perform user-approved work in another chat.
 
 ## Phase 7: Polish and Cross-Cutting Verification
 
-- [ ] T022 Run unit tests, production build, and the browser/keyboard scenarios in `specs/001-application-foundation/quickstart.md`; record actual outcomes in `tasks.md`, fix failures, and verify that no SSR or external business API calls were introduced.
+- [x] T022 Run unit tests, production build, and the browser/keyboard scenarios in `specs/001-application-foundation/quickstart.md`; record actual outcomes in `tasks.md`, fix failures, and verify that no SSR or external business API calls were introduced.
 - [ ] T023 Update `README.md`, `docs/angular-coverage.md`, and `docs/implementation-roadmap.md` with working commands, completed foundation status, actual source locations, and limits; leave later patterns/features explicitly planned.
 
 ## Dependencies and Execution Order
@@ -96,3 +96,17 @@ navigation, not-found/access-denied recovery, and keyboard skip link. No page er
 
 T021: Chrome verified display preference save/refresh, reset preservation, visible keyboard
 focus, and blocked-storage session-only fallback. No page errors occurred.
+
+T022 (2026-10-05): `npm test -- --watch=false` passed 22 tests in 7 files.
+`npm run build` passed without warnings (316.36 kB initial raw bundle);
+`npm run build:libs` built domain and UI. Isolated headless Chrome verified the four routes,
+direct-link reloads, active navigation, recovery pages, keyboard skip link and preference focus,
+role totals (employee: 3 requests/6 assets; manager: 22/44; administrator: 250/2,000), search and
+query persistence, page bounds, all list response modes/retry, three identical resets, pending
+response identity/reset changes, saved identity after reload, preferences and blocked storage.
+All four pages fit a 390 px viewport without document overflow. No page errors or external
+business requests occurred. Source/build configuration has no SSR entry or hydration setup.
+A browser review exposed a dynamic-option identity selector mismatch; a failing regression
+test reproduced it before the fix, and the test and browser reload check now pass.
+The browser scripts were temporary verification tools; quickstart.md retains repeatable manual
+steps, and the committed regression checks run through the standard unit-test command.
