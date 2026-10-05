@@ -14,5 +14,7 @@ specification and plan before changing implementation.
 - Track meaningful verification in the feature tasks; avoid tests that only repeat trivial code.
 - New libraries and tooling must have a concrete requirement. Do not add evaluation frameworks.
 
-The project is currently in the planning stage. Planned source paths are design decisions, not
-existing files. User instructions take precedence over repository guidance.
+The application foundation is implemented and verified. Later workflow and enterprise features
+remain planned; consult the coverage matrix before treating an example as implemented. Commit
+each completed implementation step to local Git, as requested by the user. User instructions
+take precedence over repository guidance.

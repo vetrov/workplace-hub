@@ -2,11 +2,13 @@
 
 ## Current status
 
-Milestone 0 (scope and architecture) is complete. The local repository is initialized at
-`/Users/avetrov/repos/workplace-hub`, with Spec Kit 1.1.0, constitution 1.0.0, product scope,
-28 planned routes, an Angular coverage matrix, architecture decisions, and the first feature's
-specification, plan, and 23 implementation tasks. Documentation consistency and Spec Kit
-prerequisite checks pass. Angular is not scaffolded yet. Next: implement Milestone 1.
+Milestones 0 and 1 are complete in `/Users/avetrov/repos/workplace-hub`. The Angular 22.2.1
+foundation provides four business screens, demo identities, role-filtered read-only lists,
+mock HTTP, deterministic scenarios/reset, and template-driven Preferences. All 23 foundation
+tasks are complete, with local commits for each step. The 22-test suite, app/library production
+builds, and focused Chrome navigation, keyboard, persistence, scenario, and mobile checks pass.
+The full application still targets 28 business screens. Next: specify and implement Milestone 2,
+the request-to-asset workflow. Reactive Forms, Signal Forms, and legacy Suppliers are still planned.
 
 ## Purpose
 
@@ -29,7 +31,7 @@ Use ordinary development tasks for small styling changes and fixes. A full featu
 ## Project principles
 
 - Client-side rendering only; no SSR or hydration infrastructure.
-- One pinned Angular runtime for the main application. Start with Angular 22, subject to dependency compatibility checks during setup.
+- One pinned Angular runtime for the main application. The foundation pins Angular 22.2.1 after registry and runtime compatibility checks.
 - Standalone shell and modern defaults, with explicitly designated older-pattern features.
 - Reactive Forms, actual Angular Signal Forms, and one small template-driven form example.
 - Decorator and signal component APIs, NgModule and standalone organization, and RxJS and signal state.
@@ -71,9 +73,10 @@ Design-system tool evaluation, alternative library integrations, a Design System
 
 ## Architecture and implementation profiles
 
-Create the project under `/Users/avetrov/repos` (`~/repos`). `workplace-hub` is the provisional repository directory name. Project initialization is a separate implementation step; this plan does not create the repository.
+The project is initialized at `/Users/avetrov/repos/workplace-hub` (`~/repos/workplace-hub`).
 
-Use an Angular CLI workspace with one application and focused libraries for domain contracts, design tokens, shared UI, and testing utilities. Lazy-load business features. Features own their pages, state, and data services; shared UI contains no business policy.
+The Angular CLI workspace contains one application and focused `domain` and `ui` libraries.
+Design tokens live in UI styles; testing utilities can be added when a concrete need arises. Lazy-load business features. Features own their pages, state, and data services; shared UI contains no business policy.
 
 Assign profiles deliberately:
 
@@ -83,7 +86,7 @@ Assign profiles deliberately:
 | Requests | Typed Reactive Forms, nested groups/arrays, custom ControlValueAccessor controls, HTTP mutations |
 | Approvals and Assets | Standalone components, signal inputs/outputs, computed state, functional DI, selected resource-based reads |
 | Administration | Signal Forms, schema validation, signal-compatible custom controls |
-| Preferences | Small template-driven form |
+| Preferences | Small template-driven form (implemented in foundation) |
 | Reports and Dashboard | Deferred content, dynamic widgets, template composition |
 
 Add query APIs, route guards/resolvers, provider scopes, HTTP interceptors, content projection, custom directives, pipes, lifecycle hooks, and dynamic rendering to the coverage matrix. These are assigned during detailed planning rather than forced into every feature.

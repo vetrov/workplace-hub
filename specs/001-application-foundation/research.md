@@ -1,6 +1,6 @@
 # Foundation research
 
-Date: 2026-10-05. Registry and runtime preflight passed; dependency installation follows in T002.
+Date: 2026-10-05. Registry/runtime preflight and dependency installation passed; foundation builds and tests pass.
 
 ## Angular and runtime
 
@@ -62,3 +62,10 @@ Source: [Angular testing](https://angular.dev/guide/testing).
 Verified npm registry publication of Angular core/CLI 22.2.1. Core and CLI require Node
 `^22.22.3 || ^24.15.0 || >=26.0.0`; local Node 22.23.2 and npm 10.9.8 satisfy the
 requirements. Compiler CLI requires TypeScript `>=6.0 <6.1` and compiler exactly 22.2.1.
+
+## Installed and verified versions
+
+Framework/compiler/CLI/build 22.2.1; TypeScript 6.0.3; RxJS 7.8.2; tslib 2.8.1;
+ng-packagr 22.2.4; Vitest 5.0.3; jsdom 30.1.2; Prettier 3.9.9. Direct versions are
+pinned in package.json and transitive dependencies locked in package-lock.json.
+Node 22.23.2 and npm 10.9.8 were used for all verification. No Zone.js or SSR dependencies.

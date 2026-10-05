@@ -1,10 +1,10 @@
 # Foundation validation guide
 
-Status: planned validation steps; the app is not scaffolded yet and these commands do not run today.
+Status: foundation implemented and verified. Commands below work; recorded execution evidence is in tasks.md.
 
-## Prerequisites and planned commands
+## Prerequisites and commands
 
-Use supported Node 22.23.2 and npm. After scaffolding creates package.json and package-lock.json:
+Use Node 22.23.2 (`.nvmrc`) and npm 10.9.8 with the committed lockfile:
 
 ```sh
 cd /Users/avetrov/repos/workplace-hub
@@ -12,12 +12,13 @@ npm ci
 npm start
 ```
 
-The planned start script serves the `workplace-hub` application. Open its reported local URL.
-Planned automated/build commands:
+The start script serves the `workplace-hub` application at http://localhost:4200 by default.
+Automated/build commands:
 
 ```sh
 npm test -- --watch=false
 npm run build
+npm run build:libs
 ```
 
 ## Validation scenarios
@@ -33,7 +34,7 @@ npm run build
 6. Save appearance and density; navigate and refresh. Simulate unavailable storage and verify defaults
    and usable session-only preference changes.
 7. Operate all controls by keyboard; confirm visible focus, labels, and clear feedback.
-8. Run unit tests and production build. Record actual commands/results in tasks.md after execution.
+8. Run unit tests and production build. The most recent recorded results are in tasks.md; record new results after behavior changes.
 
 Synthetic mock requests do not appear as real browser Network requests. Inspect application state
-and unit checks; no production business server is required. Do not treat this guide as executed evidence.
+and unit checks; no production business server is required. Use tasks.md for executed evidence; this guide describes repeatable validation steps.

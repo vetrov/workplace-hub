@@ -14,9 +14,9 @@ Business mutations and the full request workflow are separate features.
 
 ## Technical Context
 
-**Language/Version**: TypeScript 6.0.x, selected through CLI-supported dependency ranges.
-**Primary Dependencies**: Angular framework/CLI 22.2.1, RxJS 7.x, npm; pin exact runtime dependencies
-and commit the generated lockfile. Verify published packages and compiler peer dependencies at scaffold time.
+**Language/Version**: TypeScript 6.0.3, pinned after CLI compatibility verification.
+**Primary Dependencies**: Angular framework/CLI 22.2.1, RxJS 7.8.2, npm 10.9.8; exact direct
+dependencies and generated lockfile committed. Registry publication and compiler peers verified.
 **Storage**: In-memory business repository; localStorage for optional identity/display persistence.
 **Testing**: CLI-supported Vitest/jsdom unit tests; manual browser navigation/keyboard checks for this slice.
 **Target Platform**: Modern browsers supported by Angular 22; static/development hosting with SPA fallback.
@@ -38,8 +38,9 @@ Pre-research and post-design checks pass:
 - Verification: focused checks for visibility, reset/stale responses, and persistence fallback; build and browser checks.
 - Scope: no SSR, Design System Lab, tool comparisons, MCP integration, graph datasets, or benchmarks.
 
-No constitution violations or unresolved technical decisions remain. Package installation and exact
-peer compatibility still require verification during implementation, as specified in task T001.
+No constitution violations or unresolved technical decisions remain. Package installation,
+compiler peer compatibility, tests and production builds passed during implementation.
+See tasks.md for actual verification evidence.
 
 ## Project Structure
 
@@ -57,7 +58,7 @@ specs/001-application-foundation/
   tasks.md
 ```
 
-### Source Code (planned; not generated yet)
+### Source Code (implemented foundation)
 
 ```text
 projects/workplace-hub/src/

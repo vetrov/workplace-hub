@@ -2,7 +2,7 @@
 
 **Input**: Design documents from `/specs/001-application-foundation/`.
 **Prerequisites**: spec.md, plan.md, research.md, data-model.md, contracts/foundation.md.
-**Status**: 22/23 tasks complete; implementation in progress.
+**Status**: 23/23 tasks complete; foundation implemented and verified.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -64,7 +64,7 @@ instruction to launch agents or to perform user-approved work in another chat.
 ## Phase 7: Polish and Cross-Cutting Verification
 
 - [x] T022 Run unit tests, production build, and the browser/keyboard scenarios in `specs/001-application-foundation/quickstart.md`; record actual outcomes in `tasks.md`, fix failures, and verify that no SSR or external business API calls were introduced.
-- [ ] T023 Update `README.md`, `docs/angular-coverage.md`, and `docs/implementation-roadmap.md` with working commands, completed foundation status, actual source locations, and limits; leave later patterns/features explicitly planned.
+- [x] T023 Update `README.md`, `docs/angular-coverage.md`, and `docs/implementation-roadmap.md` with working commands, completed foundation status, actual source locations, and limits; leave later patterns/features explicitly planned.
 
 ## Dependencies and Execution Order
 
@@ -110,3 +110,8 @@ A browser review exposed a dynamic-option identity selector mismatch; a failing 
 test reproduced it before the fix, and the test and browser reload check now pass.
 The browser scripts were temporary verification tools; quickstart.md retains repeatable manual
 steps, and the committed regression checks run through the standard unit-test command.
+
+T023: README, feature validation/research, route map, architecture, roadmap, repository guidance,
+library READMEs and Angular coverage now match the working foundation. Partial API families
+and the remaining 24 business screens are explicitly identified. Reactive Forms, Signal Forms,
+and legacy Suppliers remain planned for later features; no evaluation scope was added.

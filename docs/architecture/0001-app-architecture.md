@@ -1,6 +1,6 @@
 # ADR 0001: Application architecture
 
-Date: 2026-10-05. Status: accepted for planning; exact dependency versions require scaffold preflight.
+Date: 2026-10-05. Status: accepted and implemented for the foundation; later feature profiles remain planned.
 
 ## Decision
 
@@ -8,7 +8,7 @@ Use an Angular CLI npm workspace with one browser-only application and focused `
 libraries. Put simple design tokens in the UI library's styles. Lazy-load business features.
 Use strict typing and one Angular 22 runtime; retain intentional older-pattern feature profiles.
 
-Planned source structure:
+Source structure (Dashboard, Requests, Assets, Preferences, core, domain and UI exist; later features remain planned):
 
 ```text
 projects/workplace-hub/src/app/
@@ -38,8 +38,10 @@ scenario generation must not overwrite a new scenario's state.
 Start with semantic HTML and shared CSS styling. Add Angular CDK behaviors only for concrete
 overlay, focus, or scrolling requirements. Do not introduce alternate UI libraries or tool comparisons.
 
-Use the Angular CLI-supported unit test runner at scaffold time and focused browser validation.
-Introduce browser automation for the principal workflow when it exists, not for documentation.
+The foundation uses Angular CLI-supported Vitest/jsdom with 22 passing unit tests and focused
+Chrome verification. The browser checks used temporary isolated automation; committed tests
+remain portable through npm. Add persistent browser automation for the principal workflow
+when the workflow exists.
 
 ## Rationale
 
@@ -57,7 +59,7 @@ provide variety without multiple Angular runtimes or a large shared services lay
 ## Consequences
 
 The mock backend is an application simulation, not a security boundary or production service.
-Scaffolding into this non-empty repository must preserve planning and Spec Kit files; generate
-in a temporary directory and merge only generated workspace files. Pin exact versions after
-checking Angular's compatibility table and the installed runtime. Static hosting requires SPA
+The scaffold preserved planning and Spec Kit files by generating in a temporary directory
+and merging workspace files. Exact versions are pinned with a lockfile: Angular 22.2.1,
+TypeScript 6.0.3, RxJS 7.8.2, Node 22.23.2 and npm 10.9.8. Static hosting requires SPA
 history fallback, not SSR.
