@@ -132,6 +132,14 @@ export const routes: Routes = [
             import('./features/teams/team-detail').then((m) => m.TeamDetail),
     },
     {
+        path: 'reports',
+        canActivate: [roleGuard('manager', 'administrator')],
+        loadChildren: () =>
+            import('./features/reports/reports.routes').then(
+                (m) => m.REPORT_ROUTES,
+            ),
+    },
+    {
         path: 'suppliers',
         canActivate: [roleGuard('administrator')],
         loadChildren: () =>

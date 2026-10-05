@@ -48,6 +48,7 @@ export class Shell {
                     suppliers: 'Suppliers',
                     people: 'People',
                     teams: 'Teams',
+                    reports: 'Reports',
                     administration: 'Administration',
                 }) as Record<string, string>
             )[this.path().split('/')[1]?.split('?')[0]] ?? 'Workspace',
@@ -60,6 +61,7 @@ export class Shell {
         { path: '/assets', label: 'Assets', icon: '▣' },
         { path: '/people', label: 'People', icon: '◎' },
         { path: '/teams', label: 'Teams', icon: '◈' },
+        { path: '/reports', label: 'Reports', icon: '▥' },
         { path: '/suppliers', label: 'Suppliers', icon: '◇' },
         {
             path: '/administration/policies',
@@ -69,5 +71,7 @@ export class Shell {
         { path: '/preferences', label: 'Preferences', icon: '⚙' },
     ];
 
-    readonly planned = ['Reports', 'More administration'];
+    readonly navigating = computed(() => !!this.router.currentNavigation());
+
+    readonly planned = ['More administration'];
 }

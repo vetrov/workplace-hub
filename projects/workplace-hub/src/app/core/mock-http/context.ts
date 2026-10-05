@@ -1,3 +1,4 @@
+import { toObservable } from '@angular/core/rxjs-interop';
 import { computed, inject, Injectable } from '@angular/core';
 import { DEMO_SESSION, SCENARIO_CONTEXT } from './mock-repository';
 
@@ -11,6 +12,7 @@ export class DemoContext {
         () =>
             `${this.session().identity.personId}:${this.session().epoch}:${this.scenario().generation}`,
     );
+    readonly changes$ = toObservable(this.key);
 }
 
 export function responseError(error: unknown): string {

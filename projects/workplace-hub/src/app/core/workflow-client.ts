@@ -24,7 +24,7 @@ export class WorkflowClient {
     }
 
     run<T>(
-        method: 'POST' | 'PATCH',
+        method: 'GET' | 'POST' | 'PATCH',
         url: string,
         body: unknown,
         success: (record: T) => void,
@@ -55,7 +55,7 @@ export class WorkflowClient {
                     if (key !== this.context.key()) return;
                     completed = true;
                     this.busy.set(false);
-                    this.scenario.refresh();
+                    if (method !== 'GET') this.scenario.refresh();
                     success(result.record);
                 },
                 error: (error) => this.error.set(responseError(error)),

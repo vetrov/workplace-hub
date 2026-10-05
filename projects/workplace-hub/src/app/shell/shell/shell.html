@@ -118,6 +118,14 @@
                     Reset demo
                 </button>
             </div>
+            @if (navigating()) {
+                <p
+                    class="navigation-progress"
+                    role="status"
+                >
+                    Loading page…
+                </p>
+            }
             <router-outlet />
         </main>
     </div>

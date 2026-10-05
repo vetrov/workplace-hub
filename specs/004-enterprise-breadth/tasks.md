@@ -21,7 +21,7 @@ Input: spec, plan, research, data model and contracts. No clarification blockers
 
 ## Phase 5: US3 — Reports
 
-- [ ] T006 Implement saved report list/configuration, functional report resolver/recovery and results/export with typed projected table; test filters, native custom control, resolver cancellation/retry and permission states.
+- [x] T006 Implement saved report list/configuration, functional report resolver/recovery and results/export with typed projected table; test filters, native custom control, resolver cancellation/retry and permission states.
 - [ ] T007 Add deferred standalone report chart with placeholder/loading/error, dynamic Dashboard widget registry and generic host directive; custom structural role directive/display pipe, modern queries/render focus; verify actual lazy/dynamic behavior.
 
 ## Phase 6: US4 — Organization administration
@@ -47,3 +47,5 @@ T003: 115 tests across21 files and production build pass. Live report scoping/fu
 T004: 117 tests across22 files and app build pass. Real employee CVA tests cover pristine/touched/disabled and changing options; render hook retains unavailable selection. Chrome search/paging/profile scope, transfer/invalid focus, role cancellation, recovery and390px checks pass.
 
 T005: 119 tests across23 files and app build pass. Real editor retry/reset/identity/single-flight tests and Chrome maintenance→assignment/history, dirty cancel, failed retry, delayed reset and390px pass. Shared form helpers preserve existing Reactive Forms behavior; successful commands release busy before navigation.
+
+T006: 125 tests across27 files, app and both library builds pass. Real form/default/retry, typed contentChildren/template outlets, resolver cancellation/errors/envelopes and detail reuse/context clearing verified. Chrome owner scope, filtered save/full CSV, recovery/roles and390px pass; Reports remain lazy.
