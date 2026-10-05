@@ -1,6 +1,6 @@
 # Foundation research
 
-Date: 2026-10-05. Research is complete for planning; package installation remains unverified.
+Date: 2026-10-05. Registry and runtime preflight passed; dependency installation follows in T002.
 
 ## Angular and runtime
 
@@ -56,3 +56,9 @@ Browser automation can be introduced for the later full workflow if needed.
 **Alternatives**: Karma is supported but unnecessary; no benchmark or evaluation framework is required.
 
 Source: [Angular testing](https://angular.dev/guide/testing).
+
+## T001 verification
+
+Verified npm registry publication of Angular core/CLI 22.2.1. Core and CLI require Node
+`^22.22.3 || ^24.15.0 || >=26.0.0`; local Node 22.23.2 and npm 10.9.8 satisfy the
+requirements. Compiler CLI requires TypeScript `>=6.0 <6.1` and compiler exactly 22.2.1.
