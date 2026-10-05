@@ -29,9 +29,7 @@
                 "input": "projects/workplace-hub/public"
               }
             ],
-            "styles": [
-              "projects/workplace-hub/src/styles.scss"
-            ]
+            "styles": ["projects/workplace-hub/src/styles.scss"]
           },
           "configurations": {
             "production": {

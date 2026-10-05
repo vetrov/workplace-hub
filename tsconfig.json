@@ -2,12 +2,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "domain": [
-        "./projects/domain/src/public-api.ts"
-      ],
-      "ui": [
-        "./projects/ui/src/public-api.ts"
-      ]
+      "domain": ["./projects/domain/src/public-api.ts"],
+      "ui": ["./projects/ui/src/public-api.ts"]
     },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

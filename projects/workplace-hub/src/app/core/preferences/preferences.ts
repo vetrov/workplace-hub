@@ -13,20 +13,33 @@ export class Preferences {
 
   constructor() {
     try {
-      const saved: unknown = JSON.parse(this.storage?.getItem('workplace-hub.preferences.v1') ?? 'null');
-      if (this.isValid(saved)) this.selected.set(Object.freeze({ appearance: saved.appearance, density: saved.density }));
-    } catch { /* Safe defaults remain available when storage is blocked or corrupt. */ }
+      const saved: unknown = JSON.parse(
+        this.storage?.getItem('workplace-hub.preferences.v1') ?? 'null',
+      );
+      if (this.isValid(saved))
+        this.selected.set(Object.freeze({ appearance: saved.appearance, density: saved.density }));
+    } catch {
+      /* Safe defaults remain available when storage is blocked or corrupt. */
+    }
     this.apply();
   }
 
   save(value: DisplayPreferences): void {
-    if (!this.isValid(value)) { this.feedback.set('Choose a valid appearance and density.'); return; }
-    this.selected.set(Object.freeze({ ...value })); this.apply();
+    if (!this.isValid(value)) {
+      this.feedback.set('Choose a valid appearance and density.');
+      return;
+    }
+    this.selected.set(Object.freeze({ ...value }));
+    this.apply();
     try {
       if (!this.storage) throw Error('Storage unavailable');
       this.storage.setItem('workplace-hub.preferences.v1', JSON.stringify(this.value()));
       this.feedback.set('Preferences saved for this browser.');
-    } catch { this.feedback.set('Saved for the current session. This browser could not store your preferences.'); }
+    } catch {
+      this.feedback.set(
+        'Saved for the current session. This browser could not store your preferences.',
+      );
+    }
   }
 
   private apply(): void {
@@ -34,8 +47,13 @@ export class Preferences {
     this.document.documentElement.dataset['density'] = this.value().density;
   }
   private isValid(value: unknown): value is DisplayPreferences {
-    return !!value && typeof value === 'object' && 'appearance' in value && 'density' in value
-      && (value.appearance === 'light' || value.appearance === 'dark')
-      && (value.density === 'comfortable' || value.density === 'compact');
+    return (
+      !!value &&
+      typeof value === 'object' &&
+      'appearance' in value &&
+      'density' in value &&
+      (value.appearance === 'light' || value.appearance === 'dark') &&
+      (value.density === 'comfortable' || value.density === 'compact')
+    );
   }
 }
