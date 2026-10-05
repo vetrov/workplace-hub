@@ -39,6 +39,8 @@ T005: Completion documentation records verified setup, all routes/patterns and e
 
 ## Phase 6: Convergence
 
-- [ ] T006 Correct the stale completion status in docs/architecture/0001-app-architecture.md and verify current completion documentation is consistent per FR-007 and T005 (partial, LOW).
+- [x] T006 Correct the stale completion status in docs/architecture/0001-app-architecture.md and verify current completion documentation is consistent per FR-007 and T005 (partial, LOW).
 
 T005: Setup/feature/route/coverage/architecture documents and final verification report are complete. Formatting, local documentation links, 31 coverage entries and 68 source references pass. Convergence checked 7 FRs, 5 SCs, 12 acceptance scenarios, 5 tasks and 5 principles; one LOW partial documentation header finding appended as T006. No implementation gaps.
+
+T006: Architecture header now records the completed audit date. Current README/AGENTS/docs statuses match verified results; formatter and documentation checks pass. Documentation-only correction; app source and prior 143-test/build/browser evidence are unchanged.

@@ -1,6 +1,6 @@
 # ADR 0001: Application architecture
 
-Date: 2026-10-05. Status: accepted and implemented across all business features. Completion audit in progress.
+Date: 2026-10-05. Status: accepted and implemented across all business features. Completion audit verified on 2026-10-06.
 
 ## Decision
 
