@@ -1239,3 +1239,18 @@ button.danger {
 .navigation-progress {
     color: var(--accent);
 }
+
+.brand-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.administration-links {
+    margin-bottom: 24px;
+}
+
+.panel + .panel,
+.panel + form.panel,
+form.panel + .panel {
+    margin-top: 20px;
+}

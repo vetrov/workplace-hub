@@ -107,8 +107,19 @@
                             id="request-category"
                             formControlName="category"
                         >
-                            <option value="equipment">Equipment</option>
-                            <option value="software">Software</option>
+                            @for (
+                                category of categoryChoices();
+                                track category.id
+                            ) {
+                                <option [value]="category.id">
+                                    {{ category.label
+                                    }}{{
+                                        category.enabled
+                                            ? ''
+                                            : ' · submissions paused'
+                                    }}
+                                </option>
+                            }
                         </select>
                     </div>
                     <div class="field">

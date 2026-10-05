@@ -1,3 +1,4 @@
+import { Organization } from '../../core/organization';
 import {
     ChangeDetectorRef,
     Component,
@@ -32,6 +33,18 @@ import {
 export class RequestWizard {
     readonly id = input<string>();
     readonly session = inject(Session);
+    readonly organization = inject(Organization);
+    readonly categoryChoices = computed(() =>
+        (['equipment', 'software'] as const).map((id) => ({
+            id,
+            label:
+                this.organization.record()?.categories.find((c) => c.id === id)
+                    ?.label ?? id,
+            enabled:
+                this.organization.record()?.categories.find((c) => c.id === id)
+                    ?.enabled ?? true,
+        })),
+    );
     private readonly scenario = inject(Scenario);
     private readonly router = inject(Router);
     private readonly document = inject(DOCUMENT);

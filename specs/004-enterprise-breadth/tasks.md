@@ -26,7 +26,7 @@ Input: spec, plan, research, data model and contracts. No clarification blockers
 
 ## Phase 6: US4 — Organization administration
 
-- [ ] T008 Implement roles/categories/settings pages, versioned saves/dirty guards, live shell/default/category integration; verify category submission and manager report capabilities.
+- [x] T008 Implement roles/categories/settings pages, versioned saves/dirty guards, live shell/default/category integration; verify category submission and manager report capabilities.
 
 ## Phase 7: Integration
 
@@ -51,3 +51,5 @@ T005: 119 tests across23 files and app build pass. Real editor retry/reset/ident
 T006: 125 tests across27 files, app and both library builds pass. Real form/default/retry, typed contentChildren/template outlets, resolver cancellation/errors/envelopes and detail reuse/context clearing verified. Chrome owner scope, filtered save/full CSV, recovery/roles and390px pass; Reports remain lazy.
 
 T007: 127 tests across29 files, app/library builds pass. Production Chrome proves separate chart chunk absent before interaction, keyboard/loading/error/reload states; table remains usable on failure. Actual component switching, host-directive labels, structural role changes, modern queries/render hooks, pipe and390px verified. Initial399.93kB/111.39kB transfer.
+
+T008: 130 tests across30 files and app build pass. Real settings validation/focus/retry, category dirty-switch/uniqueness and capability clearing tests pass. Chrome settings→shell/default dataset, category pause→rejected submit/allowed draft→enable/resubmit, manager create/export flags, pending/reset/identity and390px pass. All29 business routes now implemented.

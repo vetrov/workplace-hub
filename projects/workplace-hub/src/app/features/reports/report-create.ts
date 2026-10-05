@@ -240,7 +240,7 @@ export class ReportCreate {
         });
         effect(() => {
             const record = this.organization.record();
-            if (record && !this.defaultsApplied()) {
+            if (record && (!this.defaultsApplied() || !this.form.dirty)) {
                 untracked(() => {
                     if (!this.form.dirty)
                         this.form.controls.dataset.setValue(

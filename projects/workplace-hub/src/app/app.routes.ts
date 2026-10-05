@@ -166,6 +166,17 @@ export const routes: Routes = [
                 (m) => m.PolicyList,
             ),
     },
+    ...(['roles', 'categories', 'settings'] as const).map((section) => ({
+        path: `administration/${section}`,
+        title: `${section[0].toUpperCase() + section.slice(1)} · Workplace Hub`,
+        data: { section },
+        canActivate: [roleGuard('administrator')],
+        canDeactivate: [unsavedChangesGuard],
+        loadComponent: () =>
+            import('./features/administration/organization-editor').then(
+                (m) => m.OrganizationEditor,
+            ),
+    })),
     {
         path: 'preferences',
         title: 'Preferences · Workplace Hub',

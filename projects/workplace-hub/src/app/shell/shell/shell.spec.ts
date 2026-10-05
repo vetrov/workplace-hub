@@ -1,3 +1,12 @@
+import {
+    HttpResponse,
+    provideHttpClient,
+    withInterceptors,
+} from '@angular/common/http';
+import { inject } from '@angular/core';
+import { of } from 'rxjs';
+import { DemoContext } from '../../core/mock-http/context';
+import { demoContextProviders } from '../../testing/demo-providers';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { BROWSER_STORAGE } from '../../core/storage';
@@ -8,6 +17,26 @@ describe('saved demo identity in navigation', () => {
         TestBed.configureTestingModule({
             providers: [
                 provideRouter([]),
+                ...demoContextProviders(),
+                provideHttpClient(
+                    withInterceptors([
+                        () =>
+                            of(
+                                new HttpResponse({
+                                    body: {
+                                        record: {
+                                            organizationName: 'Workplace Hub',
+                                            defaultReportDataset: 'requests',
+                                            managerCanCreateReports: true,
+                                            managerCanExportReports: true,
+                                            categories: [],
+                                        },
+                                        contextKey: inject(DemoContext).key(),
+                                    },
+                                }),
+                            ),
+                    ]),
+                ),
                 {
                     provide: BROWSER_STORAGE,
                     useValue: {

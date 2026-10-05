@@ -1,3 +1,4 @@
+import { Organization } from '../../core/organization';
 import { Component, computed, inject } from '@angular/core';
 import {
     Router,
@@ -20,6 +21,7 @@ import { ScenarioMode } from 'domain';
 export class Shell {
     readonly session = inject(Session);
     readonly scenario = inject(Scenario);
+    readonly organization = inject(Organization);
 
     setScenario(mode: string): void {
         this.scenario.select(mode as ScenarioMode);
@@ -68,10 +70,17 @@ export class Shell {
             label: 'Purchasing policies',
             icon: '⚑',
         },
+        { path: '/administration/roles', label: 'Roles', icon: '♙' },
+        { path: '/administration/categories', label: 'Categories', icon: '⊞' },
+        {
+            path: '/administration/settings',
+            label: 'Organization settings',
+            icon: '⚙',
+        },
         { path: '/preferences', label: 'Preferences', icon: '⚙' },
     ];
 
     readonly navigating = computed(() => !!this.router.currentNavigation());
 
-    readonly planned = ['More administration'];
+    readonly planned: readonly string[] = [];
 }
