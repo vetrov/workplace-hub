@@ -2,7 +2,7 @@
 
 **Input**: Design documents from `/specs/001-application-foundation/`.
 **Prerequisites**: spec.md, plan.md, research.md, data-model.md, contracts/foundation.md.
-**Status**: 17/23 tasks complete; implementation in progress.
+**Status**: 18/23 tasks complete; implementation in progress.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -50,7 +50,7 @@ instruction to launch agents or to perform user-approved work in another chat.
 - [x] T015 [US3] Write reset/delay/stale-response checks in `projects/workplace-hub/src/app/core/scenarios/scenario.spec.ts` and `core/mock-http/mock.interceptor.spec.ts`; confirm missing behavior fails before implementation and verifies afterward.
 - [x] T016 [US3] Implement scenario mode/generation and seed reset in `projects/workplace-hub/src/app/core/scenarios/scenario.ts`; preserve identity/preferences and restore normal mode plus active list query defaults.
 - [x] T017 [US3] Implement 250 ms normal and 2,000 ms delayed responses, empty results, 503 error mode, and generation/cancellation safeguards in `projects/workplace-hub/src/app/core/mock-http/mock.interceptor.ts`; retry restores normal mode without resetting records.
-- [ ] T018 [US3] Add scenario/reset controls to `projects/workplace-hub/src/app/shell/shell/` and loading/empty/error/retry states to both list features; ensure the old generation never replaces current records.
+- [x] T018 [US3] Add scenario/reset controls to `projects/workplace-hub/src/app/shell/shell/` and loading/empty/error/retry states to both list features; ensure the old generation never replaces current records.
 
 ## Phase 6: User Story 4 - Save Display Preferences (Priority: P3)
 

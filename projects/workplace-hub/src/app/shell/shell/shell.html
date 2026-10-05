@@ -16,6 +16,9 @@
       <div class="breadcrumb">Workspace / <span>{{ section() }}</span></div>
       <div class="identity-area"><label for="demo-identity">Demo identity</label><select id="demo-identity" #identitySelect [value]="session.identity().personId" (change)="session.select(identitySelect.value)">@for (identity of session.identities; track identity.personId) { <option [value]="identity.personId">{{ identity.label }}</option> }</select><span class="avatar" aria-hidden="true">{{ session.initials() }}</span></div>
     </header>
-    <main id="main" tabindex="-1"><router-outlet /></main>
+    <main id="main" tabindex="-1">
+      <div class="scenario-bar"><label for="demo-scenario">Demo response</label><select id="demo-scenario" #scenarioSelect [value]="scenario.mode()" (change)="setScenario(scenarioSelect.value)"><option value="normal">Normal</option><option value="empty">Empty results</option><option value="delayed">Delayed (2 seconds)</option><option value="error">Failed response</option></select><span>Reset restores the original records.</span><button class="reset" (click)="scenario.reset()">Reset demo</button></div>
+      <router-outlet />
+    </main>
   </div>
 </div>

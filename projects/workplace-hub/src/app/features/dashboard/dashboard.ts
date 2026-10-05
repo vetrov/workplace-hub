@@ -5,10 +5,12 @@ import { RouterLink } from '@angular/router';
 import { AssetSummary, DashboardSummary, PageResult, RequestSummary } from 'domain';
 import { StatusBadge } from 'ui';
 import { DemoContext, responseError } from '../../core/mock-http/context';
+import { Scenario } from '../../core/scenarios/scenario';
 
 @Component({ imports: [RouterLink, DatePipe, StatusBadge], templateUrl: './dashboard.html' })
 export class Dashboard {
   readonly context = inject(DemoContext);
+  private readonly scenario = inject(Scenario);
   private readonly summaryResource = httpResource<DashboardSummary>(() => ({ url: '/api/dashboard', params: { context: this.context.key() } }));
   private readonly requestsResource = httpResource<PageResult<RequestSummary>>(() => ({ url: '/api/requests', params: { context: this.context.key() } }));
   private readonly assetsResource = httpResource<PageResult<AssetSummary>>(() => ({ url: '/api/assets', params: { context: this.context.key() } }));
@@ -18,5 +20,5 @@ export class Dashboard {
   readonly loading = this.summaryResource.isLoading;
   readonly error = computed(() => this.summaryResource.error() ? responseError(this.summaryResource.error()) : '');
   readonly roleDescription = computed(() => ({ employee: 'Your requests and assigned equipment, in one place.', manager: 'A clear view of your team’s requests and equipment.', administrator: 'Requests and inventory across the organization.' })[this.context.identity().role]);
-  retry(): void { this.summaryResource.reload(); this.requestsResource.reload(); this.assetsResource.reload(); }
+  retry(): void { this.scenario.retry(); this.summaryResource.reload(); this.requestsResource.reload(); this.assetsResource.reload(); }
 }
