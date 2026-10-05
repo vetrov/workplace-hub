@@ -2,7 +2,7 @@
 
 **Input**: Design documents from `/specs/001-application-foundation/`.
 **Prerequisites**: spec.md, plan.md, research.md, data-model.md, contracts/foundation.md.
-**Status**: 8/23 tasks complete; implementation in progress.
+**Status**: 9/23 tasks complete; implementation in progress.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -29,7 +29,7 @@ instruction to launch agents or to perform user-approved work in another chat.
 
 - [x] T007 [US1] Build semantic, keyboard-usable shell/navigation and basic shared styles in `projects/workplace-hub/src/app/shell/shell/` and `projects/ui/src/lib/styles/`; identify unfinished navigation items as planned and omit fake route targets.
 - [x] T008 [US1] Configure root redirect and lazy feature routes in `projects/workplace-hub/src/app/app.routes.ts`; create Dashboard and clearly labeled initial Requests/Assets/Preferences page structures under `features/` with active navigation and titles, and derive Dashboard counts from the mock read contract.
-- [ ] T009 [US1] Add accessible not-found and access-denied helpers under `projects/workplace-hub/src/app/shell/`; verify navigation and direct-link fallback using `specs/001-application-foundation/quickstart.md` and record actual results in this task.
+- [x] T009 [US1] Add accessible not-found and access-denied helpers under `projects/workplace-hub/src/app/shell/`; verify navigation and direct-link fallback using `specs/001-application-foundation/quickstart.md` and record actual results in this task.
 
 ## Phase 4: User Story 2 - Explore Demo Roles and Records (Priority: P2)
 
@@ -88,3 +88,8 @@ Deliver US1 as the first visible increment; validate navigation before adding da
 Then add role-filtered lists, reproducible states, and Preferences. Each story has an independent
 validation scenario even where its integration depends on an earlier story. No deployment is
 required. Keep all boxes unchecked until the described implementation and verification exist.
+
+## Verification log
+
+T009: Headless Chrome verified root redirect, all four routes, direct-link reloads, active
+navigation, not-found/access-denied recovery, and keyboard skip link. No page errors occurred.
