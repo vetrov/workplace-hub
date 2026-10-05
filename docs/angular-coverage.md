@@ -2,7 +2,8 @@
 
 All 31 required entries now have working source and verification. The application preserves the
 assigned older/newer Angular profiles in ordinary business features. No evaluation lab or benchmark
-is delivered. Milestone 5 will perform the final navigation/accessibility and regression audit.
+is delivered. Milestone 5 final navigation/keyboard/mobile, regression and source audit is complete;
+see [verification](verification.md).
 
 | ID  | Pattern                                                      | Assigned example                                             | Delivery                      | Status                                                                                                    |
 | --- | ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
@@ -51,47 +52,47 @@ Do not downgrade the main application silently.
 All paths below exist relative to the repository root. Partial examples do not satisfy the
 remaining APIs in a combined matrix entry.
 
-| Coverage                     | Source                                                                                                                                                                                      | Working behavior                                                                 |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| A01, A19 (partial)           | `projects/workplace-hub/src/main.ts`, `projects/workplace-hub/src/app/app.routes.ts`                                                                                                        | Standalone bootstrap and lazy feature routes                                     |
-| A04 (partial)                | `projects/ui/src/lib/components/status-badge.ts`                                                                                                                                            | `input.required<string>()` for reusable status display                           |
-| A09                          | `projects/workplace-hub/src/app/features/preferences/preferences-page.ts` and `projects/workplace-hub/src/app/features/preferences/preferences-page.html`                                   | FormsModule, NgForm, two-way ngModel, save feedback                              |
-| A13 (partial), A14           | `projects/workplace-hub/src/app/core/session/session.ts`, `projects/workplace-hub/src/app/features/requests/request-list.service.ts`                                                        | signal/computed state and toSignal/toObservable interop                          |
-| A15 (partial), A29 (partial) | `projects/workplace-hub/src/app/core/list-query.ts`, `projects/workplace-hub/src/app/features/requests/request-list.service.ts`                                                             | Debounced search, scoped query state, switchMap cancellation, takeUntilDestroyed |
-| A16 (partial)                | `projects/workplace-hub/src/app/features/assets/asset-list.service.ts`, `projects/workplace-hub/src/app/features/dashboard/dashboard.ts`                                                    | httpResource reads with context guards and reload                                |
-| A18, A21 (partial)           | `projects/workplace-hub/src/app/core/mock-http/mock-repository.ts`, `projects/workplace-hub/src/app/core/mock-http/mock.interceptor.ts`, and `projects/workplace-hub/src/app/app.config.ts` | inject(), repository/context tokens, terminal functional HTTP interceptor        |
-| A25 (partial)                | `projects/workplace-hub/src/app/features/requests/requests.html`, `projects/workplace-hub/src/app/features/assets/assets.html`                                                              | @if states and @for rows with stable tracked IDs                                 |
+| Coverage                   | Source                                                                                                                                                                                      | Working behavior                                                                 |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| A01, A19 (subset)          | `projects/workplace-hub/src/main.ts`, `projects/workplace-hub/src/app/app.routes.ts`                                                                                                        | Standalone bootstrap and lazy feature routes                                     |
+| A04 (subset)               | `projects/ui/src/lib/components/status-badge.ts`                                                                                                                                            | `input.required<string>()` for reusable status display                           |
+| A09                        | `projects/workplace-hub/src/app/features/preferences/preferences-page.ts` and `projects/workplace-hub/src/app/features/preferences/preferences-page.html`                                   | FormsModule, NgForm, two-way ngModel, save feedback                              |
+| A13 (subset), A14          | `projects/workplace-hub/src/app/core/session/session.ts`, `projects/workplace-hub/src/app/features/requests/request-list.service.ts`                                                        | signal/computed state and toSignal/toObservable interop                          |
+| A15 (subset), A29 (subset) | `projects/workplace-hub/src/app/core/list-query.ts`, `projects/workplace-hub/src/app/features/requests/request-list.service.ts`                                                             | Debounced search, scoped query state, switchMap cancellation, takeUntilDestroyed |
+| A16 (subset)               | `projects/workplace-hub/src/app/features/assets/asset-list.service.ts`, `projects/workplace-hub/src/app/features/dashboard/dashboard.ts`                                                    | httpResource reads with context guards and reload                                |
+| A18, A21 (subset)          | `projects/workplace-hub/src/app/core/mock-http/mock-repository.ts`, `projects/workplace-hub/src/app/core/mock-http/mock.interceptor.ts`, and `projects/workplace-hub/src/app/app.config.ts` | inject(), repository/context tokens, terminal functional HTTP interceptor        |
+| A25 (subset)               | `projects/workplace-hub/src/app/features/requests/requests.html`, `projects/workplace-hub/src/app/features/assets/assets.html`                                                              | @if states and @for rows with stable tracked IDs                                 |
 
 Suppliers, Signal Forms and enterprise examples are documented below. Each original profile is preserved.
 
 ## Verified workflow source examples
 
-| Coverage      | Source                                                                                                                                             | Working behavior                                                                                                        |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| A04, A06      | `projects/workplace-hub/src/app/features/approvals/approval-actions.ts` and `projects/workplace-hub/src/app/features/approvals/approval-filter.ts` | Required request input, boolean-transformed busy input, output decision intent and actual model two-way category filter |
-| A07           | `projects/workplace-hub/src/app/features/requests/request-form.ts`, `projects/workplace-hub/src/app/features/requests/request-wizard.ts`           | Typed Reactive Forms, nested delivery FormGroup and repeated item FormArray                                             |
-| A10           | `projects/ui/src/lib/components/money-input.ts`                                                                                                    | Implemented: money and employee CVAs with validators/touch/disabled/options revalidation                                |
-| A13           | `projects/workplace-hub/src/app/features/approvals/approvals.ts`                                                                                   | linkedSignal keeps eligible selected IDs and reconciles filters/context/decisions                                       |
-| A15           | `projects/workplace-hub/src/app/core/workflow-client.ts`, `projects/workplace-hub/src/app/core/mock-http/mock.interceptor.ts`                      | Single-flight HttpClient writes, snapshots, cancellation/finalize and context refresh                                   |
-| A16           | `projects/workplace-hub/src/app/core/workflow-read.ts`, `projects/workplace-hub/src/app/features/assets/asset-detail.ts`                           | Resource detail reads and compatible assignment options                                                                 |
-| A20 (partial) | `projects/workplace-hub/src/app/core/workflow-guards.ts`                                                                                           | Functional role guards and CanDeactivate with a discard/cancel choice                                                   |
-| A24 (partial) | `projects/workplace-hub/src/app/features/requests/request-facts.ts`                                                                                | Content projection lets detail/review pages provide their own actions                                                   |
-| A25           | `projects/workplace-hub/src/app/features/requests/request-wizard.html`                                                                             | @switch wizard steps, @if validation/states, tracked @for item rows                                                     |
+| Coverage     | Source                                                                                                                                             | Working behavior                                                                                                        |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| A04, A06     | `projects/workplace-hub/src/app/features/approvals/approval-actions.ts` and `projects/workplace-hub/src/app/features/approvals/approval-filter.ts` | Required request input, boolean-transformed busy input, output decision intent and actual model two-way category filter |
+| A07          | `projects/workplace-hub/src/app/features/requests/request-form.ts`, `projects/workplace-hub/src/app/features/requests/request-wizard.ts`           | Typed Reactive Forms, nested delivery FormGroup and repeated item FormArray                                             |
+| A10          | `projects/ui/src/lib/components/money-input.ts`                                                                                                    | Implemented: money and employee CVAs with validators/touch/disabled/options revalidation                                |
+| A13          | `projects/workplace-hub/src/app/features/approvals/approvals.ts`                                                                                   | linkedSignal keeps eligible selected IDs and reconciles filters/context/decisions                                       |
+| A15          | `projects/workplace-hub/src/app/core/workflow-client.ts`, `projects/workplace-hub/src/app/core/mock-http/mock.interceptor.ts`                      | Single-flight HttpClient writes, snapshots, cancellation/finalize and context refresh                                   |
+| A16          | `projects/workplace-hub/src/app/core/workflow-read.ts`, `projects/workplace-hub/src/app/features/assets/asset-detail.ts`                           | Resource detail reads and compatible assignment options                                                                 |
+| A20 (subset) | `projects/workplace-hub/src/app/core/workflow-guards.ts`                                                                                           | Functional role guards and CanDeactivate with a discard/cancel choice                                                   |
+| A24 (subset) | `projects/workplace-hub/src/app/features/requests/request-facts.ts`                                                                                | Content projection lets detail/review pages provide their own actions                                                   |
+| A25          | `projects/workplace-hub/src/app/features/requests/request-wizard.html`                                                                             | @switch wizard steps, @if validation/states, tracked @for item rows                                                     |
 
 Zoneless request/inventory forms subscribe to form.events and markForCheck. Policies implement
 a separate actual Signal Forms example; Reactive and template-driven examples remain in place.
 
 ## Verified Suppliers and purchasing-policy source examples
 
-| Coverage                          | Source                                                                                 | Working behavior                                                                                                                       |
-| --------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| A02, A19                          | `features/suppliers/suppliers.module.ts`, `supplier-widgets.ts`                        | Lazy NgModule, standalone:false declarations and exported widgets module                                                               |
-| A03, A05, A29 (partial), A30      | `features/suppliers/supplier-widgets.ts`, `supplier-editor.ts`                         | Aliased/required/transformed inputs, ngOnChanges, EventEmitter intents, OnPush pages and explicit Default/Eager card                   |
-| A12, A17, A21                     | `features/suppliers/supplier-client.ts`, `supplier-facade.ts`                          | Constructor DI, BehaviorSubjects/AsyncPipe/switchMap and class metadata interceptor forwarded to root functional mock                  |
-| A22, A24 (partial), A28 (partial) | `features/suppliers/supplier-field.ts`, `supplier-editor.ts`, `supplier-edit-page.ts`  | Projected controls, ContentChildren/ViewChild/ViewChildren and invalid-control/initial focus                                           |
-| A08                               | `features/administration/policy-form.ts`, `policy-editor.ts`                           | Actual form/schema/FormField/submit, touched/dirty/reset, field summaries, guarded async saves and unchanged-value retry               |
-| A11, A23 (partial)                | `projects/ui/src/lib/components/category-picker.ts`                                    | Generic options, FormValueControl model/value, touch/disabled and viewChild/native focus; loaded and edited selections match the model |
-| A26                               | `features/suppliers/supplier-directory.ts`, `supplier-detail.ts`, `supplier-editor.ts` | Working deprecated NgIf/NgFor templates, preserving assigned legacy ownership                                                          |
+| Coverage                        | Source                                                                                 | Working behavior                                                                                                                       |
+| ------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| A02, A19                        | `features/suppliers/suppliers.module.ts`, `supplier-widgets.ts`                        | Lazy NgModule, standalone:false declarations and exported widgets module                                                               |
+| A03, A05, A29 (subset), A30     | `features/suppliers/supplier-widgets.ts`, `supplier-editor.ts`                         | Aliased/required/transformed inputs, ngOnChanges, EventEmitter intents, OnPush pages and explicit Default/Eager card                   |
+| A12, A17, A21                   | `features/suppliers/supplier-client.ts`, `supplier-facade.ts`                          | Constructor DI, BehaviorSubjects/AsyncPipe/switchMap and class metadata interceptor forwarded to root functional mock                  |
+| A22, A24 (subset), A28 (subset) | `features/suppliers/supplier-field.ts`, `supplier-editor.ts`, `supplier-edit-page.ts`  | Projected controls, ContentChildren/ViewChild/ViewChildren and invalid-control/initial focus                                           |
+| A08                             | `features/administration/policy-form.ts`, `policy-editor.ts`                           | Actual form/schema/FormField/submit, touched/dirty/reset, field summaries, guarded async saves and unchanged-value retry               |
+| A11, A23 (subset)               | `projects/ui/src/lib/components/category-picker.ts`                                    | Generic options, FormValueControl model/value, touch/disabled and viewChild/native focus; loaded and edited selections match the model |
+| A26                             | `features/suppliers/supplier-directory.ts`, `supplier-detail.ts`, `supplier-editor.ts` | Working deprecated NgIf/NgFor templates, preserving assigned legacy ownership                                                          |
 
 Feature paths in this table are under `projects/workplace-hub/src/app/` unless fully qualified.
 Angular 22 defaults to OnPush. The designated `ChangeDetectionStrategy.Default` value is now a deprecated
@@ -117,3 +118,19 @@ Feature/core paths below are relative to `projects/workplace-hub/src/app/`; libr
 Focused tests include real forms/controls, typed projection updates, resolver cancellation/recovery/reuse,
 dynamic widget types/host labels and structural role changes. Chrome verifies keyboard interaction,
 permissions/context cancellation, failure retry, all enterprise routes at 390px and production defer states.
+
+## Final completion verification
+
+All 31 required entries were audited against existing source, focused tests and browser behavior.
+Subset labels above describe the contribution of an individual example; complete patterns may span
+multiple sources. Request and new-asset editors protect pristine/dirty/pending navigation and retry.
+Shell NavigationEnd/afterNextRender/viewChild focus preserves initial legacy field focus and query
+interaction. Wizard render callbacks focus native controls inside the money CVA, return to invalid steps,
+and ignore obsolete route/context work. Requests, Assets, People and Suppliers retain pagination
+controls while loading with aria-disabled and guarded actions, preserving all assigned profiles.
+
+Source: `projects/workplace-hub/src/app/shell/shell/shell.ts`,
+`projects/workplace-hub/src/app/features/requests/request-wizard.ts`,
+`projects/workplace-hub/src/app/features/assets/asset-create.ts` and the respective list templates.
+Final suite: 143 tests in 33 files; production and both library builds pass. The app remains zoneless
+and browser-only with all required older/newer APIs intact.

@@ -2,14 +2,15 @@
 
 ## Current status
 
-Milestones 0–4 are complete in `/Users/avetrov/repos/workplace-hub`. All 29 planned business routes
+Milestones 0–5 are complete in `/Users/avetrov/repos/workplace-hub`. All 29 planned business routes
 and all 31 required Angular coverage entries have working implementations. The enterprise phase adds
 People/Teams, inventory maintenance, saved Reports/export/deferred charts, connected organization
-configuration and dynamic Dashboard widgets. Existing Reactive/Signal/template-driven forms and
-NgModule/decorator/RxJS profiles remain intact. The 131-test suite, app/library builds and isolated
-Chrome enterprise workflows, response states, permission/cancellation and 390px checks pass.
-Each implementation step has a local commit. Next: Milestone 5 final navigation/accessibility,
-regression, setup/documentation and source coverage audit. No SSR or evaluation work.
+configuration and dynamic Dashboard widgets. Reactive/Signal/template-driven forms and
+NgModule/decorator/RxJS profiles remain intact. All 143 tests across 33 files, production app and both
+library builds pass. A clean pinned installation reproduces those results. Chrome verifies principal
+workflows, states/permissions/cancellation, page/wizard/pagination keyboard focus and all 29 routes at
+390px. Each completed step is committed locally. Final evidence: [verification](verification.md).
+No SSR or evaluation work.
 
 ## Purpose
 
@@ -70,7 +71,7 @@ Design-system tool evaluation, alternative library integrations, a Design System
 | 2. Complete business workflow (complete) | Reactive request wizard, signal-based approval queue, asset creation/assignment, shared policy rules, audit history                               | Create → approve/reject → assign works end to end; validation, failures, and permissions are observable                         |
 | 3. Angular pattern coverage (complete)   | NgModule-based Suppliers, decorator APIs, RxJS facade, Signal Forms policy editor, template-driven preferences, custom controls                   | Coverage matrix points to working examples; forms, controls, and state transitions behave correctly                             |
 | 4. Enterprise breadth (complete)         | People, reports, remaining administration pages, saved filters, bulk actions, deferred views, larger datasets                                     | Remaining sections share realistic data and reusable patterns; major routes expose loading, empty, error, and permission states |
-| 5. Application completion                | Navigation and accessibility review, focused automated tests, build checks, setup documentation, coverage audit                                   | App builds successfully; key workflows pass; required Angular patterns are implemented and documented                           |
+| 5. Application completion (complete)     | Navigation and accessibility review, focused automated tests, build checks, setup documentation, coverage audit                                   | App builds successfully; key workflows pass; required Angular patterns are implemented and documented                           |
 
 ## Architecture and implementation profiles
 
@@ -86,7 +87,7 @@ Assign profiles deliberately:
 | Suppliers             | NgModule, decorator inputs/outputs, constructor injection, RxJS service state                              |
 | Requests              | Implemented typed Reactive Forms, nested groups/arrays, money ControlValueAccessor and HTTP mutations      |
 | Approvals and Assets  | Standalone components, signal inputs/outputs, computed state, functional DI, selected resource-based reads |
-| Administration        | Signal Forms, schema validation, signal-compatible custom controls                                         |
+| Administration        | Signal Forms purchasing policies; typed Reactive Forms organization settings                               |
 | Preferences           | Small template-driven form (implemented in foundation)                                                     |
 | Reports and Dashboard | Deferred content, dynamic widgets, template composition                                                    |
 
@@ -116,4 +117,4 @@ Keep this roadmap as the project overview. Detail only the next feature's implem
 
 The shell, mock HTTP/reset, reactive request wizard, signal-based approvals, inventory workflow,
 NgModule Suppliers, template-driven preferences and actual Signal Forms purchasing policies are delivered.
-Enterprise breadth and all required patterns are delivered. Finish the application completion audit next.
+Enterprise breadth, all required patterns and the final application completion audit are delivered.

@@ -19,9 +19,9 @@ Preserve older Suppliers APIs (deprecated NgIf/NgFor and explicit Default/Eager)
 forwarding, decorator queries and zoneless notifications. Policies must keep actual Signal Forms and
 loaded native selection/unchanged-input retries. Preserve snapshot/version/cancellation checks,
 protected assignment, historical request teams, current membership visibility and scoped report runs/export.
-Keep typed projected templates, resolver EMPTY/error recovery, independently deferred chart, actual dynamic
+Preserve render-safe route/editor focus and stable, guarded aria-disabled pagination. Keep typed projected templates, resolver EMPTY/error recovery, independently deferred chart, actual dynamic
 widgets/host directives, custom controls and render hooks. Settings/category/role pages must retain their
-real cross-feature effects. Milestone 5 final audit remains in progress. Consult the coverage matrix;
+real cross-feature effects. Milestone 5 final audit is complete; evidence is in docs/verification.md. Consult the coverage matrix;
 commit each completed step locally. User instructions take precedence.
 
 Use the repository Prettier configuration (four spaces) and run `npm run format:check`

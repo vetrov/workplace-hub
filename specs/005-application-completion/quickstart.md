@@ -20,3 +20,8 @@ npm run build, npm run build:libs and npm run format:check from the repository.
 
 Keep connected mutations inside SPA links: full reload restores in-memory business seed data.
 Static production preview must provide history fallback; it serves client files and does not use SSR.
+
+Pagination audit: as administrator, keyboard-activate Next in Requests/Assets/People/Suppliers.
+Focus remains on Next after loading; repeat Previous. On People/Suppliers use ?page=999 to verify
+last-page normalization and Previous. aria-disabled actions do not navigate during loading or beyond
+bounds. Results clear on context changes; controls remain mounted without retaining obsolete rows.

@@ -50,3 +50,12 @@ Form review confirms valid rather than invalid gates and explicit control-ID map
 validation (container/host ng-invalid selectors alone can target unfocusable nodes). Money input's
 existing item-cost ID is on its native input; no library API change. Retain loaded asset supplier
 choices across transient scenario errors, clear on identity/reset, and provide explicit read retry.
+
+## Audit-driven pagination repair
+
+Decision: retain native pagination controls outside replaceable result views, with aria-disabled and
+explicit bounds/readiness guards. Rationale: Chrome confirmed all four paged directories destroyed
+their focused button during loading, dropping keyboard focus. Keep actual normalized response page
+for People/Suppliers; preserve RxJS/deprecated Suppliers templates and all modern owners.
+Alternatives: retaining obsolete data would weaken context boundaries; timed global focus restoration
+would add hidden lifecycle behavior. No data cache or dependency is needed for stable controls.

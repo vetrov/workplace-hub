@@ -38,9 +38,15 @@ role entry guards and reactive views enforce the demo identity's permissions.
 Redirect `/` to `/dashboard`. Unknown paths show an accessible not-found page. An access-denied helper is available at
 `/access-denied`; functional entry guards protect employee creation/editing, manager reviews and administrator
 inventory actions, supplier administration and purchasing policies. Active pages react to identity changes;
-request, supplier, policy, team transfer, asset maintenance, report configuration and organization editors
+request, supplier, policy, team transfer, asset creation/maintenance, report configuration and organization editors
 protect unsaved changes and pending saves. Helper pages are not part of the 29-screen count.
 Declare literal paths such as `new` before parameter paths such as `:id`. Preserve list filters,
 sort, and pagination in query parameters. Static hosting must provide SPA history fallback.
 
 Preference values are appearance and density choices; they are ordinary application settings.
+
+Page changes focus the rendered content heading, preserving feature-provided initial field focus.
+Initial load, query/fragment-only navigation and background reads retain focus. Skip to content focuses
+main; request steps and invalid native/custom-control fields receive render-timed focus. Pagination
+controls remain mounted across list loading, use aria-disabled with guarded actions, and preserve
+keyboard focus without exposing obsolete scoped rows. See [verification](verification.md).

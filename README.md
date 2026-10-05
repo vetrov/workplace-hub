@@ -5,7 +5,7 @@ The business domain is equipment requests, approvals, suppliers, and asset manag
 
 ## Current implementation
 
-Milestones 0–4 are implemented and verified: all 29 planned business screens and 31 required Angular
+All milestones 0–5 are complete and verified: all 29 planned business screens and 31 required Angular
 coverage entries. The app includes Dashboard, Requests, Approvals, Assets/maintenance, Suppliers,
 People/Teams, saved Reports, purchasing policies, roles/categories/settings and Preferences.
 
@@ -26,8 +26,9 @@ uses a typed NgComponentOutlet registry and host directives. Generic CVAs, direc
 pipes and render hooks have real feature owners; see [coverage](docs/angular-coverage.md).
 
 Demo identities, normal/empty/delayed/error responses and reset are available throughout. Editors
-retain failed inputs, protect dirty/pending navigation and clear/cancel on identity/reset. The final
-Milestone 5 navigation/accessibility, regression and documentation audit remains in progress.
+retain failed inputs, protect dirty/pending navigation and clear/cancel on identity/reset. Page/wizard
+focus and stable keyboard pagination are verified; all planned routes pass desktop/mobile checks.
+See [final verification](docs/verification.md).
 Design-system evaluation and context graph evaluation/integration are outside this task. No SSR.
 
 ## Run locally
@@ -48,7 +49,7 @@ npm run build
 npm run build:libs
 ```
 
-The unit suite has 131 focused checks across 31 files. Production output is `dist/workplace-hub/browser`;
+The unit suite has 143 focused checks across 33 files. Production output is `dist/workplace-hub/browser`;
 static hosting must provide SPA history fallback. Domain and UI builds output to `dist/domain`
 and `dist/ui`. See [the validation guide](specs/001-application-foundation/quickstart.md)
 and [foundation results](specs/001-application-foundation/tasks.md). The new workflow has its own
@@ -57,7 +58,9 @@ and [foundation results](specs/001-application-foundation/tasks.md). The new wor
 [validation guide](specs/003-angular-pattern-coverage/quickstart.md) and
 [recorded results](specs/003-angular-pattern-coverage/tasks.md). Enterprise breadth has a
 [validation guide](specs/004-enterprise-breadth/quickstart.md) and
-[recorded results](specs/004-enterprise-breadth/tasks.md).
+[recorded results](specs/004-enterprise-breadth/tasks.md). The final audit has its own
+[validation guide](specs/005-application-completion/quickstart.md),
+[recorded results](specs/005-application-completion/tasks.md) and [verification report](docs/verification.md).
 
 ## Formatting
 
@@ -90,7 +93,7 @@ query defaults while preserving identity and display choices. Retry restores nor
 New/edit requests accept equipment/software categories, valid
 delivery and 1–10 cost items. One compatible available asset fulfills a demo request; estimated
 items describe budget rather than multiple inventory allocations. Valid drafts meet the same
-field constraints as submissions. Rejected requests remain readable, with resubmission planned.
+field constraints as submissions. Rejected requests remain readable; resubmission is outside the current scope.
 Record versions prevent stale writes; reset/identity changes cancel pending commands.
 Supplier contacts are administrator-only; authorized inventory pages read ID/name options without contacts.
 New suppliers use stable IDs and case-insensitive unique names. Three category policies start at €50,000;
@@ -113,13 +116,17 @@ manager flags and organization defaults are seeded. Reset restores every busines
 - [Architecture decision](docs/architecture/0001-app-architecture.md)
 - [Foundation specification](specs/001-application-foundation/spec.md)
 - [Workflow specification](specs/002-request-asset-workflow/spec.md)
+- [Suppliers/policies specification](specs/003-angular-pattern-coverage/spec.md)
+- [Enterprise specification](specs/004-enterprise-breadth/spec.md)
+- [Completion specification](specs/005-application-completion/spec.md)
 
 ## Spec Kit
 
 Spec Kit 1.1.0 project skills live in `.agents/skills/`. Use the constitution once, then
 specification, plan, tasks, implementation, and convergence per feature. The local active feature
 is recorded in `.specify/feature.json`. The setup CLI used an isolated environment and is not
-installed globally. All business sections and required patterns are delivered. The next feature is the final completion audit.
+installed globally. All five feature specifications and roadmap milestones are complete.
+Business sections, required patterns and final verification are delivered.
 Small fixes use ordinary development tasks.
 
 Source: https://github.github.com/spec-kit/installation.html

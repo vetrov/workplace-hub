@@ -30,7 +30,8 @@ An asset cannot be assigned to two people simultaneously. Fulfilled requests can
 Dashboard; Requests; Approvals; Assets; Suppliers; People and Teams; Reports; Administration;
 and personal preferences. All 29 business screens and 31 required Angular patterns are implemented,
 including the end-to-end request-to-asset workflow and enterprise reporting/administration.
-The final application verification/navigation/accessibility/documentation audit is in progress.
+The final navigation/keyboard/mobile, regression, setup and documentation audit is complete;
+see [verification](verification.md).
 Current form/category and one-asset allocation limits are documented in the workflow specification.
 
 ## Reproducibility

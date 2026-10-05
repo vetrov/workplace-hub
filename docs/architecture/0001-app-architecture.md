@@ -73,7 +73,8 @@ allocation together after all checks. Audit events identify actual demo actors; 
 seed snapshots, versions, links and counters. Writes execute only after context checks inside
 the cancellable mock timer. A scoped WorkflowClient provides single-flight/finalize state and
 advances context after success so resource/list reads refresh. Active pages clear old context
-content in addition to functional entry guards. CanDeactivate protects dirty request forms.
+content in addition to functional entry guards. CanDeactivate protects dirty and pending request, inventory creation/maintenance, supplier, policy,
+team-transfer, report-configuration and organization editors.
 
 ## Enterprise and pattern extensions
 
@@ -91,3 +92,17 @@ summary caching and editor drafts are scoped to identity/reset; transient failur
 UI owns generic CVAs/FormValueControl, typed projected table templates, display pipe and host region behavior.
 The deferred chart has its own production chunk; dynamic Dashboard types remain inside the lazy Dashboard.
 No new dependencies, external backend or alternate Angular runtime were introduced.
+
+## Application completion
+
+Shell focus follows successful path changes after rendering; query/fragment updates and initial load
+retain focus, and feature-initialized fields take precedence. Pending render callbacks cancel on
+replacement/failed/canceled navigation. Wizard and asset validation focus uses native-control IDs,
+scoped view queries and current context checks. Successful writes release busy before saved-record
+navigation; failed writes retain values. Asset supplier choices retain a loaded identity/reset-scoped
+snapshot during transient failures.
+
+Paged lists keep navigation buttons outside replaceable result views. aria-disabled and action guards
+prevent unavailable/pending page changes while retaining the focused native button. Results still clear
+at context boundaries and requested out-of-range pages use normalized results. Final tests, builds,
+clean setup, routes, keyboard and coverage audit are recorded in docs/verification.md.
