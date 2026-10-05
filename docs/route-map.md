@@ -1,22 +1,25 @@
 # Route map
 
-Four of the 28 business screens below are implemented: Dashboard, read-only Requests and Assets
-lists, and Preferences. All other screens remain planned. Other sections appear as explicitly planned
+Twelve of the 29 business screens below are implemented: Dashboard; request list/create/edit/
+detail; approval queue/review; asset list/create/detail/assignment; and Preferences. All other
+screens remain planned. Inventory creation was added to fulfill the agreed workflow milestone.
+Other sections appear as explicitly planned
 navigation items until implemented; do not route them to fake functional pages.
 
 | Route | Screen | Primary access | Delivery |
 | --- | --- | --- | --- |
 | `/dashboard` | Dashboard | All demo identities | Foundation — implemented |
-| `/requests` | Request list | Employee: own; manager: team; administrator: all | Foundation read-only — implemented; workflow adds actions |
-| `/requests/new` | Create request | Employee | Workflow |
-| `/requests/:id` | Request detail/history | Authorized requester, team manager, administrator | Workflow |
-| `/requests/:id/edit` | Edit draft request | Owning employee | Workflow |
-| `/approvals` | Approval queue | Manager | Workflow |
-| `/approvals/:id` | Review request | Relevant team manager | Workflow |
-| `/assets` | Asset inventory/list | Employee: assigned; manager: team; administrator: all | Foundation read-only — implemented; workflow adds actions |
-| `/assets/:id` | Asset detail | Authorized employee, team manager, administrator | Workflow |
+| `/requests` | Request list | Employee: own; manager: team; administrator: all | Foundation + workflow — implemented |
+| `/requests/new` | Create request | Employee | Workflow — implemented |
+| `/requests/:id` | Request detail/history | Authorized requester, team manager, administrator | Workflow — implemented |
+| `/requests/:id/edit` | Edit draft request | Owning employee | Workflow — implemented |
+| `/approvals` | Approval queue | Manager | Workflow — implemented |
+| `/approvals/:id` | Review request | Relevant team manager | Workflow — implemented |
+| `/assets` | Asset inventory/list | Employee: assigned; manager: team; administrator: all | Foundation + workflow — implemented |
+| `/assets/new` | Create available inventory | Administrator | Workflow — implemented |
+| `/assets/:id` | Asset detail | Authorized employee, team manager, administrator | Workflow — implemented |
 | `/assets/:id/edit` | Edit asset | Administrator | Enterprise breadth |
-| `/assets/:id/assign` | Assign asset | Administrator | Workflow |
+| `/assets/:id/assign` | Assign asset | Administrator | Workflow — implemented |
 | `/suppliers` | Supplier directory | Administrator | Angular coverage |
 | `/suppliers/new` | Create supplier | Administrator | Angular coverage |
 | `/suppliers/:id` | Supplier detail/contacts | Administrator | Angular coverage |
@@ -36,7 +39,8 @@ navigation items until implemented; do not route them to fake functional pages.
 | `/preferences` | User preferences | All demo identities | Foundation — implemented |
 
 Redirect `/` to `/dashboard`. Unknown paths show an accessible not-found page. An access-denied helper is available at
-`/access-denied`; route guards for later restricted features remain planned. Helper pages are not part of the 28-screen count.
+`/access-denied`; functional entry guards protect employee creation/editing, manager reviews and administrator
+inventory actions. Active pages also react to identity changes; request forms have an unsaved guard. Helper pages are not part of the 29-screen count.
 Declare literal paths such as `new` before parameter paths such as `:id`. Preserve list filters,
 sort, and pagination in query parameters. Static hosting must provide SPA history fallback.
 

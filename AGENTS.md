@@ -14,7 +14,9 @@ specification and plan before changing implementation.
 - Track meaningful verification in the feature tasks; avoid tests that only repeat trivial code.
 - New libraries and tooling must have a concrete requirement. Do not add evaluation frameworks.
 
-The application foundation is implemented and verified. Later workflow and enterprise features
-remain planned; consult the coverage matrix before treating an example as implemented. Commit
+The foundation and request-to-asset workflow are implemented and verified. Legacy Suppliers,
+Signal Forms policies and remaining enterprise sections are planned; consult the coverage matrix
+before treating an example as implemented. Preserve commit-time actor/version/transition checks,
+atomic assignment, and reset/identity cancellation when modifying workflow commands. Commit
 each completed implementation step to local Git, as requested by the user. User instructions
 take precedence over repository guidance.

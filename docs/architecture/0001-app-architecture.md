@@ -1,6 +1,6 @@
 # ADR 0001: Application architecture
 
-Date: 2026-10-05. Status: accepted and implemented for the foundation; later feature profiles remain planned.
+Date: 2026-10-05. Status: accepted and implemented for foundation/workflow; later feature profiles remain planned.
 
 ## Decision
 
@@ -8,7 +8,8 @@ Use an Angular CLI npm workspace with one browser-only application and focused `
 libraries. Put simple design tokens in the UI library's styles. Lazy-load business features.
 Use strict typing and one Angular 22 runtime; retain intentional older-pattern feature profiles.
 
-Source structure (Dashboard, Requests, Assets, Preferences, core, domain and UI exist; later features remain planned):
+Source structure (Dashboard, Requests, Approvals, Assets, Preferences, core, domain and UI exist;
+later Suppliers/people/reports/administration features remain planned):
 
 ```text
 projects/workplace-hub/src/app/
@@ -38,10 +39,10 @@ scenario generation must not overwrite a new scenario's state.
 Start with semantic HTML and shared CSS styling. Add Angular CDK behaviors only for concrete
 overlay, focus, or scrolling requirements. Do not introduce alternate UI libraries or tool comparisons.
 
-The foundation uses Angular CLI-supported Vitest/jsdom with 22 passing unit tests and focused
-Chrome verification. The browser checks used temporary isolated automation; committed tests
-remain portable through npm. Add persistent browser automation for the principal workflow
-when the workflow exists.
+The application uses Angular CLI-supported Vitest/jsdom with 47 passing unit tests and focused
+Chrome verification of the principal workflow, keyboard operation, permission/unsaved guards and
+pending-write cancellation. Browser checks used temporary isolated automation; committed unit
+checks run through npm, and quickstart guides retain repeatable browser scenarios.
 
 ## Rationale
 
@@ -63,3 +64,14 @@ The scaffold preserved planning and Spec Kit files by generating in a temporary 
 and merging workspace files. Exact versions are pinned with a lockfile: Angular 22.2.1,
 TypeScript 6.0.3, RxJS 7.8.2, Node 22.23.2 and npm 10.9.8. Static hosting requires SPA
 history fallback, not SSR.
+
+## Workflow command extension
+
+Domain contracts/policies define validation, edit/review permissions and versions. The mock
+repository delegates detail/command storage to `core/mock-http/workflow-repository.ts` while
+retaining the existing summary/list methods. Immutable replacement commits request/asset
+allocation together after all checks. Audit events identify actual demo actors; reset restores
+seed snapshots, versions, links and counters. Writes execute only after context checks inside
+the cancellable mock timer. A scoped WorkflowClient provides single-flight/finalize state and
+advances context after success so resource/list reads refresh. Active pages clear old context
+content in addition to functional entry guards. CanDeactivate protects dirty request forms.

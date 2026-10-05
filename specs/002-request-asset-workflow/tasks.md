@@ -1,7 +1,7 @@
 # Tasks: Request-to-Asset Workflow
 
 **Input**: spec.md, plan.md, research.md, data-model.md, contracts/workflow.md and quickstart.md.
-**Status**: 13/14 tasks complete; implementation in progress.
+**Status**: 14/14 tasks complete; implemented and verified.
 
 ## Phase 1: Setup
 
@@ -39,7 +39,7 @@ Goal: inventory creation/details/assignment. Independent test: seeded approved r
 
 - [x] T012 Add lazy routes/functional entry and request CanDeactivate guards in `projects/workplace-hub/src/app/app.routes.ts` and `core/workflow-guards.ts`; integrate real list/detail/new/approval navigation and responsive shared workflow styles in `projects/ui/src/lib/styles/_foundation.scss`.
 - [x] T013 Run unit/app/library builds and browser scenarios in `specs/002-request-asset-workflow/quickstart.md`; verify complete create → approve → assign and rejection, controls, permission/unsaved behavior and cancellation; fix issues and record actual evidence in `tasks.md`.
-- [ ] T014 Update `README.md`, `AGENTS.md`, `docs/angular-coverage.md`, `docs/route-map.md`, `docs/implementation-roadmap.md` and this feature's status with working behavior, actual pattern sources and remaining scope.
+- [x] T014 Update `README.md`, `AGENTS.md`, `docs/angular-coverage.md`, `docs/route-map.md`, `docs/implementation-roadmap.md` and this feature's status with working behavior, actual pattern sources and remaining scope.
 
 ## Dependencies and Parallel Opportunities
 
@@ -81,3 +81,8 @@ Browser verification found custom money format feedback masked by the required-v
 the priority fix and a parent-form regression test were committed before final verification.
 Temporary browser automation used isolated Chrome and the existing bundled runtime, adding no
 project dependencies; quickstart.md retains repeatable validation scenarios.
+
+T014: Updated README, guidance, architecture, route map, product overview, library READMEs,
+roadmap, feature status and coverage with verified workflow behavior and source locations.
+Twelve of 29 routes are implemented; 17 remain planned. Signal Forms, legacy Suppliers and
+other undelivered APIs are explicitly planned. No SSR or evaluation scope was introduced.

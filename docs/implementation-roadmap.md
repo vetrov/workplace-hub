@@ -2,13 +2,15 @@
 
 ## Current status
 
-Milestones 0 and 1 are complete in `/Users/avetrov/repos/workplace-hub`. The Angular 22.2.1
-foundation provides four business screens, demo identities, role-filtered read-only lists,
-mock HTTP, deterministic scenarios/reset, and template-driven Preferences. All 23 foundation
-tasks are complete, with local commits for each step. The 22-test suite, app/library production
-builds, and focused Chrome navigation, keyboard, persistence, scenario, and mobile checks pass.
-The full application still targets 28 business screens. Next: specify and implement Milestone 2,
-the request-to-asset workflow. Reactive Forms, Signal Forms, and legacy Suppliers are still planned.
+Milestones 0, 1 and 2 are complete in `/Users/avetrov/repos/workplace-hub`. The Angular 22.2.1
+SPA has 12 working business screens: the foundation plus typed Reactive Forms request creation/
+editing, request histories, signal-based manager decisions, inventory creation/details and
+atomic request fulfillment. All 23 foundation and 14 workflow tasks are complete, with local
+commits after each step and focused fixes. The 47-test suite, app/library builds and Chrome
+workflow, keyboard, permissions, reset/cancellation and mobile checks pass.
+The route map now targets 29 business screens, including inventory creation required by Milestone 2.
+Next: Milestone 3, NgModule Suppliers, decorator APIs/RxJS state and actual Signal Forms policies.
+The remaining 17 screens and later Angular patterns remain explicitly planned.
 
 ## Purpose
 
@@ -64,9 +66,9 @@ Design-system tool evaluation, alternative library integrations, a Design System
 
 | Milestone | Work | Completion evidence |
 | --- | --- | --- |
-| 0. Scope and architecture | Product overview, constitution, route map, Angular coverage matrix, architecture decisions | Each required pattern has an owner and example; experimental and deprecated APIs are identified |
-| 1. Application foundation | Angular workspace, SPA routing, shell, domain contracts, reusable UI, application styling, mock HTTP, seeded data, role switching, scenario reset | App runs locally; lazy navigation, roles, and deterministic reset work |
-| 2. Complete business workflow | Reactive request wizard, signal-based approval queue, asset creation/assignment, shared policy rules, audit history | Create → approve/reject → assign works end to end; validation, failures, and permissions are observable |
+| 0. Scope and architecture (complete) | Product overview, constitution, route map, Angular coverage matrix, architecture decisions | Each required pattern has an owner and example; experimental and deprecated APIs are identified |
+| 1. Application foundation (complete) | Angular workspace, SPA routing, shell, domain contracts, reusable UI, application styling, mock HTTP, seeded data, role switching, scenario reset | App runs locally; lazy navigation, roles, and deterministic reset work |
+| 2. Complete business workflow (complete) | Reactive request wizard, signal-based approval queue, asset creation/assignment, shared policy rules, audit history | Create → approve/reject → assign works end to end; validation, failures, and permissions are observable |
 | 3. Angular pattern coverage | NgModule-based Suppliers, decorator APIs, RxJS facade, Signal Forms policy editor, template-driven preferences, custom controls | Coverage matrix points to working examples; forms, controls, and state transitions behave correctly |
 | 4. Enterprise breadth | People, reports, remaining administration pages, saved filters, bulk actions, deferred views, larger datasets | Remaining sections share realistic data and reusable patterns; major routes expose loading, empty, error, and permission states |
 | 5. Application completion | Navigation and accessibility review, focused automated tests, build checks, setup documentation, coverage audit | App builds successfully; key workflows pass; required Angular patterns are implemented and documented |
@@ -83,7 +85,7 @@ Assign profiles deliberately:
 | Feature | Primary profile |
 | --- | --- |
 | Suppliers | NgModule, decorator inputs/outputs, constructor injection, RxJS service state |
-| Requests | Typed Reactive Forms, nested groups/arrays, custom ControlValueAccessor controls, HTTP mutations |
+| Requests | Implemented typed Reactive Forms, nested groups/arrays, money ControlValueAccessor and HTTP mutations |
 | Approvals and Assets | Standalone components, signal inputs/outputs, computed state, functional DI, selected resource-based reads |
 | Administration | Signal Forms, schema validation, signal-compatible custom controls |
 | Preferences | Small template-driven form (implemented in foundation) |
@@ -113,6 +115,6 @@ Keep this roadmap as the project overview. Detail only the next feature's implem
 
 ## First usable milestone
 
-Deliver the shell, mock HTTP and seed reset, a reactive request wizard, a signal-based approval queue, an asset detail page, and a small Signal Forms policy editor.
-
-This provides a usable application with both established and modern Angular patterns before completing every planned enterprise section.
+The shell, mock HTTP/reset, reactive request wizard, signal-based approvals and asset details/
+assignment are delivered. Add a small actual Signal Forms policy editor in Milestone 3 to
+complete the first usable milestone's form diversity before expanding all enterprise sections.

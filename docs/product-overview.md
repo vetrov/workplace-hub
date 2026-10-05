@@ -28,9 +28,9 @@ An asset cannot be assigned to two people simultaneously. Fulfilled requests can
 ## Application sections
 
 Dashboard; Requests; Approvals; Assets; Suppliers; People and Teams; Reports; Administration;
-and personal preferences. The route map identifies 28 business screens; Dashboard, read-only
-Requests and Assets, and Preferences are implemented, and the other 24 remain planned. Most sections
-are added incrementally after the first end-to-end workflow.
+and personal preferences. Twelve of the route map's 29 business screens are implemented,
+including the first end-to-end request-to-asset workflow. The other 17 remain planned.
+Current form/category and one-asset allocation limits are documented in the workflow specification.
 
 ## Reproducibility
 

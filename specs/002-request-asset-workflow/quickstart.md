@@ -17,4 +17,4 @@ Run `npm test -- --watch=false`, `npm run build`, `npm run build:libs`.
    role changes on an active route immediately hide inaccessible details/actions.
 8. Check keyboard labels/focus and narrow layouts. Refresh/reset restores enriched seeds.
 
-This is repeatable guidance; tasks.md records executed evidence after implementation.
+This is repeatable guidance. The completed implementation evidence is recorded in tasks.md.

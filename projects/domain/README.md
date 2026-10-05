@@ -1,6 +1,6 @@
 # Domain library
 
-Shared contracts, query normalization, and demo visibility rules. There is no presentation
+Shared contracts, query normalization, demo visibility rules and workflow validation/permissions. There is no presentation
 or app-service dependency. The application consumes `src/public-api.ts` through its workspace
 TypeScript alias. Visibility behavior is exercised by the application repository tests.
 

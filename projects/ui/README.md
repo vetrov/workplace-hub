@@ -1,6 +1,6 @@
 # UI library
 
-Reusable signal-input status badge and shared foundation styles. UI has no domain business
+Reusable signal-input status badge, generic money ControlValueAccessor/format validator and shared styles. UI has no domain business
 policy. The application consumes `src/public-api.ts` through its workspace TypeScript alias
 and imports the shared SCSS from its global stylesheet.
 
