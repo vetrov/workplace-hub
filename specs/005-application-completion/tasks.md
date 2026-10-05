@@ -8,7 +8,7 @@ Input: spec, plan, research, data model, UI contract and quickstart. Checklist 1
 
 ## Phase 2: US1 — Editor safeguards
 
-- [ ] T002 Test and repair RequestWizard/AssetCreate pending/dirty guards, valid-form gates, asset options recovery and assets/new route guard. Verify save/failure/retry/reset/identity behavior.
+- [x] T002 Test and repair RequestWizard/AssetCreate pending/dirty guards, valid-form gates, asset options recovery and assets/new route guard. Verify save/failure/retry/reset/identity behavior.
 
 ## Phase 3: US2 — Keyboard navigation
 
@@ -28,3 +28,5 @@ Every completed task receives a local commit on main. No push/PR/deployment. No 
 ## Evidence
 
 T001: Requirements checklist 16/16; two read-only research agents confirm pinned guard/render/router integration. Constitution pre/post-design checks pass. Existing workflow, Suppliers and policies regressions pass after enterprise integration; feature 004 convergence has zero findings (10 FR, 4 SC, 20 acceptance scenarios, 9 tasks, 5 principles).
+
+T002: 138 tests across 32 files and production build pass. Production Chrome verifies both pristine/dirty cancel-discard, unchanged-input failed-save retries, cached supplier recovery, pending navigation without dialogs and successful saved-record navigation. Identity/reset cancels pending writes; no duplicate mutations.

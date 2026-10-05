@@ -4,6 +4,7 @@ import {
     computed,
     effect,
     inject,
+    signal,
 } from '@angular/core';
 import {
     FormControl,
@@ -11,6 +12,7 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
+import { DOCUMENT } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AssetDetail, Supplier } from 'domain';
@@ -18,7 +20,7 @@ import { Session } from '../../core/session/session';
 import { Scenario } from '../../core/scenarios/scenario';
 import { WorkflowClient } from '../../core/workflow-client';
 import { collectionResource } from '../../core/workflow-read';
-import { fieldError, trimmedText } from '../requests/request-form';
+import { fieldError, trimmedText } from '../../core/form-validation';
 
 @Component({
     imports: [ReactiveFormsModule, RouterLink],
@@ -100,11 +102,19 @@ import { fieldError, trimmedText } from '../requests/request-form';
                                 </div>
                             } @else if (
                                 !suppliers.loading() &&
-                                !suppliers.items().length
+                                !supplierOptions().length
                             ) {
                                 <small>
                                     No suppliers are available. Reset the demo
                                     to restore options.
+                                </small>
+                            }
+                            @if (supplierError()) {
+                                <small
+                                    class="field-error"
+                                    role="alert"
+                                >
+                                    {{ supplierError() }}
                                 </small>
                             }
                             <select
@@ -112,7 +122,7 @@ import { fieldError, trimmedText } from '../requests/request-form';
                                 formControlName="supplierId"
                             >
                                 @for (
-                                    supplier of suppliers.items();
+                                    supplier of supplierOptions();
                                     track supplier.id
                                 ) {
                                     <option [value]="supplier.id">
@@ -150,7 +160,7 @@ import { fieldError, trimmedText } from '../requests/request-form';
                             type="submit"
                             class="primary"
                             [disabled]="
-                                suppliers.loading() || !suppliers.items().length
+                                suppliers.loading() || !supplierOptions().length
                             "
                         >
                             {{ mutation.busy() ? 'Creating…' : 'Create asset' }}
@@ -166,12 +176,27 @@ export class AssetCreate {
     private readonly scenario = inject(Scenario);
     private readonly router = inject(Router);
     readonly mutation = inject(WorkflowClient);
+    private readonly document = inject(DOCUMENT);
+    private readonly optionsScope = computed(
+        () => `${this.session.epoch()}:${this.scenario.resetVersion()}`,
+    );
+    private readonly loadedOptions = signal<
+        { scope: string; items: readonly Supplier[] } | undefined
+    >(undefined);
+    readonly supplierError = signal('');
     readonly administrator = computed(
         () => this.session.identity().role === 'administrator',
     );
     readonly suppliers = collectionResource<Supplier>(() =>
         this.administrator() ? '/api/supplier-options' : undefined,
     );
+
+    readonly supplierOptions = computed(() => {
+        const current = this.suppliers.items();
+        if (current.length) return current;
+        const saved = this.loadedOptions();
+        return saved?.scope === this.optionsScope() ? saved.items : [];
+    });
 
     readonly form = new FormGroup({
         name: new FormControl('', {
@@ -201,9 +226,18 @@ export class AssetCreate {
             .pipe(takeUntilDestroyed())
             .subscribe(() => cdr.markForCheck());
         effect(() => {
-            this.session.identity().personId;
+            this.session.epoch();
             this.scenario.resetVersion();
             this.form.reset();
+            this.supplierError.set('');
+        });
+        effect(() => {
+            const choices = this.suppliers.items();
+            if (choices.length)
+                this.loadedOptions.set({
+                    scope: this.optionsScope(),
+                    items: choices,
+                });
         });
         effect(() => {
             if (this.mutation.busy()) this.form.disable({ emitEvent: false });
@@ -214,20 +248,46 @@ export class AssetCreate {
     error(name: keyof AssetCreate['form']['controls']): string {
         const c = this.form.controls[name];
         return c.invalid && c.touched
-            ? fieldError(c, name === 'name' ? 'Asset name' : 'Identifier')
+            ? fieldError(
+                  c,
+                  {
+                      name: 'Asset name',
+                      type: 'Type',
+                      supplierId: 'Supplier',
+                      serialNumber: 'Identifier',
+                      notes: 'Notes',
+                  }[name],
+              )
             : '';
     }
 
+    canLeave(): boolean {
+        return (
+            !this.mutation.busy() &&
+            (!this.form.dirty ||
+                (this.document.defaultView?.confirm(
+                    'Discard unsaved asset changes?',
+                ) ??
+                    false))
+        );
+    }
+
     save(): void {
+        if (this.mutation.busy() || !this.administrator()) return;
+
         this.form.markAllAsTouched();
+        this.supplierError.set('');
+        if (!this.form.valid) return;
         if (
-            this.form.invalid ||
-            !this.administrator() ||
-            !this.suppliers
-                .items()
-                .some((s) => s.id === this.form.controls.supplierId.value)
-        )
+            !this.supplierOptions().some(
+                (s) => s.id === this.form.controls.supplierId.value,
+            )
+        ) {
+            this.supplierError.set(
+                'Choose an available supplier. Retry suppliers or reset the demo to restore choices.',
+            );
             return;
+        }
         this.mutation.run<AssetDetail>(
             'POST',
             '/api/assets',

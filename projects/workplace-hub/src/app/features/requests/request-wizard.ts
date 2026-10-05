@@ -169,6 +169,9 @@ export class RequestWizard {
     }
 
     next(): void {
+        if (this.mutation.busy() || !this.employee() || !this.editable())
+            return;
+
         if (this.step() === 1) {
             const controls = [
                 this.form.controls.title,
@@ -177,19 +180,22 @@ export class RequestWizard {
                 this.form.controls.delivery,
             ];
             controls.forEach((c) => c.markAllAsTouched());
-            if (controls.some((c) => c.invalid)) return;
+            if (controls.some((c) => !c.valid)) return;
         } else {
             this.form.controls.items.markAllAsTouched();
-            if (this.form.controls.items.invalid) return;
+            if (!this.form.controls.items.valid) return;
         }
         this.step.update((n) => Math.min(3, n + 1));
     }
 
     save(status: 'draft' | 'submitted'): void {
+        if (this.mutation.busy() || !this.employee() || !this.editable())
+            return;
+
         this.attempted.set(true);
         this.form.markAllAsTouched();
         if (
-            this.form.invalid ||
+            !this.form.valid ||
             this.mutation.busy() ||
             !this.employee() ||
             !this.editable()
@@ -213,11 +219,12 @@ export class RequestWizard {
 
     canLeave(): boolean {
         return (
-            !this.form.dirty ||
-            (this.document.defaultView?.confirm(
-                'Discard unsaved request changes?',
-            ) ??
-                false)
+            !this.mutation.busy() &&
+            (!this.form.dirty ||
+                (this.document.defaultView?.confirm(
+                    'Discard unsaved request changes?',
+                ) ??
+                    false))
         );
     }
 }

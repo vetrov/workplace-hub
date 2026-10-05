@@ -65,6 +65,7 @@ export const routes: Routes = [
         path: 'assets/new',
         title: 'New asset · Workplace Hub',
         canActivate: [roleGuard('administrator')],
+        canDeactivate: [unsavedChangesGuard],
         loadComponent: () =>
             import('./features/assets/asset-create').then((m) => m.AssetCreate),
     },
