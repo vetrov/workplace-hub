@@ -1,0 +1,205 @@
+<div class="page-header">
+  <div>
+    <p class="eyebrow">Employee requests</p>
+    <h1>{{ id() ? 'Edit draft request' : 'Create a request' }}</h1>
+    <p>Describe the need, estimate the cost and send it for review.</p>
+  </div>
+  <a class="button" routerLink="/requests">Back to requests</a>
+</div>
+@if (!employee()) {
+  <section class="panel state" role="alert">
+    <h2>Employee identity required</h2>
+    <p>Switch to Alex Garcia to create or edit your requests.</p>
+  </section>
+} @else if (id() && reader.loading()) {
+  <section class="panel state" role="status">Loading draft…</section>
+} @else if (id() && reader.error()) {
+  <section class="panel state" role="alert">
+    <h2>Draft unavailable</h2>
+    <p>{{ reader.error() }}</p>
+    <button (click)="reader.retry()">Try again</button>
+  </section>
+} @else if (!editable()) {
+  <section class="panel state" role="alert">
+    <h2>This request cannot be edited</h2>
+    <p>Only your own equipment or software drafts can be edited.</p>
+    <a [routerLink]="['/requests', id()]">View request</a>
+  </section>
+} @else {
+  <form
+    class="panel workflow-form"
+    [formGroup]="form"
+    (ngSubmit)="step() < 3 ? next() : save('submitted')"
+  >
+    <ol class="steps" aria-label="Request steps">
+      <li [attr.aria-current]="step() === 1 ? 'step' : null">1. Details</li>
+      <li [attr.aria-current]="step() === 2 ? 'step' : null">2. Cost items</li>
+      <li [attr.aria-current]="step() === 3 ? 'step' : null">3. Review</li>
+    </ol>
+    @if (mutation.error()) {
+      <div class="form-alert" role="alert">{{ mutation.error() }}</div>
+    }
+    @if (attempted() && errors().length) {
+      <div class="form-alert" role="alert">
+        <strong>Check the request before saving.</strong>
+        <ul>
+          @for (message of errors(); track $index) {
+            <li>{{ message }}</li>
+          }
+        </ul>
+      </div>
+    }
+    <fieldset [disabled]="mutation.busy()">
+      @switch (step()) {
+        @case (1) {
+          <legend class="sr-only">Request details</legend>
+          <div class="field">
+            <label for="request-title">Request title</label
+            ><input
+              id="request-title"
+              formControlName="title"
+              maxlength="100"
+              placeholder="For example, a development laptop"
+            />
+            @if (error(form.controls.title, 'Title'); as message) {
+              <small class="field-error">{{ message }}</small>
+            }
+          </div>
+          <div class="field">
+            <label for="request-category">Category</label
+            ><select id="request-category" formControlName="category">
+              <option value="equipment">Equipment</option>
+              <option value="software">Software</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="request-justification">Justification</label
+            ><textarea
+              id="request-justification"
+              formControlName="justification"
+              rows="4"
+              maxlength="2000"
+            ></textarea>
+            @if (error(form.controls.justification, 'Justification'); as message) {
+              <small class="field-error">{{ message }}</small>
+            }
+          </div>
+          <div class="form-grid" formGroupName="delivery">
+            <div class="field">
+              <label for="delivery-location">Delivery location</label
+              ><input id="delivery-location" formControlName="location" maxlength="120" />
+              @if (error(form.controls.delivery.controls.location, 'Location'); as message) {
+                <small class="field-error">{{ message }}</small>
+              }
+            </div>
+            <div class="field">
+              <label for="needed-by">Needed by</label
+              ><input id="needed-by" type="date" formControlName="neededBy" />
+              @if (error(form.controls.delivery.controls.neededBy, 'Delivery date'); as message) {
+                <small class="field-error">{{ message }}</small>
+              }
+            </div>
+          </div>
+        }
+        @case (2) {
+          <legend class="sr-only">Estimated cost items</legend>
+          <h2>Estimated items</h2>
+          <p>Use up to ten lines to explain the request budget.</p>
+          <div formArrayName="items">
+            @for (row of form.controls.items.controls; track row; let i = $index) {
+              <div class="item-row" [formGroupName]="i">
+                <div class="field">
+                  <label [for]="'item-description-' + i">Item {{ i + 1 }} description</label
+                  ><input
+                    [id]="'item-description-' + i"
+                    formControlName="description"
+                    maxlength="120"
+                  />
+                  @if (error(row.controls.description, 'Description'); as message) {
+                    <small class="field-error">{{ message }}</small>
+                  }
+                </div>
+                <div class="field">
+                  <label [for]="'item-quantity-' + i">Quantity {{ i + 1 }}</label
+                  ><input
+                    [id]="'item-quantity-' + i"
+                    formControlName="quantity"
+                    type="number"
+                    min="1"
+                    max="100"
+                    step="1"
+                  />
+                  @if (error(row.controls.quantity, 'Quantity'); as message) {
+                    <small class="field-error">{{ message }}</small>
+                  }
+                </div>
+                <div class="field">
+                  <label [for]="'item-cost-' + i">Unit cost {{ i + 1 }} (€)</label
+                  ><ui-money-input
+                    [fieldId]="'item-cost-' + i"
+                    [label]="'Unit cost ' + (i + 1) + ' (€)'"
+                    formControlName="unitCost"
+                  />
+                  @if (error(row.controls.unitCost, 'Unit cost'); as message) {
+                    <small class="field-error">{{ message }}</small>
+                  }
+                </div>
+                <button
+                  type="button"
+                  [disabled]="form.controls.items.length === 1"
+                  (click)="removeItem(i)"
+                  [attr.aria-label]="'Remove item ' + (i + 1)"
+                >
+                  Remove
+                </button>
+              </div>
+            }
+          </div>
+          <button type="button" [disabled]="form.controls.items.length >= 10" (click)="addItem()">
+            Add item
+          </button>
+        }
+        @case (3) {
+          <legend class="sr-only">Review request</legend>
+          <h2>{{ values().title }}</h2>
+          <p>{{ values().justification }}</p>
+          <dl class="facts">
+            <div>
+              <dt>Category</dt>
+              <dd>{{ values().category }}</dd>
+            </div>
+            <div>
+              <dt>Delivery</dt>
+              <dd>{{ values().delivery.location }} · {{ values().delivery.neededBy }}</dd>
+            </div>
+          </dl>
+          <ul class="review-items">
+            @for (row of values().items; track $index) {
+              <li>
+                {{ row.description }}
+                <span>{{ row.quantity }} × {{ row.unitCost | currency: 'EUR' }}</span>
+              </li>
+            }
+          </ul>
+          <p>Saving keeps a draft. Submitting sends it to your team manager.</p>
+        }
+      }
+      <div class="form-actions">
+        <strong>Estimated total: {{ total() | currency: 'EUR' }}</strong>
+        <div>
+          @if (step() > 1) {
+            <button type="button" (click)="step.set(step() - 1)">Back</button>
+          }
+          @if (step() < 3) {
+            <button type="submit" class="primary">Continue</button>
+          } @else {
+            <button type="button" (click)="save('draft')">Save draft</button
+            ><button class="primary" type="submit">
+              {{ mutation.busy() ? 'Saving…' : 'Submit request' }}
+            </button>
+          }
+        </div>
+      </div>
+    </fieldset>
+  </form>
+}
