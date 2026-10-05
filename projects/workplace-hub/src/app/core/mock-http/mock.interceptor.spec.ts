@@ -82,7 +82,7 @@ describe('synthetic HTTP scenarios', () => {
   it('rejects unsupported endpoints/mutations and cancels unsubscribed responses', async () => {
     const http = TestBed.inject(HttpClient);
     const unknown = firstValueFrom(http.get('/api/unknown')).catch((e) => e as HttpErrorResponse);
-    const mutation = firstValueFrom(http.post('/api/requests', {})).catch(
+    const mutation = firstValueFrom(http.delete('/api/requests')).catch(
       (e) => e as HttpErrorResponse,
     );
     const received = vi.fn();

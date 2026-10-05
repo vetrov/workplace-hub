@@ -48,7 +48,7 @@ describe('HTTP workflow commit timing', () => {
       repo = TestBed.inject(REPOSITORY);
     const result = firstValueFrom(
       TestBed.inject(HttpClient).post<RecordResult<RequestDetail>>('/api/requests', body),
-    );
+    ).catch((error) => error);
     body.title = 'Changed after dispatch';
     expect(repo.data.requests).toHaveLength(250);
     await vi.advanceTimersByTimeAsync(250);

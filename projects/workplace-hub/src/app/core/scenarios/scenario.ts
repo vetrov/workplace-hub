@@ -22,6 +22,9 @@ export class Scenario {
     this.version.update((value) => value + 1);
     this.resets.update((value) => value + 1);
   }
+  refresh(): void {
+    this.version.update((value) => value + 1);
+  }
   retry(): void {
     this.selectedMode.set('normal');
     this.version.update((value) => value + 1);
