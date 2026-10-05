@@ -88,6 +88,7 @@ export function fieldError(control: AbstractControl, label: string): string {
   const error = control.errors;
   if (!error) return '';
   if (error['text']) return `${label} needs ${error['text'].min}–${error['text'].max} characters.`;
+  if (error['money']) return 'Enter a number with at most two decimal places.';
   if (error['required']) return `${label} is required.`;
   if (error['integer']) return `${label} must be a whole number.`;
   if (error['date']) return 'Choose a valid calendar date.';
