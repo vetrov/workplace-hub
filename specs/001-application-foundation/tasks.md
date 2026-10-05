@@ -2,7 +2,7 @@
 
 **Input**: Design documents from `/specs/001-application-foundation/`.
 **Prerequisites**: spec.md, plan.md, research.md, data-model.md, contracts/foundation.md.
-**Status**: 13/23 tasks complete; implementation in progress.
+**Status**: 14/23 tasks complete; implementation in progress.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -40,7 +40,7 @@ instruction to launch agents or to perform user-approved work in another chat.
 - [x] T011 [US2] Implement three fixed demo identities, selected identity signal, persistence fallback, immediate stale-record clearing, and shell switcher in `projects/workplace-hub/src/app/core/session/session.ts` and `shell/shell/`; default to employee when saved identity is invalid.
 - [x] T012 [US2] Apply identity visibility before filtering/sorting/paging/counts in `projects/workplace-hub/src/app/core/mock-http/mock-repository.ts`; enforce all relationship and visibility rules in data-model.md and implement the deterministic sorting/query normalization contract.
 - [x] T013 [US2] Add HTTP-backed list services and query state in `projects/workplace-hub/src/app/features/requests/request-list.service.ts` and `features/assets/asset-list.service.ts`; use HttpClient for Requests and httpResource for Assets, synchronize URL queries, and cancel/ignore stale identity requests.
-- [ ] T014 [US2] Complete read-only paged/searchable/sortable lists under `projects/workplace-hub/src/app/features/requests/` and `features/assets/`; display filtered totals and clear old records during identity transitions.
+- [x] T014 [US2] Complete read-only paged/searchable/sortable lists under `projects/workplace-hub/src/app/features/requests/` and `features/assets/`; display filtered totals and clear old records during identity transitions.
 
 ## Phase 5: User Story 3 - Restore and Inspect Application States (Priority: P2)
 

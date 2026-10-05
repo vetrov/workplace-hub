@@ -1,3 +1,15 @@
-import { Component } from '@angular/core';
-@Component({ template: '<div class="page-header"><div><p class="eyebrow">Workplace operations</p><h1>Assets</h1><p>Inventory browsing is being implemented in the next foundation step.</p></div></div>' })
-export class Assets {}
+import { Component, inject } from '@angular/core';
+import { StatusBadge } from 'ui';
+import { LIST_KIND, ListQueryState } from '../../core/list-query';
+import { INITIAL_DATA } from '../../core/mock-http/seed-data';
+import { AssetListService } from './asset-list.service';
+
+@Component({ imports: [StatusBadge], providers: [{ provide: LIST_KIND, useValue: 'assets' }, ListQueryState, AssetListService], templateUrl: './assets.html' })
+export class Assets {
+  readonly list = inject(AssetListService);
+  readonly query = inject(ListQueryState);
+  readonly Math = Math;
+  personName(id: string | null): string { return id ? INITIAL_DATA.people.find(p => p.id === id)?.name ?? 'Unknown person' : 'Unassigned'; }
+  supplierName(id: string): string { return INITIAL_DATA.suppliers.find(s => s.id === id)?.name ?? 'Unknown supplier'; }
+  setSize(value: string): void { this.query.update({ pageSize: Number(value) as 25 | 50 | 100, page: 1 }); }
+}

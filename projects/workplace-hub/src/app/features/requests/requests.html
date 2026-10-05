@@ -1,0 +1,19 @@
+<div class="page-header"><div><p class="eyebrow">Workplace operations</p><h1>Requests</h1><p>Track equipment, software and service requests across your workspace.</p></div><span class="section-tag">Read-only register</span></div>
+<section class="panel" aria-labelledby="request-list-heading" [attr.aria-busy]="list.state().loading">
+  <div class="panel-header"><div><h2 id="request-list-heading">Request register</h2><p>Records available to your selected demo identity</p></div><span class="section-tag">{{ list.state().page?.total ?? '—' }} records</span></div>
+  <form class="toolbar" (submit)="$event.preventDefault(); query.update({q: search.value, page: 1})">
+    <div class="field search-field"><label for="request-search">Search requests</label><input id="request-search" type="search" #search [value]="query.query().q" (input)="query.search(search.value)" placeholder="Search by title or request ID" /></div>
+    <button type="submit">Search</button>
+    <div class="field"><label for="request-sort">Sort by</label><select id="request-sort" #sort [value]="query.query().sort" (change)="query.update({sort: sort.value, page: 1})"><option value="createdAt:desc">Newest first</option><option value="createdAt:asc">Oldest first</option><option value="title:asc">Title A–Z</option><option value="title:desc">Title Z–A</option></select></div>
+    <div class="field"><label for="request-page-size">Rows</label><select id="request-page-size" #size [value]="query.query().pageSize" (change)="setSize(size.value)"><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></div>
+  </form>
+  @if (list.state().loading) { <div class="state" role="status"><span class="loading-dot" aria-hidden="true"></span><p>Loading requests…</p></div> }
+  @else if (list.state().error) { <div class="state" role="alert"><h2>Requests are unavailable</h2><p>{{ list.state().error }}</p><button (click)="list.retry()">Try again</button></div> }
+  @else if (!list.state().page?.total) { <div class="state" role="status"><h2>No requests found</h2><p>Try another search or restore the normal demo scenario.</p></div> }
+  @else if (list.state().page; as result) {
+    <div class="table-wrap"><table><caption class="sr-only">Visible equipment, software and service requests</caption><thead><tr><th scope="col">ID</th><th scope="col">Request</th><th scope="col">Requested by</th><th scope="col">Status</th><th scope="col">Created</th></tr></thead><tbody>
+      @for (request of result.items; track request.id) { <tr><td class="record-id">{{ request.id }}</td><td><strong>{{ request.title }}</strong><small>{{ request.category }}</small></td><td>{{ personName(request.requesterId) }}</td><td><ui-status [value]="request.status" /></td><td>{{ request.createdAt | date:'MMM d, yyyy' }}</td></tr> }
+    </tbody></table></div>
+    <div class="pagination"><span>Showing {{ (result.page - 1) * result.pageSize + 1 }}–{{ Math.min(result.page * result.pageSize, result.total) }} of {{ result.total }} requests</span><div><button [disabled]="result.page === 1" (click)="query.update({page: result.page - 1})">Previous</button><span>Page {{ result.page }} of {{ Math.ceil(result.total / result.pageSize) }}</span><button [disabled]="result.page * result.pageSize >= result.total" (click)="query.update({page: result.page + 1})">Next</button></div></div>
+  }
+</section>
