@@ -2,7 +2,7 @@
 
 **Input**: Design documents from `/specs/001-application-foundation/`.
 **Prerequisites**: spec.md, plan.md, research.md, data-model.md, contracts/foundation.md.
-**Status**: 6/23 tasks complete; implementation in progress.
+**Status**: 7/23 tasks complete; implementation in progress.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -27,7 +27,7 @@ instruction to launch agents or to perform user-approved work in another chat.
 **Goal**: A usable shell and four initial route destinations with honest implementation status.
 **Independent Test**: Navigate the four destinations, refresh direct links, and recover from an unknown path.
 
-- [ ] T007 [US1] Build semantic, keyboard-usable shell/navigation and basic shared styles in `projects/workplace-hub/src/app/shell/shell/` and `projects/ui/src/lib/styles/`; identify unfinished navigation items as planned and omit fake route targets.
+- [x] T007 [US1] Build semantic, keyboard-usable shell/navigation and basic shared styles in `projects/workplace-hub/src/app/shell/shell/` and `projects/ui/src/lib/styles/`; identify unfinished navigation items as planned and omit fake route targets.
 - [ ] T008 [US1] Configure root redirect and lazy feature routes in `projects/workplace-hub/src/app/app.routes.ts`; create Dashboard and clearly labeled initial Requests/Assets/Preferences page structures under `features/` with active navigation and titles, and derive Dashboard counts from the mock read contract.
 - [ ] T009 [US1] Add accessible not-found and access-denied helpers under `projects/workplace-hub/src/app/shell/`; verify navigation and direct-link fallback using `specs/001-application-foundation/quickstart.md` and record actual results in this task.
 

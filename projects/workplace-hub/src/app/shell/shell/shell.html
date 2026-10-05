@@ -1,0 +1,21 @@
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="app-frame">
+  <aside class="sidebar" aria-label="Workspace navigation">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">w</span><div class="brand-name">workplace<small>Company operations</small></div></div>
+    <nav aria-label="Main navigation">
+      <p class="workspace-label">Workspace</p>
+      @for (link of links; track link.path) {
+        <a class="nav-link" [routerLink]="link.path" routerLinkActive="active" ariaCurrentWhenActive="page"><span class="nav-icon" aria-hidden="true">{{ link.icon }}</span>{{ link.label }}</a>
+      }
+      @for (label of planned; track label) { <div class="planned-nav"><span class="nav-icon" aria-hidden="true">·</span>{{ label }}<small>Planned</small></div> }
+    </nav>
+    <div class="sidebar-footer"><strong>Demo workspace</strong>Local records. Ready to explore.</div>
+  </aside>
+  <div class="main-column">
+    <header class="topbar">
+      <div class="breadcrumb">Workspace / <span>{{ section() }}</span></div>
+      <div class="identity-area"><span class="section-tag">Employee demo</span><span class="avatar" aria-hidden="true">AC</span></div>
+    </header>
+    <main id="main" tabindex="-1"><router-outlet /></main>
+  </div>
+</div>
